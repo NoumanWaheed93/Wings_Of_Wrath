@@ -3,7 +3,7 @@ using Common;
 
 namespace WeaponSystem
 {
-    public abstract class MonoBehaviourWeapon : MonoBehaviour, ITransform
+    public abstract class WeaponMonoBehaviour : MonoBehaviour, ITransform
     {
         [SerializeField]
         protected int maxAmmo;
