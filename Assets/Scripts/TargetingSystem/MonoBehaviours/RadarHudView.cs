@@ -40,7 +40,7 @@ namespace TargetingSystem
         private TargetIconView CreateNewTargetIcon(ITargetable target)
         {
             TargetIconView newIcon = Instantiate(prefab_TargetIcon, transform_targetsParent);
-            newIcon.Initialize(target);
+            newIcon.Initialize(target, radar.transform);
             return newIcon;
         }
     }
