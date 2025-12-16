@@ -22,8 +22,10 @@ namespace TargetingSystem
         private void OnEnable()
         {
             tracker = radar.Tracker;
-            tracker.OnTargetAdded += Tracker_OnTargetAdded;
-            tracker.OnTargetRemoved += Tracker_OnTargetRemoved;
+            tracker.OnAddedTarget += Tracker_OnTargetAdded;
+            tracker.OnRemovedTarget += Tracker_OnTargetRemoved;
+            tracker.OnSelectTarget += OnSelect_Target;
+            tracker.OnDeselectTarget += OnDeselect_Target;
         }
 
         private void Tracker_OnTargetAdded(ITargetable target)
@@ -33,7 +35,10 @@ namespace TargetingSystem
 
         private void Tracker_OnTargetRemoved(ITargetable target)
         {
-            Destroy(targetIcons[target].gameObject);
+            TargetIconView targetIcon = targetIcons[target];
+            targetIcon.OnTargetClicked -= OnClick_Target;
+
+            Destroy(targetIcon.gameObject);
             targetIcons.Remove(target);
         }
 
@@ -41,7 +46,23 @@ namespace TargetingSystem
         {
             TargetIconView newIcon = Instantiate(prefab_TargetIcon, transform_targetsParent);
             newIcon.Initialize(target, radar.transform);
+            newIcon.OnTargetClicked += OnClick_Target;
             return newIcon;
+        }
+
+        private void OnClick_Target(ITargetable target)
+        {
+            radar.OnSelectTarget(target);
+        }
+
+        private void OnSelect_Target(ITargetable target)
+        {
+            targetIcons[target].Highlight();
+        }
+
+        private void OnDeselect_Target(ITargetable target)
+        {
+            targetIcons[target].UnHighlight();
         }
     }
 }

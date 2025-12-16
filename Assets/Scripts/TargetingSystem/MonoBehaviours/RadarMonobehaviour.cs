@@ -42,5 +42,10 @@ namespace TargetingSystem
                 }
             }
         }
+    
+        public void OnSelectTarget(ITargetable target)
+        {
+            Tracker.SelectedTarget = target;
+        }
     }
 }
