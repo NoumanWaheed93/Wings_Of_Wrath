@@ -5,16 +5,12 @@ namespace HealthSystem
     public class DamageablePart : MonoBehaviour, IDamageable
     {
         [SerializeField]
-        private GameObject HealthObject;
-
-        [SerializeField]
         private float damageMultiplier;
 
         private DamageablePartController controller;
 
-        private void Awake()
+        public void Init(Health health)
         {
-            Health health = HealthObject.GetComponent<IHealthProvider>().health;
             controller = new DamageablePartController(health, damageMultiplier);
         }
 

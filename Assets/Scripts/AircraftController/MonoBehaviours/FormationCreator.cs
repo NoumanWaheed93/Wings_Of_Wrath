@@ -21,12 +21,13 @@ namespace AircraftController
         private Transform[] wayPoints;
 
         private Formation currentFormation;
-        private AircraftMonoBehaviour.Factory aircraftFactory;
+        private AircraftMonoBehaviour.Pool aircraftPool;
+        private List<AircraftMonoBehaviour> aircrafts = new List<AircraftMonoBehaviour>();
 
         [Inject]
-        private void Init(AircraftMonoBehaviour.Factory aircraftFactory, Formation formation)
+        private void Init(AircraftMonoBehaviour.Pool aircraftFactory, Formation formation)
         {
-            this.aircraftFactory = aircraftFactory;
+            this.aircraftPool = aircraftFactory;
             this.currentFormation = formation;
         }
 
@@ -36,7 +37,7 @@ namespace AircraftController
             currentFormation.altitudeSpacing = this.altitudeSpacing;
             for (int i = 0; i < count; i++)
             {
-                AircraftMonoBehaviour newAircraft = aircraftFactory.Create();
+                AircraftMonoBehaviour newAircraft = aircraftPool.Spawn();
                 newAircraft.transform.position = position + currentFormation.GetMemberPositionSpaced(i);
                 newAircraft.transform.rotation = Quaternion.identity;
                 newAircraft.transform.SetParent(transform);

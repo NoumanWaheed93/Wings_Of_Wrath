@@ -4,6 +4,7 @@ using Common;
 using UnityEditor;
 using Zenject;
 using FormationSystem;
+using HealthSystem;
 
 namespace AircraftController
 {
@@ -26,10 +27,9 @@ namespace AircraftController
         private IAircraftController aircraftController;
         public IAircraftController AircraftController { get => aircraftController; }
 
-        //private void Start()
-        //{
-        //    aircraft.SetSensors(sensors);
-        //}
+        private Pool pool;
+
+        private Health health;
 
         private void OnDrawGizmos()
         {
@@ -38,13 +38,16 @@ namespace AircraftController
         }
 
         [Inject]
-        public void Init(IAircraft aircraft, IFormationMember formationMember, IAircraftController controller, Team team)
+        public void Init(IAircraft aircraft, IFormationMember formationMember, IAircraftController controller, Team team, Health health, Pool pool)
         {
             this.team = team;
          
             this.aircraft = aircraft;
             this.formationMember = formationMember;
             this.aircraftController = controller;
+            this.pool = pool;
+            this.health = health;
+            health.onHealthDepleted += OnDie;
         }
 
         public void PrepareToLand(Airstrip airstrip)
@@ -52,7 +55,12 @@ namespace AircraftController
             aircraft.AirStripToLandOn = airstrip;
         }
 
-        public class Factory : PlaceholderFactory<AircraftMonoBehaviour>
+        private void OnDie()
+        {
+            pool.Despawn(this);
+        }
+
+        public class Pool : MemoryPool<AircraftMonoBehaviour>
         {
         }
     }

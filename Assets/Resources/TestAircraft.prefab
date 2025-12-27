@@ -238,6 +238,8 @@ GameObject:
   m_Component:
   - component: {fileID: 993319901}
   - component: {fileID: 993319902}
+  - component: {fileID: 3141679754397549126}
+  - component: {fileID: 8102094726104965629}
   m_Layer: 0
   m_Name: FuselageCollider
   m_TagString: Untagged
@@ -273,6 +275,32 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 10}
   m_Center: {x: 0, y: 0, z: 1}
+--- !u!114 &3141679754397549126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993319900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887bbbbf5838913419fb6545e98fc72b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageMultiplier: 1
+--- !u!114 &8102094726104965629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993319900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a74a6a316db321a4da23606ac508ab07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageablePart: {fileID: 3141679754397549126}
 --- !u!1 &1082844011
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +391,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1302067698}
   - component: {fileID: 1302067699}
+  - component: {fileID: 5234917009085439742}
+  - component: {fileID: 8437622008079912139}
   m_Layer: 0
   m_Name: WingsCollider
   m_TagString: Untagged
@@ -398,6 +428,32 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5234917009085439742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302067697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887bbbbf5838913419fb6545e98fc72b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageMultiplier: 0.5
+--- !u!114 &8437622008079912139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302067697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a74a6a316db321a4da23606ac508ab07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageablePart: {fileID: 3141679754397549126}
 --- !u!1 &1494172180
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +638,7 @@ GameObject:
   - component: {fileID: 1604655157}
   - component: {fileID: 8875805196594098338}
   - component: {fileID: 8782661027965585923}
+  - component: {fileID: 9005867668678263311}
   m_Layer: 0
   m_Name: TestAircraft
   m_TagString: Untagged
@@ -672,6 +729,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
+--- !u!114 &9005867668678263311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6900703714199412117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1507a452716094146aac5b2b1e4cdb47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageableParts:
+  - {fileID: 5234917009085439742}
+  - {fileID: 3141679754397549126}
+  maxHealth: 100
 --- !u!1001 &7613771096087139801
 PrefabInstance:
   m_ObjectHideFlags: 0

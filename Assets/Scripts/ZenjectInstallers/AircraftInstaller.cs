@@ -1,6 +1,7 @@
 using AircraftController;
 using AircraftController.AircraftAI;
 using Common;
+using HealthSystem;
 using Locomotion;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ namespace ZenjectInstallers
         {
             Container.Bind<Team>().FromInstance(Team.Blue).AsSingle();
 
-
+            Health health = new Health(100, 100);
+            Container.Bind<Health>().FromInstance(health).AsSingle();
             if (isAIControlled)
             {
                 Container.BindInterfacesAndSelfTo<Aircraft>().AsSingle()
