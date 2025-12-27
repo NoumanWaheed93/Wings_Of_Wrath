@@ -295,7 +295,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 100
+  m_Radius: 300
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &553848461
 GameObject:
@@ -1844,8 +1844,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 8782661027965585923, guid: d91ac27617af7144d9f31619f2e7210e, type: 3}
-    - {fileID: 9005867668678263311, guid: d91ac27617af7144d9f31619f2e7210e, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d91ac27617af7144d9f31619f2e7210e, type: 3}
 --- !u!4 &1604655155 stripped
 Transform:

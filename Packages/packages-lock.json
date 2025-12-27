@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.artisangames.formationsystem": {
+      "version": "file:FormationSystem",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.burst": {
       "version": "1.8.4",
       "depth": 1,

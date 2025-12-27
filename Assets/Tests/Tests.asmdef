@@ -5,14 +5,14 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "ScreenInputControls",
-        "FormationSystem",
         "Utilities",
         "AircraftController",
         "Locomotion",
         "HealthSystemAssembly",
         "WeaponSystem",
         "Common",
-        "Zenject"
+        "Zenject",
+        "com.artisangames.formationsystem"
     ],
     "includePlatforms": [
         "Editor"

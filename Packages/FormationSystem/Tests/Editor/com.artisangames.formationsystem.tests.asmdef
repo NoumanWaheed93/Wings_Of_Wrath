@@ -1,17 +1,14 @@
 {
-    "name": "PlayModeTests",
+    "name": "com.artisangames.formationsystem.tests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "AircraftController",
-        "Locomotion",
-        "Common",
-        "Zenject",
-        "Zenject-TestFramework",
         "com.artisangames.formationsystem"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
