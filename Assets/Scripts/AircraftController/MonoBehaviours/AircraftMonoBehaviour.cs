@@ -5,10 +5,11 @@ using UnityEditor;
 using Zenject;
 using FormationSystem;
 using HealthSystem;
+using TargetingSystem;
 
 namespace AircraftController
 {
-    public class AircraftMonoBehaviour : MonoBehaviour, ISpeedProvider
+    public class AircraftMonoBehaviour : MonoBehaviour, ISpeedProvider, ITargetable
     {
         private Team team;
         public Team Team { get => team; set => team = value; }
@@ -26,6 +27,8 @@ namespace AircraftController
 
         private IAircraftController aircraftController;
         public IAircraftController AircraftController { get => aircraftController; }
+
+        public ITransform Transform => formationMember.Transform;
 
         private Pool pool;
 
