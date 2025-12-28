@@ -21,10 +21,10 @@ public class RelativeVelocityUtilityTests
 
     private void ClosureSpeedTestCase(Vector3 positionA, Vector3 velocityA, Vector3 positionB, Vector3 velocityB, float expectedResult)
     {
-        ITransform TransformA = Substitute.For<ITransform>();
+        Transform TransformA = Substitute.For<Transform>();
         TransformA.position.Returns(positionA);
 
-        ITransform TransformB = Substitute.For<ITransform>();
+        Transform TransformB = Substitute.For<Transform>();
         TransformB.position.Returns(positionB);
 
         Vector3 relativeVelocity = velocityA - velocityB;

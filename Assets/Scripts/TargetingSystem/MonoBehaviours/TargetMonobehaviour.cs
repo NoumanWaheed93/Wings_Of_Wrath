@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace TargetingSystem
 {
-    public class TargetMonobehaviour : MonoBehaviour, ITargetable, ITransform
+    public class TargetMonobehaviour : MonoBehaviour, ITargetable
     {
         [SerializeField]
         private Team team;
 
         public Team Team => team;
 
-        public ITransform Transform => this;
+        public Transform Transform => mTransform;
 
         private Transform mTransform;
 

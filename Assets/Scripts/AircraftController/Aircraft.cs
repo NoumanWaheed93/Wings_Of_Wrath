@@ -7,7 +7,7 @@ using Zenject;
 
 namespace AircraftController
 {
-    public class Aircraft : IAircraft, IRelativePositionProvider, IFormationMember, ITickable
+    public class Aircraft : IAircraft, IFormationMember, ITickable
     {
         private AircraftStateMachine stateMachine;
         public AircraftStateMachine StateMachine { get => stateMachine; }
@@ -69,15 +69,9 @@ namespace AircraftController
         private Airstrip airstripToLandOn;
         public Airstrip AirStripToLandOn { get => airstripToLandOn; set => airstripToLandOn = value; }
 
-        Vector3 ITransform.position { get => transform.position; set => transform.position = value; }
-        Quaternion ITransform.rotation { get => transform.rotation; set => transform.rotation = value; }
-        Vector3 ITransform.forward => transform.forward;
-        Vector3 ITransform.right => transform.right;
-
         public IFormationMember formationMember { get => this; }
         int IFormationMember.PositionIndex { get; set; }
         Vector3 IFormationMember.Position { get; set; }
-        IRelativePositionProvider IFormationMember.Transform => this;
         public Formation Formation { get; set; }
 
         public Aircraft(IAircraftMovementData movementData, Transform transform, Rigidbody rigidbody, bool startsInAir = false, float startAltitude = 0f, float startSpeed = 0f)
@@ -244,15 +238,15 @@ namespace AircraftController
             return distanceAhead;
         }
 
-        Vector3 IRelativePositionProvider.GetRelativePosition(Vector3 point)
-        {
-            return transform.InverseTransformPoint(point);
-        }
+        //Vector3 IRelativePositionProvider.GetRelativePosition(Vector3 point)
+        //{
+        //    return transform.InverseTransformPoint(point);
+        //}
 
-        Vector3 IRelativePositionProvider.GetGlobalPosition(Vector3 localPosition)
-        {
-            return transform.TransformPoint(localPosition);
-        }
+        //Vector3 IRelativePositionProvider.GetGlobalPosition(Vector3 localPosition)
+        //{
+        //    return transform.TransformPoint(localPosition);
+        //}
 
         public void Tick()
         {
