@@ -1,10 +1,21 @@
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
+using UnityEngine;
 using WeaponSystem;
 
 public abstract class WeaponTests
 {
+    protected Transform projectileTransform;
+    protected Transform barrelTransform;
+
     protected Weapon weapon;
+
+    [SetUp]
+    public virtual void SetUp()
+    {
+        projectileTransform = (new GameObject("Test-Projectile-Transform")).transform;
+        barrelTransform = (new GameObject("Test-barrel-Transform")).transform;
+    }
 
     [Test]
     public void Can_Fire_Weapon()
@@ -37,5 +48,13 @@ public abstract class WeaponTests
         Assert.IsTrue(weapon.Fire(), "Could not fire exactly after interval");
         weapon.TimeProvider.GetTime().Returns(weapon.ShotInterval + 1);
         Assert.IsTrue(weapon.Fire(), "Could not fire 1 second after interval");
+    }
+
+
+    [TearDown]
+    public virtual void TearDown()
+    {
+        GameObject.DestroyImmediate(barrelTransform.gameObject);
+        GameObject.DestroyImmediate(projectileTransform.gameObject);
     }
 }

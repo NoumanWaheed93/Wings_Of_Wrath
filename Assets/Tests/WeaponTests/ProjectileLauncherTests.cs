@@ -7,9 +7,12 @@ using UnityEngine;
 public class ProjectileLauncherTests : WeaponTests
 {
     [SetUp]
-    public void SetUp()
+    public override void SetUp()
     {
-        weapon = new ProjectileLauncher(Substitute.For<Transform>(), Substitute.For<ITimeProvider>(), 100, 1, Substitute.For<IProjectileFactory>());
+        base.SetUp();
+        IProjectileFactory projectileFactory = Substitute.For<IProjectileFactory>();
+        projectileFactory.GetProjectile().Returns(projectileTransform);
+        weapon = new ProjectileLauncher(barrelTransform, Substitute.For<ITimeProvider>(), 100, 1, projectileFactory);
     }
 
     [Test]
