@@ -382,8 +382,9 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
     }
 
     [TearDown]
-    public void TearDown()
+    public new void TearDown()
     {
+        base.TearDown();
         for(int i = 0; i < gameObjectsToDestroyOnTearDown.Count; i++)
         {
             GameObject.DestroyImmediate(gameObjectsToDestroyOnTearDown[i]);

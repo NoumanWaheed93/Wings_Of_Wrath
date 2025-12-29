@@ -1,4 +1,3 @@
-using Common;
 using UnityEngine;
 
 namespace WeaponSystem
@@ -15,9 +14,9 @@ namespace WeaponSystem
             return Instantiate(homingProjectilePrefab).GetComponent<IHomingProjectile>();
         }
 
-        public ITransform GetProjectile()
+        public Transform GetProjectile()
         {
-            return Instantiate(simpleProjectilePrefab).GetComponent<ITransform>();
+            return Instantiate(simpleProjectilePrefab).transform;
         }
     }
 }

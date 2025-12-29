@@ -2,13 +2,16 @@ using NUnit.Framework;
 using WeaponSystem;
 using NSubstitute;
 using Common;
+using UnityEngine;
 
 public class RaycastGunTests : WeaponTests
 {
     [SetUp]
-    public void SetUp()
+    public override void SetUp()
     {
-        weapon = new GunRaycastBased(Substitute.For<ITransform>(), Substitute.For<ITimeProvider>(), 100, 1, 10);
+        base.SetUp();
+
+        weapon = new GunRaycastBased(barrelTransform, Substitute.For<ITimeProvider>(), 100, 1, 10);
     }
 
     [Test]

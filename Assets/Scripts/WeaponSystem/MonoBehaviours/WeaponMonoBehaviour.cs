@@ -3,7 +3,7 @@ using Common;
 
 namespace WeaponSystem
 {
-    public abstract class WeaponMonoBehaviour : MonoBehaviour, ITransform
+    public abstract class WeaponMonoBehaviour : MonoBehaviour
     {
         [SerializeField]
         protected int maxAmmo;
@@ -14,15 +14,5 @@ namespace WeaponSystem
 
         protected Weapon weapon;
 
-        private new Transform transform;
-        public Vector3 position { get => transform.position; set => transform.position = value; }
-        public Quaternion rotation { get => transform.rotation; set => transform.rotation = value; }
-        public Vector3 forward => transform.forward;
-        public Vector3 right => transform.right;
-
-        protected virtual void Awake()
-        {
-            this.transform = base.transform;
-        }
     }
 }

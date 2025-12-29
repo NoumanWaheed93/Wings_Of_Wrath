@@ -10,8 +10,7 @@ namespace WeaponSystem
 
         private void Awake()
         {
-            base.Awake();
-            weapon = new GunRaycastBased(this, new GameTimeProvider(), maxAmmo, bulletsPerSecond, range);
+            weapon = new GunRaycastBased(transform, new GameTimeProvider(), maxAmmo, bulletsPerSecond, range);
         }
     }
 }

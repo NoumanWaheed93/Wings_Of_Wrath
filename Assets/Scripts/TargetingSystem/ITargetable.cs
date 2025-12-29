@@ -1,4 +1,5 @@
 using Common;
+using UnityEngine;
 
 namespace TargetingSystem
 {
@@ -6,6 +7,6 @@ namespace TargetingSystem
     {
         public Team Team { get; }
 
-        public ITransform Transform { get; }
+        public Transform Transform { get; }
     }
 }

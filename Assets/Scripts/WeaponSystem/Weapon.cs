@@ -1,4 +1,5 @@
 using Common;
+using UnityEngine;
 
 namespace WeaponSystem
 {
@@ -16,13 +17,13 @@ namespace WeaponSystem
         private float shotInterval;
         public float ShotInterval { get => shotInterval; }
 
-        private ITransform barrel;
-        protected ITransform Barrel { get => barrel; }
+        private Transform barrel;
+        protected Transform Barrel { get => barrel; }
 
         private ITimeProvider timeProvider;
         public ITimeProvider TimeProvider { get => timeProvider; }
 
-        public Weapon(ITransform barrel, ITimeProvider timeProvider, int maximumAmmo, float bulletsPerSecond)
+        public Weapon(Transform barrel, ITimeProvider timeProvider, int maximumAmmo, float bulletsPerSecond)
         {
             this.barrel = barrel;
             this.timeProvider = timeProvider;

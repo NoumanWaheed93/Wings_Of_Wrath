@@ -1,8 +1,8 @@
+using Common;
+using FormationSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Common;
-using FormationSystem;
 using Utilities;
 using Zenject;
 
@@ -14,7 +14,7 @@ namespace AircraftController
 		{
 
 			public IAircraft aircraft { get; private set; }
-			public IRelativePositionProvider transform { get; private set; }
+			public Transform transform { get; private set; }
 
 			private AIStateMachine stateMachine = new AIStateMachine();
 			public AIStateMachine StateMachine { get => stateMachine; }
@@ -30,7 +30,7 @@ namespace AircraftController
             private float turnInput;
 			private float desiredSpeed;
 
-			public AircraftAIController(IAircraft aircraft, IRelativePositionProvider transform)
+			public AircraftAIController(IAircraft aircraft, Transform transform)
 			{
 				this.aircraft = aircraft;
 				this.transform = transform;
@@ -81,8 +81,9 @@ namespace AircraftController
 			public void TurnTowardsPosition(Vector3 targetPosition)
 			{
 				Debug.DrawLine(transform.position, targetPosition, Color.cyan);
-				Vector3 relative = transform.GetRelativePosition(targetPosition);
-				turnInput = Mathf.Atan2(relative.x, relative.z) / (Mathf.PI * 0.5f);
+				//Get relative position
+				Vector3 relative = transform.InverseTransformPoint(targetPosition);
+                turnInput = Mathf.Atan2(relative.x, relative.z) / (Mathf.PI * 0.5f);
 			}
 
 			public void FollowFormation()
@@ -92,8 +93,9 @@ namespace AircraftController
 
 				Vector3 myPositionInTheFormation = myFormationMember.Formation.GetMemberPositionSpaced(myFormationMember.PositionIndex);
 				altitudeOffset = myPositionInTheFormation.y;
-				Vector3 targetPosition = leader.Transform.GetGlobalPosition(myPositionInTheFormation);
-				desiredSpeed = aircraft.GetSpeedToFollow(targetPosition, leader);
+				//Get global position
+				Vector3 targetPosition = leader.Transform.TransformPoint(myPositionInTheFormation); 
+                desiredSpeed = aircraft.GetSpeedToFollow(targetPosition, leader);
 
                 float predictionTime = CalculatePredictionTime(leader, myFormationMember, myPositionInTheFormation);
                 
@@ -147,7 +149,7 @@ namespace AircraftController
             /// <param name="angularSpeedY"></param>
             /// <param name="predictionTime">How far in the future to predict</param>
             /// <returns></returns>
-            Vector3 PredictPosition(IRelativePositionProvider transform, float forwardSpeed, float angularSpeedY, float predictionTime)
+            Vector3 PredictPosition(Transform transform, float forwardSpeed, float angularSpeedY, float predictionTime)
             {
 				Vector3 currentPosition = Vector3.zero;
 

@@ -1,10 +1,10 @@
-using Common;
+using UnityEngine;
 
 namespace WeaponSystem
 {
     public interface IProjectileFactory
     {
-        public ITransform GetProjectile();
+        public Transform GetProjectile();
         public IHomingProjectile GetHomingProjectile();
     }
 }

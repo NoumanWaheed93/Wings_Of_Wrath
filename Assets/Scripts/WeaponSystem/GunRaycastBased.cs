@@ -9,7 +9,7 @@ namespace WeaponSystem
         private float range;
         private float damageAmount;
 
-        public GunRaycastBased(ITransform barrel, ITimeProvider timeProvider, int maximumAmmo, float bulletsPerSecond, float range) : base(barrel, timeProvider, maximumAmmo, bulletsPerSecond)
+        public GunRaycastBased(Transform barrel, ITimeProvider timeProvider, int maximumAmmo, float bulletsPerSecond, float range) : base(barrel, timeProvider, maximumAmmo, bulletsPerSecond)
         {
             this.range = range;
         }

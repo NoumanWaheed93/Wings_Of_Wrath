@@ -28,7 +28,7 @@ namespace AircraftController
         private IAircraftController aircraftController;
         public IAircraftController AircraftController { get => aircraftController; }
 
-        public ITransform Transform => formationMember.Transform;
+        public Transform Transform => formationMember.Transform;
 
         private Pool pool;
 

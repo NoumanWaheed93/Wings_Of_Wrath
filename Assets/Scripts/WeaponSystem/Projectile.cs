@@ -4,28 +4,28 @@ using UnityEngine;
 namespace WeaponSystem
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class Projectile : MonoBehaviour, ITransform
+    public class Projectile : MonoBehaviour
     {
         [SerializeField]
         private float speed;
 
-        private new Rigidbody rigidbody;
-        private new Transform transform;
+        protected Rigidbody m_rigidbody;
+        protected Transform m_transform;
 
-        public Vector3 position { get { return transform.position; } set { transform.position = value; } }
-        public Quaternion rotation { get { return transform.rotation; } set { transform.rotation = value; } }
-        public Vector3 forward { get => transform.forward; }
-        public Vector3 right { get => transform.right; }
+        public Vector3 position { get { return m_transform.position; } set { m_transform.position = value; } }
+        public Quaternion rotation { get { return m_transform.rotation; } set { m_transform.rotation = value; } }
+        public Vector3 forward { get => m_transform.forward; }
+        public Vector3 right { get => m_transform.right; }
 
         protected virtual void Awake()
         {
-            this.transform = base.transform;
-            rigidbody = GetComponent<Rigidbody>();
+            this.m_transform = base.transform;
+            m_rigidbody = GetComponent<Rigidbody>();
         }
 
         protected virtual void FixedUpdate()
         {
-            rigidbody.velocity = transform.forward * speed;
+            m_rigidbody.velocity = m_transform.forward * speed;
         }
     }
 }

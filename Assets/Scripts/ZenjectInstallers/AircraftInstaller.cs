@@ -31,7 +31,7 @@ namespace ZenjectInstallers
             {
                 Container.BindInterfacesAndSelfTo<Aircraft>().AsSingle()
                     .WithArguments(movementData, aircraftTransform, rigidbody, true, 100.0f, 80.0f);
-                Container.BindInterfacesAndSelfTo<AircraftAIController>().AsSingle();
+                Container.BindInterfacesAndSelfTo<AircraftAIController>().AsSingle().WithArguments(aircraftTransform);
             }
             else
             {

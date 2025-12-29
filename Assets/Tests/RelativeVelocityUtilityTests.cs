@@ -7,6 +7,16 @@ using Assert = UnityEngine.Assertions.Assert;
 
 public class RelativeVelocityUtilityTests
 {
+    private Transform TransformA;
+    private Transform TransformB;
+
+    [SetUp]
+    public void SetUp()
+    {
+        TransformA = new GameObject("Test-RelativeVelocity-TransformA").transform;
+        TransformB = new GameObject("Test-RelativeVelocity-TransformB").transform;
+    }
+
     // A Test behaves as an ordinary method
     [Test]
     public void ClosureSpeedCanBeCalculated()
@@ -21,11 +31,9 @@ public class RelativeVelocityUtilityTests
 
     private void ClosureSpeedTestCase(Vector3 positionA, Vector3 velocityA, Vector3 positionB, Vector3 velocityB, float expectedResult)
     {
-        ITransform TransformA = Substitute.For<ITransform>();
-        TransformA.position.Returns(positionA);
+        TransformA.position = positionA;
 
-        ITransform TransformB = Substitute.For<ITransform>();
-        TransformB.position.Returns(positionB);
+        TransformB.position = positionB;
 
         Vector3 relativeVelocity = velocityA - velocityB;
 
@@ -63,4 +71,10 @@ public class RelativeVelocityUtilityTests
             AircraftController.RelativeVelocityUtility.GetMaxSpeedRequiredToSeek(500, 0, 0, 3, -1), 0.01f);
     }
 
+    [TearDown]
+    public void TearDown()
+    {
+        GameObject.DestroyImmediate(TransformA.gameObject);
+        GameObject.DestroyImmediate(TransformB.gameObject);
+    }
 }

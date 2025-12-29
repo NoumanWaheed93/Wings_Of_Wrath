@@ -2,13 +2,19 @@ using NUnit.Framework;
 using WeaponSystem;
 using NSubstitute;
 using Common;
+using UnityEngine;
 
 public class GuidedProjectileLauncherTests : WeaponTests
 {
     [SetUp]
-    public void SetUp()
+    public override void SetUp()
     {
-        weapon = new GuidedProjectileLauncher(Substitute.For<ITransform>(), Substitute.For<ITimeProvider>(), 100, 1, Substitute.For<IProjectileFactory>());
+        base.SetUp();
+        IProjectileFactory projectileFactory = Substitute.For<IProjectileFactory>();
+        IHomingProjectile projectile = Substitute.For<IHomingProjectile>();
+        projectile.Transform.Returns(projectileTransform);
+        projectileFactory.GetHomingProjectile().Returns(projectile);
+        weapon = new GuidedProjectileLauncher(barrelTransform, Substitute.For<ITimeProvider>(), 100, 1, projectileFactory);
     }
 
     [Test]
@@ -16,4 +22,5 @@ public class GuidedProjectileLauncherTests : WeaponTests
     {
         Assert.IsNotNull(weapon);
     }
+
 }
