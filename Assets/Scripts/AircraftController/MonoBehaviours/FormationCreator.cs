@@ -22,7 +22,6 @@ namespace AircraftController
 
         private Formation currentFormation;
         private AircraftMonoBehaviour.Pool aircraftPool;
-        private List<AircraftMonoBehaviour> aircrafts = new List<AircraftMonoBehaviour>();
 
         [Inject]
         private void Init(AircraftMonoBehaviour.Pool aircraftFactory, Formation formation)
