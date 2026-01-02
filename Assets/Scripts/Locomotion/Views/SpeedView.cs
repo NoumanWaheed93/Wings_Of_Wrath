@@ -10,17 +10,14 @@ namespace Locomotion
         [SerializeField]
         private Transform needle;
 
-        [SerializeField]
-        private GameObject speedProviderGameObject;
-
         private ISpeedProvider speedTarget;
+        public ISpeedProvider SpeedTarget
+        {
+            get { return speedTarget; }
+            set { speedTarget = value; }
+        }
 
         private float currSpeed;
-
-        private void Awake()
-        {
-            speedTarget = speedProviderGameObject.GetComponent<ISpeedProvider>();
-        }
 
         private void Update()
         {

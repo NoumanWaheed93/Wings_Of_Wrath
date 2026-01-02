@@ -6,10 +6,21 @@ namespace ScreenInputControls
 {
     public class ThumbDriftInput : HoldableButton, IPointerMoveHandler
     {
-        [SerializeField]
         private Transform target; //The target would normally be a player.
                                   //Input would be calculated as direction
                                   //from pointer(finger position) on screen to the target
+
+        public Transform Target 
+        { 
+            get 
+            { 
+                return target; 
+            }
+            set 
+            {
+                target = value;
+            }
+        }
 
         [Tooltip("the Angle between targetForward and (thumbPosition -> targetPosition) at which input would be at maximum")]
         [SerializeField]
