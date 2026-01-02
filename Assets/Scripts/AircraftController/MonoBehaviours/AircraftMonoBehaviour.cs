@@ -63,10 +63,11 @@ namespace AircraftController
         private void OnDie()
         {
             Debug.LogFormat(LOG_FORMAT, "OnDie()");
+            gameObject.SetActive(false);
             pool.Despawn(this);
         }
 
-        public class Pool : MemoryPool<AircraftMonoBehaviour>
+        public class Pool : MonoMemoryPool<AircraftMonoBehaviour>
         {
         }
     }

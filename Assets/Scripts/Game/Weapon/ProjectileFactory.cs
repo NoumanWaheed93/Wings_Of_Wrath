@@ -25,12 +25,12 @@ namespace Game
             return simpleProjectileFactory.Spawn().transform;
         }
 
-        public class SimpleProjectileFactory : MemoryPool<Projectile>
+        public class SimpleProjectileFactory : MonoMemoryPool<Projectile>
         {
 
         }
 
-        public class GuidedProjectileFactory : MemoryPool<GuidedProjectile> 
+        public class GuidedProjectileFactory : MonoMemoryPool<GuidedProjectile> 
         {
             
         }
