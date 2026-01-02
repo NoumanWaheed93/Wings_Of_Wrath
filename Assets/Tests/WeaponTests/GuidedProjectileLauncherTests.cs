@@ -11,7 +11,7 @@ public class GuidedProjectileLauncherTests : WeaponTests
     {
         base.SetUp();
         IProjectileFactory projectileFactory = Substitute.For<IProjectileFactory>();
-        IHomingProjectile projectile = Substitute.For<IHomingProjectile>();
+        IGuidedProjectile projectile = Substitute.For<IGuidedProjectile>();
         projectile.Transform.Returns(projectileTransform);
         projectileFactory.GetHomingProjectile().Returns(projectile);
         weapon = new GuidedProjectileLauncher(barrelTransform, Substitute.For<ITimeProvider>(), 100, 1, projectileFactory);

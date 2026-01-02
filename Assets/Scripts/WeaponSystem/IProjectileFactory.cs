@@ -5,6 +5,6 @@ namespace WeaponSystem
     public interface IProjectileFactory
     {
         public Transform GetProjectile();
-        public IHomingProjectile GetHomingProjectile();
+        public IGuidedProjectile GetHomingProjectile();
     }
 }

@@ -9,9 +9,9 @@ namespace WeaponSystem
         [SerializeField]
         private GameObject homingProjectilePrefab;
 
-        public IHomingProjectile GetHomingProjectile()
+        public IGuidedProjectile GetHomingProjectile()
         {
-            return Instantiate(homingProjectilePrefab).GetComponent<IHomingProjectile>();
+            return Instantiate(homingProjectilePrefab).GetComponent<IGuidedProjectile>();
         }
 
         public Transform GetProjectile()

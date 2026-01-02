@@ -20,7 +20,7 @@ namespace WeaponSystem
         {
             if (base.Fire())
             {
-                IHomingProjectile newProjectile = projectileFactory.GetHomingProjectile();
+                IGuidedProjectile newProjectile = projectileFactory.GetHomingProjectile();
                 newProjectile.Transform.position = Barrel.position;
                 newProjectile.Transform.rotation = Barrel.rotation;
                 newProjectile.Target = target;
