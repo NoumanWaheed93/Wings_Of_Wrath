@@ -31,6 +31,9 @@ namespace HealthSystem
             if (reduceAmount <= 0)
                 return;
 
+            if (currHealth <= 0)
+                return;
+
             currHealth -= reduceAmount;
             onHealthReduced?.Invoke();
 

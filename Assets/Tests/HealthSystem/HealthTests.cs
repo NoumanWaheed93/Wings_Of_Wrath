@@ -16,6 +16,19 @@ public class HealthTests
     }
 
     [Test]
+    public void Health_Depletion_Event_Only_Called_Once()
+    {
+        Health health = new Health(100);
+        bool isEventCalled = false;
+        health.onHealthDepleted += () => { isEventCalled = true; };
+        health.ReduceHealth(100);
+        Assert.IsTrue(isEventCalled, "Event is not called on depletion");
+        isEventCalled = false;
+        health.ReduceHealth(100);
+        Assert.IsFalse(isEventCalled, "Event is called twice");
+    }
+
+    [Test]
     public void Health_Regains_Correctly()
     {
         Health health = new Health(100, 20f);

@@ -5,6 +5,7 @@ using HealthSystem;
 using Locomotion;
 using System.Collections;
 using System.Collections.Generic;
+using TargetingSystem;
 using UnityEngine;
 using Zenject;
 
@@ -25,8 +26,13 @@ namespace ZenjectInstallers
         {
             Container.Bind<Team>().FromInstance(Team.Blue).AsSingle();
 
-            Health health = new Health(100, 100);
-            Container.Bind<Health>().FromInstance(health).AsSingle();
+            InstallHealth();
+            InstallRadar();
+            InstallAircraft();
+        }
+
+        private void InstallAircraft()
+        {
             if (isAIControlled)
             {
                 Container.BindInterfacesAndSelfTo<Aircraft>().AsSingle()
@@ -39,6 +45,17 @@ namespace ZenjectInstallers
                     .WithArguments(movementData, aircraftTransform, rigidbody);
                 Container.BindInterfacesAndSelfTo<AircraftPlayerController>().AsSingle();
             }
+        }
+
+        private void InstallHealth()
+        {
+            Health health = new Health(100, 100);
+            Container.Bind<Health>().FromInstance(health).AsSingle();
+        }
+
+        private void InstallRadar()
+        {
+            Container.Bind<TargetTracker>().AsSingle();
         }
     }
 }

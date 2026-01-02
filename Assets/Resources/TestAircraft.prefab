@@ -453,7 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74a6a316db321a4da23606ac508ab07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageablePart: {fileID: 3141679754397549126}
+  damageablePart: {fileID: 5234917009085439742}
 --- !u!1 &1494172180
 GameObject:
   m_ObjectHideFlags: 0

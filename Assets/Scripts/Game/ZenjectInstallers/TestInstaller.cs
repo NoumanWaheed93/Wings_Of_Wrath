@@ -17,9 +17,14 @@ namespace ZenjectInstallers {
 
         public override void InstallBindings()
         {
-            //Install aircraft 
+            InstallTimeProvider();
             InstallFormationManager();
             InstallProjectileFactory();
+        }
+
+        private void InstallTimeProvider()
+        {
+            Container.Bind<ITimeProvider>().To<GameTimeProvider>().AsSingle();
         }
 
         private void InstallFormationManager()
@@ -43,6 +48,8 @@ namespace ZenjectInstallers {
                .FromComponentInNewPrefab(ProjectilePrefab)
                .WithGameObjectName("Projectile")
                .UnderTransformGroup("Projectiles");
+
+            Container.Bind<IProjectileFactory>().To<Game.ProjectileFactory>().AsSingle();
         }
     }
 }

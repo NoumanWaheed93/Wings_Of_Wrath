@@ -17,7 +17,7 @@ namespace HealthSystem
 
         public void Damage(float amount)
         {
-            Debug.LogFormat(LOG_FORMAT, $"Got {amount} damage");
+            Debug.LogFormat(LOG_FORMAT, "Got " + amount + " damage");
             controller.Damage(amount);
         }
     }

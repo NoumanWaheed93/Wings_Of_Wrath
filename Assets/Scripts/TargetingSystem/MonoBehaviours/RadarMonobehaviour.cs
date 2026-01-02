@@ -7,20 +7,25 @@ namespace TargetingSystem
     [RequireComponent(typeof(Collider))]
     public class RadarMonobehaviour : MonoBehaviour
     {
-        private TargetTracker tracker = new TargetTracker();
+        private TargetTracker tracker;
 
         public TargetTracker Tracker => tracker;
 
-        private List<Rigidbody> colliders = new List<Rigidbody>();
+        private List<Rigidbody> trackedRigidbodies = new List<Rigidbody>();
+
+        public void Init(TargetTracker tracker)
+        {
+            this.tracker = tracker;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.attachedRigidbody != null && colliders.Contains(other.attachedRigidbody))
+            if(other.attachedRigidbody != null && trackedRigidbodies.Contains(other.attachedRigidbody))
             {
                 return;
             }
 
-            colliders.Add(other.attachedRigidbody);
+            trackedRigidbodies.Add(other.attachedRigidbody);
 
             ITargetable target = other.GetComponentInParent<ITargetable>();
             if (target != null)
@@ -31,9 +36,9 @@ namespace TargetingSystem
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.attachedRigidbody != null && colliders.Contains(other.attachedRigidbody))
+            if (other.attachedRigidbody != null && trackedRigidbodies.Contains(other.attachedRigidbody))
             {
-                colliders.Remove(other.attachedRigidbody);
+                trackedRigidbodies.Remove(other.attachedRigidbody);
 
                 ITargetable target = other.GetComponentInParent<ITargetable>();
                 if (target != null)
@@ -45,7 +50,7 @@ namespace TargetingSystem
     
         public void OnSelectTarget(ITargetable target)
         {
-            Tracker.SelectedTarget = target;
+            tracker.SelectedTarget = target;
         }
     }
 }

@@ -3,7 +3,7 @@ using Common;
 
 namespace WeaponSystem
 {
-    public class RaycastGunMonobehaviour : WeaponMonoBehaviour
+    public class RaycastGunMonobehaviourDemo : WeaponMonoBehaviour
     {
         [SerializeField]
         private float range;
