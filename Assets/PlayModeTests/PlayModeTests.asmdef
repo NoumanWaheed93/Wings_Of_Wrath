@@ -9,15 +9,15 @@
         "Common",
         "Zenject",
         "Zenject-TestFramework",
-        "com.artisangames.formationsystem"
+        "com.artisangames.formationsystem",
+        "TNRD.NSubstitute"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll",
-        "NSubstitute.dll"
+        "nunit.framework.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

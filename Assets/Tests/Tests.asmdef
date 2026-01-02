@@ -12,7 +12,8 @@
         "WeaponSystem",
         "Common",
         "Zenject",
-        "com.artisangames.formationsystem"
+        "com.artisangames.formationsystem",
+        "TNRD.NSubstitute"
     ],
     "includePlatforms": [
         "Editor"
@@ -21,8 +22,7 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll",
-        "NSubstitute.dll"
+        "nunit.framework.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [
