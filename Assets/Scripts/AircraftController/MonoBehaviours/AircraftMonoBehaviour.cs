@@ -11,6 +11,8 @@ namespace AircraftController
 {
     public class AircraftMonoBehaviour : MonoBehaviour, ISpeedProvider, ITargetable
     {
+        private const string LOG_FORMAT = "<color=#FF0000><b>[AircraftMonoBehaviour]</b></color> {{0}}";
+
         private Team team;
         public Team Team { get => team; set => team = value; }
         
@@ -60,6 +62,7 @@ namespace AircraftController
 
         private void OnDie()
         {
+            Debug.LogFormat(LOG_FORMAT, "OnDie()");
             pool.Despawn(this);
         }
 
