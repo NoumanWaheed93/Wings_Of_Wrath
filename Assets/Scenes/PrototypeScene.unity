@@ -329,6 +329,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AircraftPrefab: {fileID: 6900703714199412117, guid: d91ac27617af7144d9f31619f2e7210e,
     type: 3}
+  ProjectilePrefab: {fileID: 0}
+  GuidedProjectilePrefab: {fileID: 3176515159500070112, guid: 6d7cf33ab3ad7e94d9c36dbd6875397a,
+    type: 3}
 --- !u!114 &553848463
 MonoBehaviour:
   m_ObjectHideFlags: 0

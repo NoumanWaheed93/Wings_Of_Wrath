@@ -204,9 +204,6 @@ namespace AircraftController
 				return separationForce;
 			}
 
-
-			public class Factory : PlaceholderFactory<AircraftAIController> { }
-
 		}
 	}
 }

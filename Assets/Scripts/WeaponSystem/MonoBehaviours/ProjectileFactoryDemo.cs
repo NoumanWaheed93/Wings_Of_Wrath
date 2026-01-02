@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace WeaponSystem
 {
-    public class ProjectileFactory : MonoBehaviour, IProjectileFactory
+    public class ProjectileFactoryDemo : MonoBehaviour, IProjectileFactory
     {
         [SerializeField]
         private GameObject simpleProjectilePrefab;
