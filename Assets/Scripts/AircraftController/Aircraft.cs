@@ -7,7 +7,7 @@ using Zenject;
 
 namespace AircraftController
 {
-    public class Aircraft : IAircraft, IFormationMember, ITickable
+    public class Aircraft : IAircraft, IFormationMember, ITickable, IFixedTickable
     {
         private AircraftStateMachine stateMachine;
         public AircraftStateMachine StateMachine { get => stateMachine; }
@@ -110,8 +110,13 @@ namespace AircraftController
         public void Update(float simulationDeltaTime)
         {
             stateMachine.currentState.Update(simulationDeltaTime);
-            movementHandler.Update(simulationDeltaTime);
+         //   movementHandler.Update(simulationDeltaTime);
             orientationController.Update(simulationDeltaTime);
+        }
+
+        public void FixedUpdate(float simulationDeltaTime)
+        {
+            movementHandler.Update(simulationDeltaTime);
         }
 
         public void CalculateAndSetPitch(float targetAltitude, float targetDistance)
@@ -251,6 +256,11 @@ namespace AircraftController
         public void Tick()
         {
             Update(Time.deltaTime);
+        }
+
+        public void FixedTick()
+        {
+            FixedUpdate(Time.fixedDeltaTime);
         }
     }
 }

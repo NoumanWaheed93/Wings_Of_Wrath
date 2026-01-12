@@ -17,12 +17,16 @@ namespace CameraController
 
         private void SetPosition()
         {
-            transform.position = target.position + (target.forward * offset.z) + new Vector3(0, offset.y, 0);
+            Vector3 newPosition = target.position + (target.forward * offset.z) + new Vector3(0, offset.y, 0);
+            newPosition = Vector3.Lerp(transform.position, newPosition, 10f * Time.deltaTime);
+            transform.position = newPosition;
         }
 
         private void SetRotation()
         {
-            transform.rotation = Quaternion.Euler(0, target.eulerAngles.y, 0);
+            Quaternion newRotation = Quaternion.Euler(0, target.eulerAngles.y, 0);
+            newRotation = Quaternion.Slerp(transform.rotation, newRotation, 30f * Time.deltaTime);
+            transform.rotation = newRotation;
         }
     }
 }
