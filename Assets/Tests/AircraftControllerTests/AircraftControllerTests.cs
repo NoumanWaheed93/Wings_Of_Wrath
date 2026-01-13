@@ -41,9 +41,19 @@ public class AircraftControllerTests
     public void State_Changes_To_TakeOff_After_Speed_Goes_Above_TakeOffSpeed()
     {
         aircraftController.MovementHandler.SetThrottle(1);
-        while(aircraftController.MovementHandler.CurrSpeed <= aircraftController.MovementHandler.AerodynamicMovementData.takeOffSpeed)
+
+        float startSpeed = aircraftController.MovementHandler.CurrSpeed;
+        int tickCounter = 0;
+        while (aircraftController.MovementHandler.CurrSpeed <= aircraftController.MovementHandler.AerodynamicMovementData.takeOffSpeed)
         {
             aircraftController.Update(1);
+            aircraftController.FixedUpdate(1);
+            tickCounter++;
+            if(tickCounter > 20 && startSpeed == aircraftController.MovementHandler.CurrSpeed)
+            {
+                Assert.IsTrue(false, "Aircraft speed did not increase over time.");
+                return;
+            }
         }
 
         aircraftController.Update(1);
