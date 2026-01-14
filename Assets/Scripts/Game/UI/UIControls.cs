@@ -2,6 +2,7 @@ using Locomotion;
 using NomiUIExtensions;
 using ScreenInputControls;
 using UnityEngine;
+using WeaponSystem;
 
 namespace Game
 {
@@ -13,6 +14,9 @@ namespace Game
 
         [SerializeField]
         private GuidedProjectileLauncherMonobehaviour guidedProjectileLauncher;
+
+        [SerializeField]
+        private RaycastGunMonobehaviourDemo gun;
 
         [Space]
         [Header("UI Components")]
@@ -54,6 +58,11 @@ namespace Game
         public void OnClick_FireMissileButton()
         {
             guidedProjectileLauncher.Fire();
+        }
+
+        public void OnHold_FireGunButton()
+        {
+            gun.Fire();
         }
     }
 }

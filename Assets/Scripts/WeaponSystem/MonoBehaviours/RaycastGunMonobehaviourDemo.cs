@@ -8,9 +8,18 @@ namespace WeaponSystem
         [SerializeField]
         private float range;
 
+        [SerializeField]
+        private float damageAmount;
+
         private void Awake()
         {
-            weapon = new GunRaycastBased(transform, new GameTimeProvider(), maxAmmo, bulletsPerSecond, range);
+            weapon = new GunRaycastBased(transform, new GameTimeProvider(), maxAmmo, bulletsPerSecond, range, damageAmount);
+        }
+
+        public void Fire()
+        {
+            Debug.Log("Firing Raycast Gun");
+            weapon.Fire();
         }
     }
 }

@@ -521,6 +521,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b81f4633db66f294eabc5041797f926e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onHold:
+    m_PersistentCalls:
+      m_Calls: []
   maxAngle: 100
 --- !u!114 &721948522
 MonoBehaviour:
@@ -803,6 +806,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 1604655155}
   guidedProjectileLauncher: {fileID: 1385920822}
+  gun: {fileID: 1604655156}
   thumbDriftInput: {fileID: 721948521}
   speedView: {fileID: 1601023284}
   aircraftControlsMenu: {fileID: 2079537719}
@@ -1594,6 +1598,7 @@ GameObject:
   - component: {fileID: 1247042563}
   - component: {fileID: 1247042565}
   - component: {fileID: 1247042564}
+  - component: {fileID: 1247042566}
   m_Layer: 5
   m_Name: Btn_FireCannon
   m_TagString: Untagged
@@ -1659,6 +1664,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1247042562}
   m_CullTransparentMesh: 1
+--- !u!114 &1247042566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247042562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a090bcde2f6c3a4b97f47bdda8aff03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHold:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 773255946}
+        m_TargetAssemblyTypeName: Game.UIControls, Game
+        m_MethodName: OnHold_FireGunButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1277962998
 GameObject:
   m_ObjectHideFlags: 0
@@ -2496,6 +2528,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1218614835, guid: d91ac27617af7144d9f31619f2e7210e, type: 3}
+      propertyPath: range
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218614835, guid: d91ac27617af7144d9f31619f2e7210e, type: 3}
+      propertyPath: damageAmount
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1604655157, guid: d91ac27617af7144d9f31619f2e7210e, type: 3}
       propertyPath: wayPoints.Array.data[0]
       value: 
@@ -2596,6 +2636,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1604655154}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1604655156 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1218614835, guid: d91ac27617af7144d9f31619f2e7210e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1604655154}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c11f214f6329c684fa04605cafca374e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1673672656
 GameObject:
   m_ObjectHideFlags: 0

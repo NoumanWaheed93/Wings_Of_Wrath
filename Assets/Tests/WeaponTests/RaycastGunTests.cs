@@ -11,7 +11,7 @@ public class RaycastGunTests : WeaponTests
     {
         base.SetUp();
 
-        weapon = new GunRaycastBased(barrelTransform, Substitute.For<ITimeProvider>(), 100, 1, 10);
+        weapon = new GunRaycastBased(barrelTransform, Substitute.For<ITimeProvider>(), 100, 1, 10, 10);
     }
 
     [Test]

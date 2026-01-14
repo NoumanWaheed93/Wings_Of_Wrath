@@ -1,11 +1,14 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 namespace ScreenInputControls
 {
-    public abstract class HoldableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class HoldableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
+        public UnityEvent onHold;
+
         public event Action OnHoldStart;
         public event Action OnHoldEnd;
 
@@ -22,5 +25,14 @@ namespace ScreenInputControls
             isHeldDown = false;
             OnHoldEnd?.Invoke();
         }
+
+        private void Update()
+        {
+            if(isHeldDown)
+            {
+                onHold?.Invoke();
+            }
+        }
     }
 }
+ 
