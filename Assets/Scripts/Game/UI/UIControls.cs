@@ -26,6 +26,8 @@ namespace Game
         private SpeedView speedView;
         [SerializeField]
         private SurroundingContextMenu aircraftControlsMenu;
+        [SerializeField]
+        private FireHoldableButton fireHoldableButton;
 
         private void Awake()
         {
@@ -36,12 +38,14 @@ namespace Game
         private void OnEnable()
         {
             thumbDriftInput.OnHoldStart += OnThumbDriftHoldStart;
+            fireHoldableButton.onHold.AddListener(OnHold_FireGunButton);
             thumbDriftInput.OnHoldEnd += OnThumbDriftHoldEnd;
         }
 
         private void OnDisable()
         {
             thumbDriftInput.OnHoldStart -= OnThumbDriftHoldStart;
+            fireHoldableButton.onHold.RemoveListener(OnHold_FireGunButton);
             thumbDriftInput.OnHoldEnd -= OnThumbDriftHoldEnd;
         }
 

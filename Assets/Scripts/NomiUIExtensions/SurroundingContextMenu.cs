@@ -7,13 +7,16 @@ namespace NomiUIExtensions
     public class SurroundingContextMenu : MonoBehaviour
     {
         [SerializeField]
-        private RectTransform _rectTransform;
+        private RectTransform rectTransform;
 
         [SerializeField]
-        private MeshRenderer _meshRenderer;
+        private MeshRenderer meshRenderer;
 
         [SerializeField]
         private Transform maxIndicator;
+
+        [SerializeField]
+        private CanvasGroup canvasGroup;
 
         private Camera cam;
 
@@ -24,17 +27,21 @@ namespace NomiUIExtensions
 
         private void LateUpdate()
         {
-            Init(_meshRenderer.bounds);
+            Init(meshRenderer.bounds);
         }
 
         public void ShowUp()
         {
-            gameObject.SetActive(true);
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
         }
 
         public void Hide()
         {
-            gameObject.SetActive(false);
+            canvasGroup.alpha = 0f;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
         }
 
         private void Init(Bounds bounds)
@@ -43,7 +50,7 @@ namespace NomiUIExtensions
             Vector3 extremePosition = GetScreenPosition(bounds.max);
             maxIndicator.position = extremePosition;
             float maxDistance = Vector3.Distance(transform.position, extremePosition);
-            _rectTransform.sizeDelta = new Vector3(maxDistance * 2, maxDistance * 2, 1);
+            rectTransform.sizeDelta = new Vector3(maxDistance * 2, maxDistance * 2, 1);
         }
 
         private Vector3 GetScreenPosition(Vector3 position)
