@@ -45,8 +45,8 @@ namespace AircraftController
 
         private bool IsAbortIntended()
         {
-            return aircraftController.HasDeviatedFromLine(aircraftController.AirStripToLandOn.FinalApproach.position,
-                aircraftController.AirStripToLandOn.TouchDownPoint.position, GlobalAircraftControllerSettings.touchDownAcceptableDeviation);
+            return aircraftController.HasDeviatedFromLine(aircraftController.RunwayInUse.FinalApproach.position,
+                aircraftController.RunwayInUse.TouchDownPoint.position, GlobalAircraftControllerSettings.touchDownAcceptableDeviation);
         }
 
         private bool CanAbort()
@@ -57,7 +57,7 @@ namespace AircraftController
         private void DoAbort()
         {
             stateMachine.ChangeState(aircraftController.StateInAir);
-            aircraftController.AirStripToLandOn = null;
+            aircraftController.RunwayInUse = null;
         }
 
         private void DoCrash()
@@ -67,7 +67,7 @@ namespace AircraftController
         private bool IsTouchDownDone()
         {
             return (Vector3.Distance(aircraftController.Transform.position,
-                aircraftController.AirStripToLandOn.TouchDownPoint.position) < GlobalAircraftControllerSettings.wayPointReachedDistance);
+                aircraftController.RunwayInUse.TouchDownPoint.position) < GlobalAircraftControllerSettings.wayPointReachedDistance);
         }
 
         private void DoLand()
@@ -77,7 +77,7 @@ namespace AircraftController
 
         private void LowerAltitude()
         {
-            aircraftController.CalculateAndSetPitch(aircraftController.AirStripToLandOn.TouchDownPoint.position);
+            aircraftController.CalculateAndSetPitch(aircraftController.RunwayInUse.TouchDownPoint.position);
         }
     }
 }

@@ -5,7 +5,8 @@ namespace AircraftController
     public class InitialApproach : MonoBehaviour
     {
         [SerializeField]
-        Airstrip airstrip;
+        Runway airstrip;
+
         private void OnTriggerEnter(Collider other)
         {
             AircraftMonoBehaviour landingAircraft = other.GetComponentInParent<AircraftMonoBehaviour>();
@@ -22,5 +23,6 @@ namespace AircraftController
             //initial approach done
             landingAircraft.PrepareToLand(airstrip);
         }
+
     }
 }

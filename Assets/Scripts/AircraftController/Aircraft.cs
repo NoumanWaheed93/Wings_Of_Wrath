@@ -66,8 +66,8 @@ namespace AircraftController
             }
         }
 
-        private Airstrip airstripToLandOn;
-        public Airstrip AirStripToLandOn { get => airstripToLandOn; set => airstripToLandOn = value; }
+        private Runway runwayInUse; //The runway that this aircraft is going to land on or is going to take off from.
+        public Runway RunwayInUse { get => runwayInUse; set => runwayInUse = value; }
 
         public IFormationMember formationMember { get => this; }
         int IFormationMember.PositionIndex { get; set; }

@@ -55,9 +55,9 @@ namespace AircraftController
             health.onHealthDepleted += OnDie;
         }
 
-        public void PrepareToLand(Airstrip airstrip)
+        public void PrepareToLand(Runway airstrip)
         {
-            aircraft.AirStripToLandOn = airstrip;
+            aircraft.RunwayInUse = airstrip;
         }
 
         private void OnDie()

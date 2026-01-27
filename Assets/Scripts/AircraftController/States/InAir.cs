@@ -17,6 +17,10 @@ namespace AircraftController
             altitudeTarget = GlobalAircraftControllerSettings.flightAltitude;
             pitchDistance = 100f;
             collisionAvoidanceTime = 0;
+            if(aircraftController.RunwayInUse != null)
+            {
+                aircraftController.RunwayInUse.IsInUse = false;
+            } 
         }
 
         public override void Exit()
@@ -60,7 +64,7 @@ namespace AircraftController
 
         private bool IsInitialApproachDone()
         {
-            return aircraftController.AirStripToLandOn != null;
+            return aircraftController.RunwayInUse != null;
         }
 
         private void MoveToFinalApproach()

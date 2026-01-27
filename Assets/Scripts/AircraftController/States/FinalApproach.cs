@@ -10,6 +10,7 @@ namespace AircraftController
         public override void Enter()
         {
             //deploy landing gear
+            aircraftController.RunwayInUse.IsInUse = true;
         }
 
         public override void Exit()
@@ -35,21 +36,21 @@ namespace AircraftController
 
         private bool IsAbortIntended()
         {
-            return aircraftController.HasDeviatedFromLine(aircraftController.AirStripToLandOn.InitialApproach.position, 
-                aircraftController.AirStripToLandOn.FinalApproach.position, GlobalAircraftControllerSettings.finalApproachAcceptableDeviation);
+            return aircraftController.HasDeviatedFromLine(aircraftController.RunwayInUse.InitialApproach.position, 
+                aircraftController.RunwayInUse.FinalApproach.position, GlobalAircraftControllerSettings.finalApproachAcceptableDeviation);
         }
 
         private void AbortLanding()
         {
             stateMachine.ChangeState(aircraftController.StateInAir);
-            aircraftController.AirStripToLandOn = null;
+            aircraftController.RunwayInUse = null;
             //retract landing gear
         }
 
         private bool IsFinalApproachDone()
         {
             return (Vector3.Distance(aircraftController.Transform.position,
-                aircraftController.AirStripToLandOn.FinalApproach.position) < GlobalAircraftControllerSettings.wayPointReachedDistance);
+                aircraftController.RunwayInUse.FinalApproach.position) < GlobalAircraftControllerSettings.wayPointReachedDistance);
         }
 
         private void MoveToTouchDown()
@@ -59,7 +60,7 @@ namespace AircraftController
         
         private void LowerAltitude()
         {
-            aircraftController.CalculateAndSetPitch(aircraftController.AirStripToLandOn.FinalApproach.position);
+            aircraftController.CalculateAndSetPitch(aircraftController.RunwayInUse.FinalApproach.position);
         }
     }
 }
