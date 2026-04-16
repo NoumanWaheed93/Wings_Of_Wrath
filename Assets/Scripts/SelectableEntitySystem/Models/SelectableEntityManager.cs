@@ -12,6 +12,8 @@ namespace SelectableEntitySystem
 
         private List<SelectableEntity> selectableEntities = new List<SelectableEntity>();
 
+        private SelectableEntity selectedEntity;
+
         public void AddSelectableEntity(SelectableEntity entity)
         {
             selectableEntities.Add(entity);
@@ -24,6 +26,19 @@ namespace SelectableEntitySystem
             OnSelectableEntityRemoved?.Invoke(entity);
         }
 
+        public void SelectEntity(SelectableEntity entity)
+        {
+            if (selectedEntity != null)
+            {
+                selectedEntity.Deselect();
+            }
+
+            if (selectableEntities.Contains(entity))
+            {
+                entity.Select();
+                selectedEntity = entity;
+            }
+        }
     }
 
 }
