@@ -1,6 +1,7 @@
 using AircraftController;
 using AircraftController.AircraftAI;
 using Common;
+using Game;
 using HealthSystem;
 using Locomotion;
 using System.Collections;
@@ -19,8 +20,8 @@ namespace ZenjectInstallers
         private Rigidbody rigidbody;
         [SerializeField]
         private Transform aircraftTransform;
-        [SerializeField]
-        private bool isAIControlled = true;
+
+        private ControllableAircraftManager controllableAircraftmanager;
 
         public override void InstallBindings()
         {
@@ -33,18 +34,8 @@ namespace ZenjectInstallers
 
         private void InstallAircraft()
         {
-            if (isAIControlled)
-            {
-                Container.BindInterfacesAndSelfTo<Aircraft>().AsSingle()
-                    .WithArguments(movementData, aircraftTransform, rigidbody, true, 100.0f, 80.0f);
-                Container.BindInterfacesAndSelfTo<AircraftAIController>().AsSingle().WithArguments(aircraftTransform);
-            }
-            else
-            {
-                Container.BindInterfacesAndSelfTo<Aircraft>().AsSingle()
-                    .WithArguments(movementData, aircraftTransform, rigidbody);
-                Container.BindInterfacesAndSelfTo<AircraftPlayerController>().AsSingle();
-            }
+            Container.BindInterfacesAndSelfTo<Aircraft>().AsSingle()
+                .WithArguments(movementData, aircraftTransform, rigidbody, true, 100.0f, 80.0f);
         }
 
         private void InstallHealth()

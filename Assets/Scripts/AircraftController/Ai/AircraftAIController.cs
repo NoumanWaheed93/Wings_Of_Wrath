@@ -6,204 +6,213 @@ using UnityEngine;
 using Utilities;
 using Zenject;
 
-namespace AircraftController
+namespace AircraftController.AircraftAI
 {
-	namespace AircraftAI
-	{
-		public class AircraftAIController : IAircraftController, ITickable
-		{
+    public class AircraftAIController : IAircraftController, ITickable
+    {
 
-			public IAircraft aircraft { get; private set; }
-			public Transform transform { get; private set; }
+        public IAircraft aircraft { get; private set; }
+        public Transform transform { get; private set; }
 
-			private AIStateMachine stateMachine = new AIStateMachine();
-			public AIStateMachine StateMachine { get => stateMachine; }
+        private AIStateMachine stateMachine = new AIStateMachine();
+        public AIStateMachine StateMachine { get => stateMachine; }
 
-			private float altitudeOffset;
-			public float AltitudeOffset { get => altitudeOffset; }
+        private float altitudeOffset;
+        public float AltitudeOffset { get => altitudeOffset; }
 
-			public StateFollowWaypoints stateFollowWaypoints { get; private set; }
-			public StateFollowFormation stateFollowFormation { get; private set; }
+        public StateFollowWaypoints stateFollowWaypoints { get; private set; }
+        public StateFollowFormation stateFollowFormation { get; private set; }
 
-			public bool IsAfterBurnerOn => true;
+        public bool IsAfterBurnerOn => true;
 
-            private float turnInput;
-			private float desiredSpeed;
+        private float turnInput;
+        private float desiredSpeed;
 
-			public AircraftAIController(IAircraft aircraft, Transform transform)
-			{
-				this.aircraft = aircraft;
-				this.transform = transform;
-				stateFollowWaypoints = new StateFollowWaypoints(stateMachine, this, new Vector3[0]); // Initialize with empty waypoints
-                stateFollowFormation = new StateFollowFormation(stateMachine, this);
-				stateMachine.Initialize(stateFollowWaypoints);
-			}
+        //The AI Controller can be deactivated if a player is controlling the aircraft now.
+        //The deactivated AI controller will just stop giving the input to the aircraft.
+        //All other functions would be working, so that AI stays aware of the situation the aircraft is in.
+        //And when the player stops controlling the aircraft, the AI controller can make good decisions.
+        public bool IsActive { get; private set; }
 
-			public void SetWaypoints(Vector3[] waypoints)
-			{
-				StateFollowWaypoints newWaypointState = new StateFollowWaypoints(stateMachine, this, waypoints);
-                if (stateMachine.currentState == stateFollowWaypoints) 
-				{
-					stateMachine.Initialize(newWaypointState);
-                }
-				stateFollowWaypoints = newWaypointState;
-			}
+        public AircraftAIController(IAircraft aircraft, Transform transform)
+        {
+            this.aircraft = aircraft;
+            this.transform = transform;
+            stateFollowWaypoints = new StateFollowWaypoints(stateMachine, this, new Vector3[0]); // Initialize with empty waypoints
+            stateFollowFormation = new StateFollowFormation(stateMachine, this);
+            stateMachine.Initialize(stateFollowWaypoints);
+        }
 
-            public void Tick()
+        public void SetWaypoints(Vector3[] waypoints)
+        {
+            StateFollowWaypoints newWaypointState = new StateFollowWaypoints(stateMachine, this, waypoints);
+            if (stateMachine.currentState == stateFollowWaypoints)
             {
-				Update(Time.deltaTime);
+                stateMachine.Initialize(newWaypointState);
             }
+            stateFollowWaypoints = newWaypointState;
+        }
 
-            public void Update(float simulationDeltaTime)
-			{
-                stateMachine.currentState.Update(simulationDeltaTime);
-                aircraft.DesiredSpeed = desiredSpeed;
-                aircraft.TurnInput = turnInput;
-                aircraft.AfterBurnerInput = IsAfterBurnerOn;
-                aircraft.AltitudeOffset = altitudeOffset;
-            }
+        public void Tick()
+        {
+            Update(Time.deltaTime);
+        }
 
-            public float GetDesiredSpeed()
-			{
-				return desiredSpeed;
-			}
-
-			public float GetTurn()
-			{
-				return turnInput;
-			}
-
-			public void SetThrottleNormal()
-			{
-				desiredSpeed = aircraft.MovementHandler.AerodynamicMovementData.normalAirSpeed;
-			}
-
-			public void TurnTowardsPosition(Vector3 targetPosition)
-			{
-				Debug.DrawLine(transform.position, targetPosition, Color.cyan);
-				//Get relative position
-				Vector3 relative = transform.InverseTransformPoint(targetPosition);
-                turnInput = Mathf.Atan2(relative.x, relative.z) / (Mathf.PI * 0.5f);
-			}
-
-			public void FollowFormation()
-			{
-				IFormationMember leader = aircraft.formationMember.Formation.leader;
-				IFormationMember myFormationMember = aircraft.formationMember;
-
-				Vector3 myPositionInTheFormation = myFormationMember.Formation.GetMemberPositionSpaced(myFormationMember.PositionIndex);
-				altitudeOffset = myPositionInTheFormation.y;
-				//Get global position
-				Vector3 targetPosition = leader.Transform.TransformPoint(myPositionInTheFormation); 
-                desiredSpeed = aircraft.GetSpeedToFollow(targetPosition, leader);
-
-                float predictionTime = CalculatePredictionTime(leader, myFormationMember, myPositionInTheFormation);
-                
-				Vector3 leaderPredictedPosition = PredictPosition(leader.Transform, leader.velocity.magnitude, leader.angularVelocity.y * Mathf.Rad2Deg, predictionTime);
-                
-                targetPosition += leaderPredictedPosition;
-				TurnTowardsPosition(targetPosition);
-			}
-
-            /// <summary>
-            /// This is a proof of concept(Jugaar) method to calculate prediction time, for smoother formation following.
-            /// </summary>
-            /// <param name="leader"></param>
-            /// <param name="myFormationMember"></param>
-            /// <param name="myPositionInTheFormation"></param>
-            /// <returns></returns>
-            private float CalculatePredictionTime(IFormationMember leader, IFormationMember myFormationMember, Vector3 myPositionInTheFormation)
+        public void Update(float simulationDeltaTime)
+        {
+            stateMachine.currentState.Update(simulationDeltaTime);
+            aircraft.AltitudeOffset = altitudeOffset;
+            if (IsActive == false)
             {
-                float predictionTime = 1;
-                float SidewaysDistanceToLeader = Mathf.Abs(myPositionInTheFormation.x) / myFormationMember.Formation.spacing;
-                if (SidewaysDistanceToLeader > 1)
-                {
-                    SidewaysDistanceToLeader *= 0.6f;
-                }
-
-                if (leader.angularVelocity.y > 0.1f && myPositionInTheFormation.x < 0)
-                {
-                    predictionTime = 0.5f / SidewaysDistanceToLeader; // If leader is turning right and I am on the left side, predict less
-                }
-                else if (leader.angularVelocity.y < -0.1f && myPositionInTheFormation.x > 0)
-                {
-                    predictionTime = 0.5f / SidewaysDistanceToLeader; // If leader is turning left and I am on the right side, predict less
-                }
-                else if (leader.angularVelocity.y > 0.1f && myPositionInTheFormation.x > 0)
-                {
-                    predictionTime = 1.5f * SidewaysDistanceToLeader; // If leader is turning right and I am on the right side, predict more
-                }
-                else if (leader.angularVelocity.y < -0.1f && myPositionInTheFormation.x < 0)
-                {
-                    predictionTime = 1.5f * SidewaysDistanceToLeader; // If leader is turning left and I am on the left side, predict more
-                }
-
-				return predictionTime;
+                return;
             }
 
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="transform"></param>
-            /// <param name="forwardSpeed"></param>
-            /// <param name="angularSpeedY"></param>
-            /// <param name="predictionTime">How far in the future to predict</param>
-            /// <returns></returns>
-            Vector3 PredictPosition(Transform transform, float forwardSpeed, float angularSpeedY, float predictionTime)
+            aircraft.DesiredSpeed = desiredSpeed;
+            aircraft.TurnInput = turnInput;
+            aircraft.AfterBurnerInput = IsAfterBurnerOn;
+        }
+
+        public float GetDesiredSpeed()
+        {
+            return desiredSpeed;
+        }
+
+        public float GetTurn()
+        {
+            return turnInput;
+        }
+
+        public void SetThrottleNormal()
+        {
+            desiredSpeed = aircraft.MovementHandler.AerodynamicMovementData.normalAirSpeed;
+        }
+
+        public void TurnTowardsPosition(Vector3 targetPosition)
+        {
+            Debug.DrawLine(transform.position, targetPosition, Color.cyan);
+            //Get relative position
+            Vector3 relative = transform.InverseTransformPoint(targetPosition);
+            turnInput = Mathf.Atan2(relative.x, relative.z) / (Mathf.PI * 0.5f);
+        }
+
+        public void FollowFormation()
+        {
+            IFormationMember leader = aircraft.formationMember.Formation.leader;
+            IFormationMember myFormationMember = aircraft.formationMember;
+
+            Vector3 myPositionInTheFormation = myFormationMember.Formation.GetMemberPositionSpaced(myFormationMember.PositionIndex);
+            altitudeOffset = myPositionInTheFormation.y;
+            //Get global position
+            Vector3 targetPosition = leader.Transform.TransformPoint(myPositionInTheFormation);
+            desiredSpeed = aircraft.GetSpeedToFollow(targetPosition, leader);
+
+            float predictionTime = CalculatePredictionTime(leader, myFormationMember, myPositionInTheFormation);
+
+            Vector3 leaderPredictedPosition = PredictPosition(leader.Transform, leader.velocity.magnitude, leader.angularVelocity.y * Mathf.Rad2Deg, predictionTime);
+
+            targetPosition += leaderPredictedPosition;
+            TurnTowardsPosition(targetPosition);
+        }
+
+        /// <summary>
+        /// This is a proof of concept(Jugaar) method to calculate prediction time, for smoother formation following.
+        /// </summary>
+        /// <param name="leader"></param>
+        /// <param name="myFormationMember"></param>
+        /// <param name="myPositionInTheFormation"></param>
+        /// <returns></returns>
+        private float CalculatePredictionTime(IFormationMember leader, IFormationMember myFormationMember, Vector3 myPositionInTheFormation)
+        {
+            float predictionTime = 1;
+            float SidewaysDistanceToLeader = Mathf.Abs(myPositionInTheFormation.x) / myFormationMember.Formation.spacing;
+            if (SidewaysDistanceToLeader > 1)
             {
-				Vector3 currentPosition = Vector3.zero;
-
-				forwardSpeed *= predictionTime;
-                angularSpeedY *= predictionTime;
-
-                Vector3 halfWayForward = transform.forward * forwardSpeed * 0.5f;
-
-				Debug.DrawRay(transform.position, halfWayForward, Color.blue);
-
-                Vector3 halfWayTurned = Quaternion.AngleAxis(angularSpeedY, Vector3.up) * halfWayForward;
-
-				Debug.DrawRay(transform.position + halfWayForward, halfWayTurned, Color.red);
-
-                Vector3 predictedPosition = currentPosition + halfWayForward + halfWayTurned;
-
-                return predictedPosition;
+                SidewaysDistanceToLeader *= 0.6f;
             }
 
+            if (leader.angularVelocity.y > 0.1f && myPositionInTheFormation.x < 0)
+            {
+                predictionTime = 0.5f / SidewaysDistanceToLeader; // If leader is turning right and I am on the left side, predict less
+            }
+            else if (leader.angularVelocity.y < -0.1f && myPositionInTheFormation.x > 0)
+            {
+                predictionTime = 0.5f / SidewaysDistanceToLeader; // If leader is turning left and I am on the right side, predict less
+            }
+            else if (leader.angularVelocity.y > 0.1f && myPositionInTheFormation.x > 0)
+            {
+                predictionTime = 1.5f * SidewaysDistanceToLeader; // If leader is turning right and I am on the right side, predict more
+            }
+            else if (leader.angularVelocity.y < -0.1f && myPositionInTheFormation.x < 0)
+            {
+                predictionTime = 1.5f * SidewaysDistanceToLeader; // If leader is turning left and I am on the left side, predict more
+            }
 
-            /// <summary>
-            /// Not using this method for now. Because, it is only creating more chaos
-            /// </summary>
-            /// <param name="myFormationMember"></param>
-            /// <returns></returns>
-            private Vector3 CalculateSeparationForce(IFormationMember myFormationMember)
-			{
-				float separationDistance = myFormationMember.Formation.spacing; // Desired separation distance
-				float separationStrength = 1.0f; // Strength of the separation force
+            return predictionTime;
+        }
 
-				Vector3 separationForce = Vector3.zero;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="forwardSpeed"></param>
+        /// <param name="angularSpeedY"></param>
+        /// <param name="predictionTime">How far in the future to predict</param>
+        /// <returns></returns>
+        Vector3 PredictPosition(Transform transform, float forwardSpeed, float angularSpeedY, float predictionTime)
+        {
+            Vector3 currentPosition = Vector3.zero;
 
-				foreach (IFormationMember member in myFormationMember.Formation.Members)
-				{
-					if (member != myFormationMember)
-					{
-						Vector3 toMember = myFormationMember.Transform.position - member.Transform.position;
-						float distance = toMember.magnitude;
+            forwardSpeed *= predictionTime;
+            angularSpeedY *= predictionTime;
 
-						if (distance < separationDistance)
-						{
-							// Calculate the repulsive force inversely proportional to the distance
-							Vector3 repulsiveForce = toMember.normalized / distance;
-							separationForce += repulsiveForce;
-						}
-					}
-				}
+            Vector3 halfWayForward = transform.forward * forwardSpeed * 0.5f;
 
-				// Scale the separation force by the desired strength
-				separationForce *= separationStrength;
+            Debug.DrawRay(transform.position, halfWayForward, Color.blue);
 
-				return separationForce;
-			}
+            Vector3 halfWayTurned = Quaternion.AngleAxis(angularSpeedY, Vector3.up) * halfWayForward;
 
-		}
-	}
+            Debug.DrawRay(transform.position + halfWayForward, halfWayTurned, Color.red);
+
+            Vector3 predictedPosition = currentPosition + halfWayForward + halfWayTurned;
+
+            return predictedPosition;
+        }
+
+
+        /// <summary>
+        /// Not using this method for now. Because, it is only creating more chaos
+        /// </summary>
+        /// <param name="myFormationMember"></param>
+        /// <returns></returns>
+        private Vector3 CalculateSeparationForce(IFormationMember myFormationMember)
+        {
+            float separationDistance = myFormationMember.Formation.spacing; // Desired separation distance
+            float separationStrength = 1.0f; // Strength of the separation force
+
+            Vector3 separationForce = Vector3.zero;
+
+            foreach (IFormationMember member in myFormationMember.Formation.Members)
+            {
+                if (member != myFormationMember)
+                {
+                    Vector3 toMember = myFormationMember.Transform.position - member.Transform.position;
+                    float distance = toMember.magnitude;
+
+                    if (distance < separationDistance)
+                    {
+                        // Calculate the repulsive force inversely proportional to the distance
+                        Vector3 repulsiveForce = toMember.normalized / distance;
+                        separationForce += repulsiveForce;
+                    }
+                }
+            }
+
+            // Scale the separation force by the desired strength
+            separationForce *= separationStrength;
+
+            return separationForce;
+        }
+
+    }
+
 }

@@ -27,9 +27,6 @@ namespace AircraftController
         private IFormationMember formationMember;
         public IFormationMember FormationMember { get => formationMember; }
 
-        private IAircraftController aircraftController;
-        public IAircraftController AircraftController { get => aircraftController; }
-
         public Transform Transform => formationMember.Transform;
 
         private Pool pool;
@@ -43,13 +40,12 @@ namespace AircraftController
         }
 
         [Inject]
-        public void Init(IAircraft aircraft, IFormationMember formationMember, IAircraftController controller, Team team, Health health, Pool pool)
+        public void Init(IAircraft aircraft, IFormationMember formationMember, Team team, Health health, Pool pool)
         {
             this.team = team;
          
             this.aircraft = aircraft;
             this.formationMember = formationMember;
-            this.aircraftController = controller;
             this.pool = pool;
             this.health = health;
             health.onHealthDepleted += OnDie;

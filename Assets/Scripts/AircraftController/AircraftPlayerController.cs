@@ -9,6 +9,17 @@ namespace AircraftController
     public class AircraftPlayerController : IAircraftController, ITickable
     {
         private IAircraft aircraft;
+        public IAircraft Aircraft 
+        { 
+            get 
+            { 
+                return aircraft; 
+            } 
+            set 
+            { 
+                aircraft = value; 
+            } 
+        }
 
         private bool isAfterBurnerOn;
 
@@ -20,9 +31,8 @@ namespace AircraftController
 
         private ThumbDriftInput inputController;
 
-        public AircraftPlayerController(IAircraft aircraft, ThumbDriftInput inputController)
+        public AircraftPlayerController(ThumbDriftInput inputController)
         {
-            this.aircraft = aircraft;
             this.inputController = inputController;
         }
 
@@ -43,6 +53,11 @@ namespace AircraftController
 
         public void Update(float simulationDeltaTime)
         {
+            if(aircraft == null)
+            {
+                return;
+            }
+
             turnInput = inputController.Direction;
             isAfterBurnerOn = inputController.isHeldDown;
             aircraft.TurnInput = turnInput;
