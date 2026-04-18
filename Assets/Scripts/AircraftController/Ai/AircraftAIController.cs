@@ -32,7 +32,7 @@ namespace AircraftController.AircraftAI
         //The deactivated AI controller will just stop giving the input to the aircraft.
         //All other functions would be working, so that AI stays aware of the situation the aircraft is in.
         //And when the player stops controlling the aircraft, the AI controller can make good decisions.
-        public bool IsActive { get; private set; }
+        public bool IsActive { get; set; }
 
         public AircraftAIController(IAircraft aircraft, Transform transform)
         {

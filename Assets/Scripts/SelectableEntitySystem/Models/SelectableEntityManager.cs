@@ -10,6 +10,8 @@ namespace SelectableEntitySystem
         public event Action<SelectableEntity> OnSelectableEntityAdded;
         public event Action<SelectableEntity> OnSelectableEntityRemoved;
 
+        public event Action<SelectableEntity> OnEntitySelected;
+
         private List<SelectableEntity> selectableEntities = new List<SelectableEntity>();
 
         private SelectableEntity selectedEntity;
@@ -37,8 +39,10 @@ namespace SelectableEntitySystem
             {
                 entity.Select();
                 selectedEntity = entity;
+                OnEntitySelected?.Invoke(entity);
             }
         }
+
     }
 
 }

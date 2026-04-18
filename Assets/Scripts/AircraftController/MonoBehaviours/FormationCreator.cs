@@ -43,7 +43,8 @@ namespace AircraftController
                 yield return null;
                 currentFormation.AddMember(newAircraft.FormationMember);
                 newAircraft.FormationMember.Formation = currentFormation;
-                ((AircraftAIController)newAircraft.AircraftController).SetWaypoints(GetWaypointPositions());
+                //Previously the waypoints were set here. Now, fix this somewhere.
+//                ((AircraftAIController)newAircraft.AircraftController).SetWaypoints(GetWaypointPositions());
             }
             yield return null;
         }
