@@ -8,10 +8,6 @@ namespace Game
 {
     public class UIControls : MonoBehaviour
     {
-        [Header("Non UI Objects")]
-        [SerializeField]
-        private Transform playerTransform;
-
         [SerializeField]
         private GuidedProjectileLauncherMonobehaviour guidedProjectileLauncher;
 
@@ -29,12 +25,6 @@ namespace Game
         [SerializeField]
         private FireHoldableButton fireHoldableButton;
 
-        private void Awake()
-        {
-            thumbDriftInput.Target = playerTransform;
-            speedView.SpeedTarget = playerTransform.GetComponent<ISpeedProvider>();
-        }
-
         private void OnEnable()
         {
             thumbDriftInput.OnHoldStart += OnThumbDriftHoldStart;
@@ -47,6 +37,13 @@ namespace Game
             thumbDriftInput.OnHoldStart -= OnThumbDriftHoldStart;
             fireHoldableButton.onHold.RemoveListener(OnHold_FireGunButton);
             thumbDriftInput.OnHoldEnd -= OnThumbDriftHoldEnd;
+        }
+
+        public void SetPlayer(Transform playerTransform, MeshRenderer playerMeshRenderer)
+        {
+            thumbDriftInput.Target = playerTransform;
+            speedView.SpeedTarget = playerTransform.GetComponent<ISpeedProvider>();
+            aircraftControlsMenu.SetMeshRenderer(playerMeshRenderer);
         }
 
         private void OnThumbDriftHoldStart()

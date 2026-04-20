@@ -42,6 +42,9 @@ namespace ScreenInputControls
 
         void IPointerMoveHandler.OnPointerMove(PointerEventData eventData)
         {
+            if (target == null)
+                return;
+
             if (!isHeldDown)
                 return;
 
@@ -52,6 +55,9 @@ namespace ScreenInputControls
         {
             Vector2 targetScreenPosition = Camera.main.WorldToScreenPoint(target.position);
             Direction = ThumbDriftLogic.CalculateDirection(targetScreenPosition, thumbPosition, maxAngle);
+            Debug.Log($"Calculated direction {Direction}");
         }
+
     }
+
 }

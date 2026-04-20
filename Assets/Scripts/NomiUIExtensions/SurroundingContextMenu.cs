@@ -10,15 +10,14 @@ namespace NomiUIExtensions
         private RectTransform rectTransform;
 
         [SerializeField]
-        private MeshRenderer meshRenderer;
-
-        [SerializeField]
         private Transform maxIndicator;
 
         [SerializeField]
         private CanvasGroup canvasGroup;
 
         private Camera cam;
+
+        private MeshRenderer meshRenderer; //The mesh that will be surrounded be the menu elements.
 
         private void Awake()
         {
@@ -27,7 +26,17 @@ namespace NomiUIExtensions
 
         private void LateUpdate()
         {
+            if(meshRenderer == null)
+            {
+                return;
+            }
+
             Init(meshRenderer.bounds);
+        }
+
+        public void SetMeshRenderer(MeshRenderer meshRenderer)
+        {
+            this.meshRenderer = meshRenderer;
         }
 
         public void ShowUp()

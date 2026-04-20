@@ -25,15 +25,15 @@ namespace Game
         private AircraftPlayerController aircraftPlayerController;
 
         private TopDownCamera cameraController;
-        private ThumbDriftInput thumbDriftInput;
+        private UIControls uiControls;
 
-        public ControllableAircraftManager(SelectableEntityManager selectableEntityManager, ThumbDriftInput thumbDrift, TopDownCamera cameraController)
+        public ControllableAircraftManager(SelectableEntityManager selectableEntityManager, ThumbDriftInput thumbDrift, UIControls uiControls, TopDownCamera cameraController)
         {
             this.selectableEntityManager = selectableEntityManager;
             this.aircraftPlayerController = new AircraftPlayerController(thumbDrift);
 
+            this.uiControls = uiControls;
             this.cameraController = cameraController;
-            this.thumbDriftInput = thumbDrift;
             this.selectableEntityManager.OnEntitySelected += SelectableEntityManager_OnEntitySelected;
         }
 
@@ -75,7 +75,7 @@ namespace Game
                     controllableAircrafts[i].controller.IsActive = false;
                     aircraftPlayerController.Aircraft = controllableAircrafts[i].aircraft;
                     cameraController.Target = controllableAircrafts[i].aircraft.Transform;
-                    thumbDriftInput.Target = cameraController.Target;
+                    uiControls.SetPlayer(cameraController.Target, cameraController.GetComponentInChildren<MeshRenderer>());
                     isControlGivenToThePlayer = true;
                 }
 

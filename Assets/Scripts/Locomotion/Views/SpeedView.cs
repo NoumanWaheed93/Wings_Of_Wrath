@@ -21,6 +21,11 @@ namespace Locomotion
 
         private void Update()
         {
+            if (speedTarget == null)
+            {
+                return;
+            }
+
             currSpeed = speedTarget.CurrSpeed;
             needle.transform.localRotation = Quaternion.Euler(0, 0, -180 * (currSpeed / maxSpeed));
         }

@@ -1013,6 +1013,7 @@ GameObject:
   - component: {fileID: 773255944}
   - component: {fileID: 773255943}
   - component: {fileID: 773255942}
+  - component: {fileID: 773255947}
   m_Layer: 5
   m_Name: Canvas_Overlay_UI_Sort(10)
   m_TagString: Untagged
@@ -1117,13 +1118,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0701d0300cd57b47a780a98c2fb7b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 1604655155}
   guidedProjectileLauncher: {fileID: 1385920822}
   gun: {fileID: 1604655156}
   thumbDriftInput: {fileID: 721948521}
   speedView: {fileID: 1601023284}
   aircraftControlsMenu: {fileID: 2079537719}
   fireHoldableButton: {fileID: 1247042568}
+--- !u!114 &773255947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773255941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 773255946}
+  _identifier: 
+  _useSceneContext: 1
+  _context: {fileID: 0}
+  _bindType: 0
 --- !u!1 &780337940
 GameObject:
   m_ObjectHideFlags: 0
