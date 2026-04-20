@@ -20,6 +20,9 @@ namespace SelectableEntitySystem
         private void OnEnable()
         {
             button.onClick.AddListener(OnClick);
+
+            selectableEntity.OnSelect += SelectableEntity_OnSelect;
+            selectableEntity.OnDeselect += SelectableEntity_OnDeselect;
         }
 
         private void OnDisable()
@@ -36,13 +39,10 @@ namespace SelectableEntitySystem
         {
             this.selectableEntity = selectableEntity;
             buttonText.text = selectableEntity.Name;
-            selectableEntity.OnSelect += SelectableEntity_OnSelect;
-            selectableEntity.OnDeselect += SelectableEntity_OnDeselect;
         }
 
         public void OnClick()
         {
-            selectableEntity.Select();
             OnSelected?.Invoke(selectableEntity);
         }
 

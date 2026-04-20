@@ -34,9 +34,20 @@ namespace SelectableEntitySystem
         {
             UI_SelectableEntitySelectButton button = Instantiate(entitySelectionButtonPrefab, entitySelectionButtonsParent);
             button.Init(obj);
+            button.OnSelected += Button_OnSelected;
             entityToButtonDictionary.Add(obj, button);
         }
-        
+
+        private void Button_OnSelected(SelectableEntity obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SelectButton_OnSelect(SelectableEntity obj)
+        {
+            selectableEntityManager.SelectEntity(obj);
+        }
+
         private void SelectableEntityManager_OnSelectableEntityRemoved(SelectableEntity obj)
         {
             if (entityToButtonDictionary.TryGetValue(obj, out UI_SelectableEntitySelectButton button))
