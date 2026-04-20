@@ -5,6 +5,7 @@ using System;
 using UnityEngine;
 using Zenject;
 using WeaponSystem;
+using SelectableEntitySystem;
 
 namespace ZenjectInstallers {
     public class TestInstaller : MonoInstaller
@@ -20,6 +21,12 @@ namespace ZenjectInstallers {
             InstallTimeProvider();
             InstallFormationManager();
             InstallProjectileFactory();
+            InstallSelectableEntityManager();
+        }
+
+        private void InstallSelectableEntityManager()
+        {
+            Container.Bind<SelectableEntityManager>().AsSingle();
         }
 
         private void InstallTimeProvider()

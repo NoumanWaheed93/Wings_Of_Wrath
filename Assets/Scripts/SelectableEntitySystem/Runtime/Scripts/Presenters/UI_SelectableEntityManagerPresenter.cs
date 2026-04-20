@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
+using Zenject;
 
 namespace SelectableEntitySystem
 {
@@ -23,6 +24,7 @@ namespace SelectableEntitySystem
             selectableEntityManager.OnSelectableEntityRemoved += SelectableEntityManager_OnSelectableEntityRemoved;
         }
 
+        [Inject]
         public void Init(SelectableEntityManager selectableEntityManager)
         {
             this.selectableEntityManager = selectableEntityManager;
