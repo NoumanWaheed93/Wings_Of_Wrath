@@ -4,8 +4,9 @@ using UnityEngine;
 using FormationSystem;
 using Zenject;
 using AircraftController.AircraftAI;
+using AircraftController;
 
-namespace AircraftController
+namespace Game
 {
     public class FormationCreator : MonoBehaviour
     {
@@ -22,12 +23,14 @@ namespace AircraftController
 
         private Formation currentFormation;
         private AircraftMonoBehaviour.Pool aircraftPool;
+        private ControllableAircraftManager controllableAircraftManager;
 
         [Inject]
-        private void Init(AircraftMonoBehaviour.Pool aircraftFactory, Formation formation)
+        private void Init(AircraftMonoBehaviour.Pool aircraftFactory, Formation formation, ControllableAircraftManager controllableAircraftManager)
         {
             this.aircraftPool = aircraftFactory;
             this.currentFormation = formation;
+            this.controllableAircraftManager = controllableAircraftManager;
         }
 
         private IEnumerator Start()
@@ -43,8 +46,9 @@ namespace AircraftController
                 yield return null;
                 currentFormation.AddMember(newAircraft.FormationMember);
                 newAircraft.FormationMember.Formation = currentFormation;
+                controllableAircraftManager.AddControllableAircraft(newAircraft.Aircraft);
                 //Previously the waypoints were set here. Now, fix this somewhere.
-//                ((AircraftAIController)newAircraft.AircraftController).SetWaypoints(GetWaypointPositions());
+                //                ((AircraftAIController)newAircraft.AircraftController).SetWaypoints(GetWaypointPositions());
             }
             yield return null;
         }
