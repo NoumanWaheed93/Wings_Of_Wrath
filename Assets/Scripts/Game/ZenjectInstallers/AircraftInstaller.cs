@@ -21,8 +21,6 @@ namespace ZenjectInstallers
         [SerializeField]
         private Transform aircraftTransform;
 
-        private ControllableAircraftManager controllableAircraftmanager;
-
         public override void InstallBindings()
         {
             Container.Bind<Team>().FromInstance(Team.Blue).AsSingle();

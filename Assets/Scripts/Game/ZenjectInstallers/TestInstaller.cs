@@ -6,6 +6,7 @@ using UnityEngine;
 using Zenject;
 using WeaponSystem;
 using SelectableEntitySystem;
+using Game;
 
 namespace ZenjectInstallers {
     public class TestInstaller : MonoInstaller
@@ -22,6 +23,12 @@ namespace ZenjectInstallers {
             InstallFormationManager();
             InstallProjectileFactory();
             InstallSelectableEntityManager();
+            InstallControllableAircraftManager();
+        }
+
+        private void InstallControllableAircraftManager()
+        {
+            Container.Bind<ControllableAircraftManager>().AsSingle();
         }
 
         private void InstallSelectableEntityManager()

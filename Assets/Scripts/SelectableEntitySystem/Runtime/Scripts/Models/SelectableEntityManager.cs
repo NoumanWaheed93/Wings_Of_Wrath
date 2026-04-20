@@ -18,18 +18,24 @@ namespace SelectableEntitySystem
 
         public void AddSelectableEntity(SelectableEntity entity)
         {
+            Debug.Log($"AddSelectableEntity({entity.Name})");
+
             selectableEntities.Add(entity);
             OnSelectableEntityAdded?.Invoke(entity);
         }
 
         public void RemoveSelectableEntity(SelectableEntity entity)
         {
+            Debug.Log($"RemoveSelectableEntity({entity.Name})");
+
             selectableEntities.Remove(entity);
             OnSelectableEntityRemoved?.Invoke(entity);
         }
 
         public void SelectEntity(SelectableEntity entity)
         {
+            Debug.Log($"SelectEntity({entity.Name})");
+
             if (selectedEntity != null)
             {
                 selectedEntity.Deselect();
@@ -37,6 +43,8 @@ namespace SelectableEntitySystem
 
             if (selectableEntities.Contains(entity))
             {
+                Debug.Log("Succesfully selected entity");
+
                 entity.Select();
                 selectedEntity = entity;
                 OnEntitySelected?.Invoke(entity);
