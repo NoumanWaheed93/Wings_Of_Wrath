@@ -23,7 +23,13 @@ namespace ZenjectInstallers {
             InstallFormationManager();
             InstallProjectileFactory();
             InstallSelectableEntityManager();
+            InstallPlayerAircraftController();
             InstallControllableAircraftManager();
+        }
+
+        private void InstallPlayerAircraftController()
+        {
+            Container.Bind<AircraftPlayerController>().AsSingle();
         }
 
         private void InstallControllableAircraftManager()

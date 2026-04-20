@@ -53,10 +53,14 @@ namespace AircraftController
 
         public void Update(float simulationDeltaTime)
         {
+            Debug.Log("AircraftPlayerController.Update()");
+
             if(aircraft == null)
             {
                 return;
             }
+
+            Debug.Log("Player Controller giving input to the aircraft");
 
             turnInput = inputController.Direction;
             isAfterBurnerOn = inputController.isHeldDown;

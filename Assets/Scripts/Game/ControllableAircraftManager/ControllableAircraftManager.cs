@@ -27,12 +27,11 @@ namespace Game
         private TopDownCamera cameraController;
         private UIControls uiControls;
 
-        public ControllableAircraftManager(SelectableEntityManager selectableEntityManager, ThumbDriftInput thumbDrift, UIControls uiControls, TopDownCamera cameraController)
+        public ControllableAircraftManager(SelectableEntityManager selectableEntityManager, AircraftPlayerController playerController, UIControls uiControls, TopDownCamera cameraController)
         {
             this.selectableEntityManager = selectableEntityManager;
-            this.aircraftPlayerController = new AircraftPlayerController(thumbDrift);
-
             this.uiControls = uiControls;
+            this.aircraftPlayerController = playerController;
             this.cameraController = cameraController;
             this.selectableEntityManager.OnEntitySelected += SelectableEntityManager_OnEntitySelected;
         }
