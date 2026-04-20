@@ -21,24 +21,26 @@ namespace SelectableEntitySystem
         {
             button.onClick.AddListener(OnClick);
 
-            selectableEntity.OnSelect += SelectableEntity_OnSelect;
-            selectableEntity.OnDeselect += SelectableEntity_OnDeselect;
         }
 
         private void OnDisable()
         {
             button.onClick.RemoveListener(OnClick);
-            if (selectableEntity != null)
-            {
-                selectableEntity.OnSelect -= SelectableEntity_OnSelect;
-                selectableEntity.OnDeselect -= SelectableEntity_OnDeselect;
-            }
+            //Do some research to properly handle listen and unlisten.
+            //if (selectableEntity != null)
+            //{
+            //    selectableEntity.OnSelect -= SelectableEntity_OnSelect;
+            //    selectableEntity.OnDeselect -= SelectableEntity_OnDeselect;
+            //}
         }
 
         public void Init(SelectableEntity selectableEntity)
         {
             this.selectableEntity = selectableEntity;
             buttonText.text = selectableEntity.Name;
+
+            selectableEntity.OnSelect += SelectableEntity_OnSelect;
+            selectableEntity.OnDeselect += SelectableEntity_OnDeselect;
         }
 
         public void OnClick()

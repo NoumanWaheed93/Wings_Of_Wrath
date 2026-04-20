@@ -40,11 +40,6 @@ namespace SelectableEntitySystem
 
         private void Button_OnSelected(SelectableEntity obj)
         {
-            throw new NotImplementedException();
-        }
-
-        private void SelectButton_OnSelect(SelectableEntity obj)
-        {
             selectableEntityManager.SelectEntity(obj);
         }
 
