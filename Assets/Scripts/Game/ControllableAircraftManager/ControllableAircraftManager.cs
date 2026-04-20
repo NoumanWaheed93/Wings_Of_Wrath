@@ -5,6 +5,7 @@ using SelectableEntitySystem;
 using AircraftController;
 using AircraftController.AircraftAI;
 using ScreenInputControls;
+using CameraController;
 
 namespace Game
 {
@@ -23,11 +24,14 @@ namespace Game
 
         private AircraftPlayerController aircraftPlayerController;
 
-        public ControllableAircraftManager(SelectableEntityManager selectableEntityManager, ThumbDriftInput thumbDrift)
+        private TopDownCamera cameraController;
+
+        public ControllableAircraftManager(SelectableEntityManager selectableEntityManager, ThumbDriftInput thumbDrift, TopDownCamera cameraController)
         {
             this.selectableEntityManager = selectableEntityManager;
             this.aircraftPlayerController = new AircraftPlayerController(thumbDrift);
 
+            this.cameraController = cameraController;
             this.selectableEntityManager.OnEntitySelected += SelectableEntityManager_OnEntitySelected;
         }
 
@@ -65,6 +69,7 @@ namespace Game
                 {
                     controllableAircrafts[i].controller.IsActive = false;
                     aircraftPlayerController.Aircraft = controllableAircrafts[i].aircraft;
+                    cameraController.Target = controllableAircrafts[i].aircraft.Transform;
                     isControlGivenToThePlayer = true;
                 }
 

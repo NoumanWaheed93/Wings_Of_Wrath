@@ -8,6 +8,11 @@ namespace CameraController
         private Vector3 offset;
         [SerializeField]
         private Transform target;
+        public Transform Target
+        {
+            get => target;
+            set => target = value;
+        }
 
         private void LateUpdate()
         {
