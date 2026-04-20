@@ -43,7 +43,7 @@ namespace ScreenInputControls
 
         protected virtual void Update()
         {
-            Debug.LogFormat(GameObjectName + LOG_FORMAT, $"Update(): isHeldDown = {isHeldDown}");
+         //   Debug.LogFormat(GameObjectName + LOG_FORMAT, $"Update(): isHeldDown = {isHeldDown}");
             if (isHeldDown)
             {
                 onHold?.Invoke();

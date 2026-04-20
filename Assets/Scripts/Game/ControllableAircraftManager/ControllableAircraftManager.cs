@@ -46,6 +46,7 @@ namespace Game
                 controller = aiController,
                 selectableEntity = selectableEntity
             };
+            controllableAircrafts.Add(controllableAircraft);
         }
 
         private void SelectableEntityManager_OnEntitySelected(SelectableEntity entity) 
@@ -55,6 +56,8 @@ namespace Game
 
         private void GiveAircraftControlToPlayer(SelectableEntity aircraftEntity)
         {
+            Debug.Log("GiveAircraftControlToPlayer(SelectableEntity)");
+
             bool isControlGivenToThePlayer = false;
             bool isControlGivenToTheAI = false;
             for (int i = 0; i < controllableAircrafts.Count; i++)

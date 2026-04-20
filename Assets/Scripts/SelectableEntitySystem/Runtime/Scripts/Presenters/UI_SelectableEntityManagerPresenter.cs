@@ -40,6 +40,7 @@ namespace SelectableEntitySystem
 
         private void Button_OnSelected(SelectableEntity obj)
         {
+            Debug.Log("Button_OnSelected(SelectableEntity)");
             selectableEntityManager.SelectEntity(obj);
         }
 
