@@ -29,7 +29,7 @@ namespace ZenjectInstallers {
 
         private void InstallPlayerAircraftController()
         {
-            Container.Bind<AircraftPlayerController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<AircraftPlayerController>().AsSingle();
         }
 
         private void InstallControllableAircraftManager()
