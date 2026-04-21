@@ -6,6 +6,7 @@ using Zenject;
 using FormationSystem;
 using HealthSystem;
 using TargetingSystem;
+using AircraftController.AircraftAI;
 
 namespace AircraftController
 {
@@ -27,6 +28,9 @@ namespace AircraftController
         private IFormationMember formationMember;
         public IFormationMember FormationMember { get => formationMember; }
 
+        private AircraftAIController aiController;
+        public AircraftAIController AIController { get => aiController; }
+
         public Transform Transform => formationMember.Transform;
 
         private Pool pool;
@@ -40,11 +44,12 @@ namespace AircraftController
         }
 
         [Inject]
-        public void Init(IAircraft aircraft, IFormationMember formationMember, Team team, Health health, Pool pool)
+        public void Init(IAircraft aircraft, AircraftAIController aiController, IFormationMember formationMember, Team team, Health health, Pool pool)
         {
             this.team = team;
          
             this.aircraft = aircraft;
+            this.aiController = aiController;
             this.formationMember = formationMember;
             this.pool = pool;
             this.health = health;

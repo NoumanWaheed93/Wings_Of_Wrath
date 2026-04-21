@@ -41,6 +41,7 @@ namespace AircraftController.AircraftAI
             stateFollowWaypoints = new StateFollowWaypoints(stateMachine, this, new Vector3[0]); // Initialize with empty waypoints
             stateFollowFormation = new StateFollowFormation(stateMachine, this);
             stateMachine.Initialize(stateFollowWaypoints);
+            IsActive = true;
         }
 
         public void SetWaypoints(Vector3[] waypoints)
@@ -60,6 +61,8 @@ namespace AircraftController.AircraftAI
 
         public void Update(float simulationDeltaTime)
         {
+            Debug.Log("AI Controller Update");
+
             stateMachine.currentState.Update(simulationDeltaTime);
             aircraft.AltitudeOffset = altitudeOffset;
             if (IsActive == false)
@@ -67,6 +70,7 @@ namespace AircraftController.AircraftAI
                 return;
             }
 
+            Debug.Log("AI Controller giving input to the aircraft");
             aircraft.DesiredSpeed = desiredSpeed;
             aircraft.TurnInput = turnInput;
             aircraft.AfterBurnerInput = IsAfterBurnerOn;

@@ -36,14 +36,13 @@ namespace Game
             this.selectableEntityManager.OnEntitySelected += SelectableEntityManager_OnEntitySelected;
         }
 
-        public void AddControllableAircraft(IAircraft aircraft)
+        public void AddControllableAircraft(AircraftAIController aiController)
         {
-            AircraftAIController aiController = new AircraftAIController(aircraft, aircraft.Transform);
             SelectableEntity selectableEntity = new SelectableEntity("aircraft");
             selectableEntityManager.AddSelectableEntity(selectableEntity);
             ControllableAircraft controllableAircraft = new ControllableAircraft
             {
-                aircraft = aircraft,
+                aircraft = aiController.aircraft,
                 controller = aiController,
                 selectableEntity = selectableEntity
             };

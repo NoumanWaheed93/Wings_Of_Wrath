@@ -28,6 +28,12 @@ namespace ZenjectInstallers
             InstallHealth();
             InstallRadar();
             InstallAircraft();
+            InstallAircraftAI();
+        }
+
+        private void InstallAircraftAI()
+        {
+            Container.BindInterfacesAndSelfTo<AircraftAIController>().AsSingle().WithArguments(aircraftTransform).NonLazy();
         }
 
         private void InstallAircraft()
