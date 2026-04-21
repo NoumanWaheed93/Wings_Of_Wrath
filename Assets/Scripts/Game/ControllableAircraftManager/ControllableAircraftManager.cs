@@ -58,28 +58,25 @@ namespace Game
         {
             Debug.Log("GiveAircraftControlToPlayer(SelectableEntity)");
 
-            bool isControlGivenToThePlayer = false;
-            bool isControlGivenToTheAI = false;
             for (int i = 0; i < controllableAircrafts.Count; i++)
             {
                 if (controllableAircrafts[i].aircraft == aircraftPlayerController.Aircraft)
                 {
                     aircraftPlayerController.Aircraft = null;
                     controllableAircrafts[i].controller.IsActive = true;
-                    isControlGivenToTheAI = true;
+                    break;
                 }
-                else if (controllableAircrafts[i].selectableEntity == aircraftEntity)
+            }
+
+            for (int i = 0; i < controllableAircrafts.Count; i++)
+            {
+                if (controllableAircrafts[i].selectableEntity == aircraftEntity)
                 {
                     controllableAircrafts[i].controller.IsActive = false;
                     aircraftPlayerController.Aircraft = controllableAircrafts[i].aircraft;
                     cameraController.Target = controllableAircrafts[i].aircraft.Transform;
                     uiControls.SetPlayer(cameraController.Target, cameraController.GetComponentInChildren<MeshRenderer>());
-                    isControlGivenToThePlayer = true;
-                }
-
-                if(isControlGivenToTheAI && isControlGivenToThePlayer)
-                {
-                    return;
+                    break;
                 }
             }
         }

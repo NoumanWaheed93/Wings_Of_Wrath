@@ -16,6 +16,8 @@ namespace SelectableEntitySystem
 
         private SelectableEntity selectedEntity;
 
+        public IReadOnlyList<SelectableEntity> SelectableEntities => selectableEntities.AsReadOnly();
+
         public void AddSelectableEntity(SelectableEntity entity)
         {
             Debug.Log($"AddSelectableEntity({entity.Name})");
