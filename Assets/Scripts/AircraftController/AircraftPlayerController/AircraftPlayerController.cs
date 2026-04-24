@@ -28,6 +28,7 @@ namespace AircraftController
         public bool IsAfterBurnerOn { get => isAfterBurnerOn; }
         
         public float AltitudeOffset { get => 0; }
+        public bool IsActive { get => throw new System.NotSupportedException(); set => throw new System.NotSupportedException(); }
 
         private IAircraftPlayerInputManager inputController;
 

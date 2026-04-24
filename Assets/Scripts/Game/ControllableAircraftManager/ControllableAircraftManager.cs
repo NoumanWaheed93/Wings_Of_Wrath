@@ -13,7 +13,7 @@ namespace Game
         private struct ControllableAircraft
         {
             public IAircraft aircraft;
-            public AircraftAIController controller;
+            public IAircraftController controller;
             public SelectableEntity selectableEntity;
         }
 
@@ -33,13 +33,13 @@ namespace Game
             this.selectableEntityManager.OnEntitySelected += SelectableEntityManager_OnEntitySelected;
         }
 
-        public void AddControllableAircraft(AircraftAIController aiController)
+        public void AddControllableAircraft(IAircraft aircraft, IAircraftController aiController)
         {
             SelectableEntity selectableEntity = new SelectableEntity("aircraft");
             selectableEntityManager.AddSelectableEntity(selectableEntity);
             ControllableAircraft controllableAircraft = new ControllableAircraft
             {
-                aircraft = aiController.aircraft,
+                aircraft = aircraft,
                 controller = aiController,
                 selectableEntity = selectableEntity
             };

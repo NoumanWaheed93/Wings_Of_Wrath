@@ -46,7 +46,7 @@ namespace Game
                 yield return null;
                 currentFormation.AddMember(newAircraft.FormationMember);
                 newAircraft.FormationMember.Formation = currentFormation;
-                controllableAircraftManager.AddControllableAircraft(newAircraft.AIController);
+                controllableAircraftManager.AddControllableAircraft(newAircraft.Aircraft, newAircraft.AIController);
                 newAircraft.AIController.SetWaypoints(GetWaypointPositions());
             }
             yield return null;

@@ -43,11 +43,10 @@ public class ControllableAircraftManagerTests
     {
         // Arrange
         var mockAircraft = Substitute.For<IAircraft>();
-        var mockTransform = new GameObject().transform;
-        var aiController = new AircraftAIController(mockAircraft, mockTransform);
+        var mockAIController = Substitute.For<IAircraftController>();
 
         // Act
-        manager.AddControllableAircraft(aiController);
+        manager.AddControllableAircraft(mockAircraft, mockAIController);
 
         // Assert
         Assert.AreEqual(1, selectableEntityManager.SelectableEntities.Count);
@@ -58,11 +57,10 @@ public class ControllableAircraftManagerTests
     {
         // Arrange
         var mockAircraft = Substitute.For<IAircraft>();
-        var mockTransform = new GameObject().transform;
-        var aiController = new AircraftAIController(mockAircraft, mockTransform);
+        var aiController = Substitute.For<IAircraftController>();
 
         // Act
-        manager.AddControllableAircraft(aiController);
+        manager.AddControllableAircraft(mockAircraft, aiController);
 
         // Assert
         Assert.AreEqual(1, selectableEntityManager.SelectableEntities.Count);
@@ -76,18 +74,16 @@ public class ControllableAircraftManagerTests
         var mockAircraft1 = Substitute.For<IAircraft>();
         var mockAircraft2 = Substitute.For<IAircraft>();
         var mockAircraft3 = Substitute.For<IAircraft>();
-        var mockTransform1 = new GameObject().transform;
-        var mockTransform2 = new GameObject().transform;
-        var mockTransform3 = new GameObject().transform;
 
-        var aiController1 = new AircraftAIController(mockAircraft1, mockTransform1);
-        var aiController2 = new AircraftAIController(mockAircraft2, mockTransform2);
-        var aiController3 = new AircraftAIController(mockAircraft3, mockTransform3);
+
+        var aiController1 = Substitute.For<IAircraftController>();
+        var aiController2 = Substitute.For<IAircraftController>();
+        var aiController3 = Substitute.For<IAircraftController>();
 
         // Act
-        manager.AddControllableAircraft(aiController1);
-        manager.AddControllableAircraft(aiController2);
-        manager.AddControllableAircraft(aiController3);
+        manager.AddControllableAircraft(mockAircraft1, aiController1);
+        manager.AddControllableAircraft(mockAircraft2, aiController2);
+        manager.AddControllableAircraft(mockAircraft3, aiController3);
 
         // Assert
         Assert.AreEqual(3, selectableEntityManager.SelectableEntities.Count);
@@ -99,14 +95,12 @@ public class ControllableAircraftManagerTests
         // Arrange
         var mockAircraft1 = Substitute.For<IAircraft>();
         var mockAircraft2 = Substitute.For<IAircraft>();
-        var mockTransform1 = new GameObject().transform;
-        var mockTransform2 = new GameObject().transform;
 
-        var aiController1 = new AircraftAIController(mockAircraft1, mockTransform1);
-        var aiController2 = new AircraftAIController(mockAircraft2, mockTransform2);
+        var aiController1 = Substitute.For<IAircraftController>();
+        var aiController2 = Substitute.For<IAircraftController>();
 
-        manager.AddControllableAircraft(aiController1);
-        manager.AddControllableAircraft(aiController2);
+        manager.AddControllableAircraft(mockAircraft1, aiController1);
+        manager.AddControllableAircraft(mockAircraft2, aiController2);
 
         // Set first aircraft as player controlled
         playerController.Aircraft = mockAircraft1;
@@ -135,14 +129,12 @@ public class ControllableAircraftManagerTests
         // Arrange
         var mockAircraft1 = Substitute.For<IAircraft>();
         var mockAircraft2 = Substitute.For<IAircraft>();
-        var mockTransform1 = new GameObject().transform;
-        var mockTransform2 = new GameObject().transform;
 
-        var aiController1 = new AircraftAIController(mockAircraft1, mockTransform1);
-        var aiController2 = new AircraftAIController(mockAircraft2, mockTransform2);
+        var aiController1 = Substitute.For<IAircraftController>(); 
+        var aiController2 = Substitute.For<IAircraftController>();
 
-        manager.AddControllableAircraft(aiController1);
-        manager.AddControllableAircraft(aiController2);
+        manager.AddControllableAircraft(mockAircraft1, aiController1);
+        manager.AddControllableAircraft(mockAircraft2, aiController2);
 
         // Set first aircraft as player controlled
         playerController.Aircraft = mockAircraft1;
@@ -160,93 +152,20 @@ public class ControllableAircraftManagerTests
     }
 
     [Test]
-    public void OnEntitySelected_Sets_Camera_Target_To_Selected_Aircraft()
-    {
-        // Arrange
-        var mockAircraft1 = Substitute.For<IAircraft>();
-        var mockAircraft2 = Substitute.For<IAircraft>();
-        var mockTransform1 = new GameObject().transform;
-        var mockTransform2 = new GameObject().transform;
-
-        var aiController1 = new AircraftAIController(mockAircraft1, mockTransform1);
-        var aiController2 = new AircraftAIController(mockAircraft2, mockTransform2);
-
-        // Setup aircraft mocks to return transforms
-        mockAircraft1.Transform.Returns(mockTransform1);
-        mockAircraft2.Transform.Returns(mockTransform2);
-
-        manager.AddControllableAircraft(aiController1);
-        manager.AddControllableAircraft(aiController2);
-
-        playerController.Aircraft = mockAircraft1;
-        aiController1.IsActive = false;
-        aiController2.IsActive = true;
-
-        var entities = selectableEntityManager.SelectableEntities;
-        var secondAircraftEntity = entities[1];
-
-        // Act
-        selectableEntityManager.SelectEntity(secondAircraftEntity);
-
-        // Assert
-    }
-
-    [Test]
-    public void OnEntitySelected_Updates_UI_With_New_Aircraft_Transform()
-    {
-        // Arrange
-        var mockAircraft1 = Substitute.For<IAircraft>();
-        var mockAircraft2 = Substitute.For<IAircraft>();
-        var mockTransform1 = new GameObject().transform;
-        var mockTransform2 = new GameObject().transform;
-        var mockMeshRenderer = new GameObject().AddComponent<MeshRenderer>();
-        var mockMissileLauncher = new GameObject().AddComponent<GuidedProjectileLauncherMonobehaviour>();
-        var mockGun = new GameObject().AddComponent<RaycastGunMonobehaviourDemo>();
-
-        var aiController1 = new AircraftAIController(mockAircraft1, mockTransform1);
-        var aiController2 = new AircraftAIController(mockAircraft2, mockTransform2);
-
-        mockAircraft1.Transform.Returns(mockTransform1);
-        mockAircraft2.Transform.Returns(mockTransform2);
-
-        manager.AddControllableAircraft(aiController1);
-        manager.AddControllableAircraft(aiController2);
-
-        playerController.Aircraft = mockAircraft1;
-        aiController1.IsActive = false;
-        aiController2.IsActive = true;
-        
-        var entities = selectableEntityManager.SelectableEntities;
-        var secondAircraftEntity = entities[1];
-
-        // Act
-        selectableEntityManager.SelectEntity(secondAircraftEntity);
-
-        // Assert
-    }
-
-    [Test]
     public void OnEntitySelected_Handles_Switching_Between_Multiple_Aircraft()
     {
         // Arrange
         var mockAircraft1 = Substitute.For<IAircraft>();
         var mockAircraft2 = Substitute.For<IAircraft>();
         var mockAircraft3 = Substitute.For<IAircraft>();
-        var mockTransform1 = new GameObject().transform;
-        var mockTransform2 = new GameObject().transform;
-        var mockTransform3 = new GameObject().transform;
 
-        var aiController1 = new AircraftAIController(mockAircraft1, mockTransform1);
-        var aiController2 = new AircraftAIController(mockAircraft2, mockTransform2);
-        var aiController3 = new AircraftAIController(mockAircraft3, mockTransform3);
+        var aiController1 = Substitute.For<IAircraftController>(); 
+        var aiController2 = Substitute.For<IAircraftController>();
+        var aiController3 = Substitute.For<IAircraftController>();
 
-        mockAircraft1.Transform.Returns(mockTransform1);
-        mockAircraft2.Transform.Returns(mockTransform2);
-        mockAircraft3.Transform.Returns(mockTransform3);
-
-        manager.AddControllableAircraft(aiController1);
-        manager.AddControllableAircraft(aiController2);
-        manager.AddControllableAircraft(aiController3);
+        manager.AddControllableAircraft(mockAircraft1, aiController1);
+        manager.AddControllableAircraft(mockAircraft2, aiController2);
+        manager.AddControllableAircraft(mockAircraft3, aiController3);
 
         playerController.Aircraft = mockAircraft1;
         aiController1.IsActive = false;
@@ -275,17 +194,12 @@ public class ControllableAircraftManagerTests
         // Arrange
         var mockAircraft1 = Substitute.For<IAircraft>();
         var mockAircraft2 = Substitute.For<IAircraft>();
-        var mockTransform1 = new GameObject().transform;
-        var mockTransform2 = new GameObject().transform;
+        
+        var aiController1 = Substitute.For<IAircraftController>(); 
+        var aiController2 = Substitute.For<IAircraftController>();
 
-        var aiController1 = new AircraftAIController(mockAircraft1, mockTransform1);
-        var aiController2 = new AircraftAIController(mockAircraft2, mockTransform2);
-
-        mockAircraft1.Transform.Returns(mockTransform1);
-        mockAircraft2.Transform.Returns(mockTransform2);
-
-        manager.AddControllableAircraft(aiController1);
-        manager.AddControllableAircraft(aiController2);
+        manager.AddControllableAircraft(mockAircraft1, aiController1);
+        manager.AddControllableAircraft(mockAircraft2, aiController2);
 
         playerController.Aircraft = mockAircraft1;
         aiController1.IsActive = false;
@@ -306,13 +220,10 @@ public class ControllableAircraftManagerTests
     {
         // Arrange
         var mockAircraft1 = Substitute.For<IAircraft>();
-        var mockTransform1 = new GameObject().transform;
-
-        var aiController1 = new AircraftAIController(mockAircraft1, mockTransform1);
-
-        mockAircraft1.Transform.Returns(mockTransform1);
-
-        manager.AddControllableAircraft(aiController1);
+        
+        var aiController1 = Substitute.For<IAircraftController>();
+        
+        manager.AddControllableAircraft(mockAircraft1, aiController1);
 
         // Start with no player aircraft
         playerController.Aircraft = null;
@@ -333,22 +244,19 @@ public class ControllableAircraftManagerTests
         // Arrange
         var aircraftCount = 5;
         var mockAircrafts = new List<IAircraft>();
-        var mockTransforms = new List<Transform>();
-        var aiControllers = new List<AircraftAIController>();
+        var aiControllers = new List<IAircraftController>();
 
         for (int i = 0; i < aircraftCount; i++)
         {
             mockAircrafts.Add(Substitute.For<IAircraft>());
-            mockTransforms.Add(new GameObject().transform);
-            var controller = new AircraftAIController(mockAircrafts[i], mockTransforms[i]);
+            var controller = Substitute.For<IAircraftController>(); 
             aiControllers.Add(controller);
-            mockAircrafts[i].Transform.Returns(mockTransforms[i]);
         }
 
         // Act
-        foreach (var controller in aiControllers)
+        for (int i = 0; i < aircraftCount; i++)
         {
-            manager.AddControllableAircraft(controller);
+            manager.AddControllableAircraft(mockAircrafts[i], aiControllers[i]);
         }
 
         // Assert
