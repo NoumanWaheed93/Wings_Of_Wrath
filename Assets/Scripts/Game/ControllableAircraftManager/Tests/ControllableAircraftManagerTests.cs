@@ -10,6 +10,7 @@ using AircraftController;
 using AircraftController.AircraftAI;
 using CameraController;
 using ScreenInputControls;
+using WeaponSystem;
 
 public class ControllableAircraftManagerTests
 {
@@ -206,6 +207,8 @@ public class ControllableAircraftManagerTests
         var mockTransform1 = new GameObject().transform;
         var mockTransform2 = new GameObject().transform;
         var mockMeshRenderer = new GameObject().AddComponent<MeshRenderer>();
+        var mockMissileLauncher = new GameObject().AddComponent<GuidedProjectileLauncherMonobehaviour>();
+        var mockGun = new GameObject().AddComponent<RaycastGunMonobehaviourDemo>();
 
         var aiController1 = new AircraftAIController(mockAircraft1, mockTransform1);
         var aiController2 = new AircraftAIController(mockAircraft2, mockTransform2);
@@ -220,7 +223,9 @@ public class ControllableAircraftManagerTests
         aiController1.IsActive = false;
         aiController2.IsActive = true;
 
-        cameraController.GetComponentInChildren<MeshRenderer>().Returns(mockMeshRenderer);
+        cameraController.Target.GetComponentInChildren<MeshRenderer>().Returns(mockMeshRenderer);
+        cameraController.Target.GetComponentInChildren<GuidedProjectileLauncherMonobehaviour>().Returns(mockMissileLauncher);
+        cameraController.Target.GetComponentInChildren<RaycastGunMonobehaviourDemo>().Returns(mockGun);
 
         var entities = selectableEntityManager.SelectableEntities;
         var secondAircraftEntity = entities[1];
@@ -229,7 +234,7 @@ public class ControllableAircraftManagerTests
         selectableEntityManager.SelectEntity(secondAircraftEntity);
 
         // Assert
-        uiControls.Received(1).SetPlayer(mockTransform2, mockMeshRenderer);
+        uiControls.Received(1).SetPlayer(mockTransform2);
     }
 
     [Test]

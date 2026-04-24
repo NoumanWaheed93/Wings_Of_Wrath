@@ -8,12 +8,6 @@ namespace Game
 {
     public class UIControls : MonoBehaviour
     {
-        [SerializeField]
-        private GuidedProjectileLauncherMonobehaviour guidedProjectileLauncher;
-
-        [SerializeField]
-        private RaycastGunMonobehaviourDemo gun;
-
         [Space]
         [Header("UI Components")]
         [SerializeField]
@@ -24,6 +18,11 @@ namespace Game
         private SurroundingContextMenu aircraftControlsMenu;
         [SerializeField]
         private FireHoldableButton fireHoldableButton;
+
+
+        private GuidedProjectileLauncherMonobehaviour guidedProjectileLauncher;
+
+        private RaycastGunMonobehaviourDemo gun;
 
         private void OnEnable()
         {
@@ -39,11 +38,16 @@ namespace Game
             thumbDriftInput.OnHoldEnd -= OnThumbDriftHoldEnd;
         }
 
-        public void SetPlayer(Transform playerTransform, MeshRenderer playerMeshRenderer)
+        public void SetPlayer(Transform playerTransform)
         {
             thumbDriftInput.Target = playerTransform;
             speedView.SpeedTarget = playerTransform.GetComponent<ISpeedProvider>();
+
+            MeshRenderer playerMeshRenderer = playerTransform.GetComponentInChildren<MeshRenderer>();
             aircraftControlsMenu.SetMeshRenderer(playerMeshRenderer);
+
+            this.guidedProjectileLauncher = playerTransform.GetComponentInChildren<GuidedProjectileLauncherMonobehaviour>();
+            this.gun = playerTransform.GetComponentInChildren<RaycastGunMonobehaviourDemo>();
         }
 
         private void OnThumbDriftHoldStart()

@@ -8,7 +8,8 @@
         "SelectableEntitySystem",
         "AircraftController",
         "CameraControllers",
-        "ScreenInputControls"
+        "ScreenInputControls",
+        "WeaponSystem"
     ],
     "includePlatforms": [
         "Editor"

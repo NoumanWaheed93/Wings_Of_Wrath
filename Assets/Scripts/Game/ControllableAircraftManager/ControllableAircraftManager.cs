@@ -75,7 +75,7 @@ namespace Game
                     controllableAircrafts[i].controller.IsActive = false;
                     aircraftPlayerController.Aircraft = controllableAircrafts[i].aircraft;
                     cameraController.Target = controllableAircrafts[i].aircraft.Transform;
-                    uiControls.SetPlayer(cameraController.Target, cameraController.GetComponentInChildren<MeshRenderer>());
+                    uiControls.SetPlayer(cameraController.Target);
                     break;
                 }
             }
