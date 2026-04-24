@@ -29,9 +29,9 @@ namespace AircraftController
         
         public float AltitudeOffset { get => 0; }
 
-        private ThumbDriftInput inputController;
+        private IAircraftPlayerInputManager inputController;
 
-        public AircraftPlayerController(ThumbDriftInput inputController)
+        public AircraftPlayerController(IAircraftPlayerInputManager inputController)
         {
             this.inputController = inputController;
         }
@@ -58,8 +58,8 @@ namespace AircraftController
                 return;
             }
 
-            turnInput = inputController.Direction;
-            isAfterBurnerOn = inputController.isHeldDown;
+            turnInput = inputController.SteerDirection;
+            isAfterBurnerOn = inputController.IsAfterBurnerOn;
             aircraft.TurnInput = turnInput;
             aircraft.AfterBurnerInput = isAfterBurnerOn;
             aircraft.DesiredSpeed = 80;

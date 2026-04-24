@@ -24,7 +24,7 @@ public class ControllableAircraftManagerTests
     public void Setup()
     {
         selectableEntityManager = new SelectableEntityManager();
-        ThumbDriftInput thumbDrift = new ThumbDriftInput();
+        IAircraftPlayerInputManager thumbDrift = Substitute.For<IAircraftPlayerInputManager>();
         playerController = new AircraftPlayerController(thumbDrift);
         GameObject uiControlsGO = new GameObject("UIControls");
         uiControls = uiControlsGO.AddComponent<UIControls>();
