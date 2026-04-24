@@ -9,7 +9,8 @@
         "AircraftController",
         "CameraControllers",
         "ScreenInputControls",
-        "WeaponSystem"
+        "WeaponSystem",
+        "Common"
     ],
     "includePlatforms": [
         "Editor"

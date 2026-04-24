@@ -1,12 +1,14 @@
+using Common;
 using Locomotion;
 using NomiUIExtensions;
 using ScreenInputControls;
 using UnityEngine;
+using UnityEngine.UI;
 using WeaponSystem;
 
 namespace Game
 {
-    public class UIControls : MonoBehaviour
+    public class UIControls : MonoBehaviour, ITargetTransformReceiver
     {
         [Space]
         [Header("UI Components")]
@@ -18,17 +20,22 @@ namespace Game
         private SurroundingContextMenu aircraftControlsMenu;
         [SerializeField]
         private FireHoldableButton fireHoldableButton;
+        [SerializeField]
+        private Button btnMissile;
 
 
         private GuidedProjectileLauncherMonobehaviour guidedProjectileLauncher;
 
         private RaycastGunMonobehaviourDemo gun;
 
+        public Transform Target { set => SetPlayer(value); }
+
         private void OnEnable()
         {
             thumbDriftInput.OnHoldStart += OnThumbDriftHoldStart;
             fireHoldableButton.onHold.AddListener(OnHold_FireGunButton);
             thumbDriftInput.OnHoldEnd += OnThumbDriftHoldEnd;
+            btnMissile.onClick.AddListener(OnClick_FireMissileButton);
         }
 
         private void OnDisable()
@@ -36,9 +43,10 @@ namespace Game
             thumbDriftInput.OnHoldStart -= OnThumbDriftHoldStart;
             fireHoldableButton.onHold.RemoveListener(OnHold_FireGunButton);
             thumbDriftInput.OnHoldEnd -= OnThumbDriftHoldEnd;
+            btnMissile.onClick.RemoveListener(OnClick_FireMissileButton);
         }
 
-        public void SetPlayer(Transform playerTransform)
+        private void SetPlayer(Transform playerTransform)
         {
             thumbDriftInput.Target = playerTransform;
             speedView.SpeedTarget = playerTransform.GetComponent<ISpeedProvider>();
@@ -60,14 +68,16 @@ namespace Game
             aircraftControlsMenu.ShowUp();
         }
 
-        public void OnClick_FireMissileButton()
+        private void OnClick_FireMissileButton()
         {
             guidedProjectileLauncher.Fire();
         }
 
-        public void OnHold_FireGunButton()
+        private void OnHold_FireGunButton()
         {
             gun.Fire();
         }
+    
     }
+
 }

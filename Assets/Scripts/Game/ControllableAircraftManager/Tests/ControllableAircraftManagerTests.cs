@@ -11,13 +11,12 @@ using AircraftController.AircraftAI;
 using CameraController;
 using ScreenInputControls;
 using WeaponSystem;
+using Common;
 
 public class ControllableAircraftManagerTests
 {
     private SelectableEntityManager selectableEntityManager;
     private AircraftPlayerController playerController;
-    private UIControls uiControls;
-    private TopDownCamera cameraController;
     private ControllableAircraftManager manager;
 
     [SetUp]
@@ -26,12 +25,8 @@ public class ControllableAircraftManagerTests
         selectableEntityManager = new SelectableEntityManager();
         IAircraftPlayerInputManager thumbDrift = Substitute.For<IAircraftPlayerInputManager>();
         playerController = new AircraftPlayerController(thumbDrift);
-        GameObject uiControlsGO = new GameObject("UIControls");
-        uiControls = uiControlsGO.AddComponent<UIControls>();
-        GameObject cameraGO = new GameObject("Camera");
-        cameraController = cameraGO.AddComponent<TopDownCamera>();
 
-        manager = new ControllableAircraftManager(selectableEntityManager, playerController, uiControls, cameraController);
+        manager = new ControllableAircraftManager(selectableEntityManager, playerController, new ITargetTransformReceiver[0]);
     }
 
     [Test]

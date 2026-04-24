@@ -1,8 +1,9 @@
 using UnityEngine;
+using Common;
 
 namespace CameraController
 {
-    public class TopDownCamera : MonoBehaviour
+    public class TopDownCamera : MonoBehaviour, ITargetTransformReceiver
     {
         [SerializeField]
         private Vector3 offset;

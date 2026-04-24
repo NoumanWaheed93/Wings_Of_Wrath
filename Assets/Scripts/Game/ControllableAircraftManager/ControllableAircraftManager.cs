@@ -4,8 +4,7 @@ using UnityEngine;
 using SelectableEntitySystem;
 using AircraftController;
 using AircraftController.AircraftAI;
-using ScreenInputControls;
-using CameraController;
+using Common;
 
 namespace Game
 {
@@ -24,15 +23,13 @@ namespace Game
 
         private AircraftPlayerController aircraftPlayerController;
 
-        private TopDownCamera cameraController;
-        private UIControls uiControls;
+        private ITargetTransformReceiver[] targetReceivers;
 
-        public ControllableAircraftManager(SelectableEntityManager selectableEntityManager, AircraftPlayerController playerController, UIControls uiControls, TopDownCamera cameraController)
+        public ControllableAircraftManager(SelectableEntityManager selectableEntityManager, AircraftPlayerController playerController, ITargetTransformReceiver[] targetReceivers)
         {
             this.selectableEntityManager = selectableEntityManager;
-            this.uiControls = uiControls;
+            this.targetReceivers = targetReceivers;
             this.aircraftPlayerController = playerController;
-            this.cameraController = cameraController;
             this.selectableEntityManager.OnEntitySelected += SelectableEntityManager_OnEntitySelected;
         }
 
@@ -74,8 +71,10 @@ namespace Game
                 {
                     controllableAircrafts[i].controller.IsActive = false;
                     aircraftPlayerController.Aircraft = controllableAircrafts[i].aircraft;
-                    cameraController.Target = controllableAircrafts[i].aircraft.Transform;
-                    uiControls.SetPlayer(cameraController.Target);
+                    foreach(ITargetTransformReceiver targetReceiver in this.targetReceivers)
+                    {
+                        targetReceiver.Target = controllableAircrafts[i].aircraft.Transform;
+                    }
                     break;
                 }
             }
