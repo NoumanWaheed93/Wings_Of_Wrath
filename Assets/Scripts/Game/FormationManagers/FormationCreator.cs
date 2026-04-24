@@ -47,8 +47,7 @@ namespace Game
                 currentFormation.AddMember(newAircraft.FormationMember);
                 newAircraft.FormationMember.Formation = currentFormation;
                 controllableAircraftManager.AddControllableAircraft(newAircraft.AIController);
-                //Previously the waypoints were set here. Now, fix this somewhere.
-                //                ((AircraftAIController)newAircraft.AircraftController).SetWaypoints(GetWaypointPositions());
+                newAircraft.AIController.SetWaypoints(GetWaypointPositions());
             }
             yield return null;
         }
