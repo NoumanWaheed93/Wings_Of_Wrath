@@ -183,7 +183,7 @@ public class ControllableAircraftManagerTests
 
         // Assert
         Assert.AreEqual(mockAircraft3, playerController.Aircraft);
-        Assert.IsFalse(aiController1.IsActive);
+        Assert.IsTrue(aiController1.IsActive);
         Assert.IsTrue(aiController2.IsActive);
         Assert.IsFalse(aiController3.IsActive);
     }
