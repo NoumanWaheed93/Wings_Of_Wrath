@@ -20,6 +20,8 @@ namespace Game
             Debug.LogFormat(LOG_FORMAT, "OnPointerDown");
             base.OnPointerDown(eventData);
             _thumbDriftInput.OnPointerDown(eventData);
+            buttonCanvasGroup.alpha = 0.1f;
+            buttonCanvasGroup.blocksRaycasts = false;
             buttonCanvasGroup.ignoreParentGroups = true;
         }
 
@@ -36,6 +38,8 @@ namespace Game
             Debug.LogFormat(LOG_FORMAT, "OnPointerUp");
             base.OnPointerUp(eventData);
             _thumbDriftInput.OnPointerUp(eventData);
+            buttonCanvasGroup.alpha = 1;
+            buttonCanvasGroup.blocksRaycasts = true;
             buttonCanvasGroup.ignoreParentGroups = false;
         }
     }
