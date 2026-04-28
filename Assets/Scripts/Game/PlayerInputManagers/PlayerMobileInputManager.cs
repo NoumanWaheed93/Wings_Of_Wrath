@@ -6,8 +6,12 @@ namespace Game
 {
     public class PlayerMobileInputManager : IAircraftPlayerInputManager
     {
-        [SerializeField]
         private ThumbDriftInput thumbDriftInput;
+
+        public PlayerMobileInputManager(ThumbDriftInput thumbDriftInput)
+        {
+            this.thumbDriftInput = thumbDriftInput;
+        }
 
         public float SteerDirection => thumbDriftInput.Direction;
 

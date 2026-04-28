@@ -357,7 +357,7 @@ MonoBehaviour:
   _identifier: 
   _useSceneContext: 1
   _context: {fileID: 553848463}
-  _bindType: 0
+  _bindType: 2
 --- !u!114 &452777922 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8061188486189813537, guid: d91ac27617af7144d9f31619f2e7210e,
@@ -867,6 +867,7 @@ MonoBehaviour:
   speedView: {fileID: 1601023284}
   aircraftControlsMenu: {fileID: 2079537719}
   fireHoldableButton: {fileID: 1247042568}
+  btnMissile: {fileID: 1132150415}
 --- !u!114 &773255947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -884,7 +885,7 @@ MonoBehaviour:
   _identifier: 
   _useSceneContext: 1
   _context: {fileID: 0}
-  _bindType: 0
+  _bindType: 2
 --- !u!1 &780337940
 GameObject:
   m_ObjectHideFlags: 0
