@@ -101,14 +101,14 @@ namespace AircraftController
         {
             if (isInAir)
             {
-
                 stateMachine.ChangeState(stateInAir);
-                movementHandler.Initialize(startSpeed, startAltitude);
             }
             else
             {
                 stateMachine.ChangeState(stateOnGround);
             }
+
+            movementHandler.Initialize(startSpeed, startAltitude);
         }
 
         public void Update(float simulationDeltaTime)

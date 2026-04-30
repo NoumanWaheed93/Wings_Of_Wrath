@@ -41,7 +41,9 @@ namespace Locomotion
             Vector3 newPosition = transform.position;
             newPosition.y = startAltitude;
             transform.position = newPosition;
-
+            rigidbody.position = newPosition;
+            rigidbody.rotation = transform.rotation;
+            rigidbody.velocity = Vector3.zero;
             currSpeed = startSpeed;
         }
 

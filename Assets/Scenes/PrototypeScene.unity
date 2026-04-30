@@ -642,7 +642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efdfb73e630ea24ab34d2bb1662afa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 2
+  count: 1
   position: {x: 157, y: 100, z: 1180}
   spacing: 60
   altitudeSpacing: 0
@@ -653,7 +653,7 @@ MonoBehaviour:
   - {fileID: 705522790}
   - {fileID: 789878204}
   isInAir: 0
-  startAltitude: 0
+  startAltitude: 2
   startSpeed: 0
   runway: {fileID: 580540037979573235}
 --- !u!4 &759199350
