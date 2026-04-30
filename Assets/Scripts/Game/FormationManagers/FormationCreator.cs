@@ -74,9 +74,12 @@ namespace Game
                     }
 
                     AircraftMonoBehaviour newAircraft = aircraftPool.Spawn(isInAir, startAltitude, startSpeed);
+                    newAircraft.Aircraft.RunwayInUse = runway;
+                    runway.IsInUse = true;
                     newAircraft.transform.position = runway.TouchDownPoint.position;
                     newAircraft.transform.rotation = runway.TouchDownPoint.rotation;
                     newAircraft.transform.SetParent(transform);
+                    
                     yield return null;
                     currentFormation.AddMember(newAircraft.FormationMember);
                     newAircraft.FormationMember.Formation = currentFormation;
