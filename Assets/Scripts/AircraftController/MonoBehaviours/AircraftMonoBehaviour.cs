@@ -1,7 +1,6 @@
 using UnityEngine;
 using Locomotion;
 using Common;
-//using UnityEditor;
 using Zenject;
 using FormationSystem;
 using HealthSystem;
@@ -36,12 +35,6 @@ namespace AircraftController
         private Pool pool;
 
         private Health health;
-
-        //private void OnDrawGizmos()
-        //{
-        //    if(Application.isPlaying)
-        //        Handles.Label(transform.position, CurrSpeed.ToString());
-        //}
 
         [Inject]
         public void Init(IAircraft aircraft, AircraftAIController aiController, IFormationMember formationMember, Team team, Health health, Pool pool)
