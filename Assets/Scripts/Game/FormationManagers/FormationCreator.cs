@@ -21,6 +21,17 @@ namespace Game
         [SerializeField]
         private Transform[] wayPoints;
 
+
+        [SerializeField]
+        private bool isInAir;
+        [SerializeField]
+        private float startAltitude;
+        [SerializeField]
+        private float startSpeed;
+        [SerializeField]
+        private Runway runway;
+
+
         private Formation currentFormation;
         private AircraftMonoBehaviour.Pool aircraftPool;
         private ControllableAircraftManager controllableAircraftManager;
@@ -37,18 +48,43 @@ namespace Game
         {
             currentFormation.spacing = this.spacing;
             currentFormation.altitudeSpacing = this.altitudeSpacing;
-            for (int i = 0; i < count; i++)
+            if (isInAir)
             {
-                AircraftMonoBehaviour newAircraft = aircraftPool.Spawn();
-                newAircraft.transform.position = position + currentFormation.GetMemberPositionSpaced(i);
-                newAircraft.transform.rotation = Quaternion.identity;
-                newAircraft.transform.SetParent(transform);
-                yield return null;
-                currentFormation.AddMember(newAircraft.FormationMember);
-                newAircraft.FormationMember.Formation = currentFormation;
-                controllableAircraftManager.AddControllableAircraft(newAircraft.Aircraft, newAircraft.AIController);
-                newAircraft.AIController.SetWaypoints(GetWaypointPositions());
+                for (int i = 0; i < count; i++)
+                {
+                    AircraftMonoBehaviour newAircraft = aircraftPool.Spawn(isInAir, startAltitude, startSpeed);
+                    newAircraft.transform.position = position + currentFormation.GetMemberPositionSpaced(i);
+                    newAircraft.transform.rotation = Quaternion.identity;
+                    newAircraft.transform.SetParent(transform);
+                    yield return null;
+                    currentFormation.AddMember(newAircraft.FormationMember);
+                    newAircraft.FormationMember.Formation = currentFormation;
+                    controllableAircraftManager.AddControllableAircraft(newAircraft.Aircraft, newAircraft.AIController);
+                    newAircraft.AIController.SetWaypoints(GetWaypointPositions());
+                }
             }
+            else
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    while (runway.IsInUse)
+                    {
+                        Debug.Log("Waiting for the runway to be free.");
+                        yield return null;
+                    }
+
+                    AircraftMonoBehaviour newAircraft = aircraftPool.Spawn(isInAir, startAltitude, startSpeed);
+                    newAircraft.transform.position = runway.TouchDownPoint.position;
+                    newAircraft.transform.rotation = runway.TouchDownPoint.rotation;
+                    newAircraft.transform.SetParent(transform);
+                    yield return null;
+                    currentFormation.AddMember(newAircraft.FormationMember);
+                    newAircraft.FormationMember.Formation = currentFormation;
+                    controllableAircraftManager.AddControllableAircraft(newAircraft.Aircraft, newAircraft.AIController);
+                    newAircraft.AIController.SetWaypoints(GetWaypointPositions());
+                }
+            }
+            
             yield return null;
         }
 

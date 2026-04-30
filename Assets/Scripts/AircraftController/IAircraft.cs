@@ -24,7 +24,7 @@ namespace AircraftController
         float AltitudeOffset { get; set; }
 
         IFormationMember formationMember { get; }
-
+        public void Spawn(bool isInAir = false, float startAltitude = 0f, float startSpeed = 0f);
         void CalculateAndSetPitch(float targetAltitude, float targetDistance);
         void CalculateAndSetPitch(Vector3 targetPosition);
         bool HasDeviatedFromLine(Vector3 lineStart, Vector3 lineEnd, float acceptableDeviation);

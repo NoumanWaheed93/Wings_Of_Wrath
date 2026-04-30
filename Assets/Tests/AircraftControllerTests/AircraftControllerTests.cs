@@ -30,12 +30,11 @@ public class AircraftControllerTests
         AircraftStateMachine stateMachine = new AircraftStateMachine();
         AircraftState stateA = Substitute.For<AircraftState>(stateMachine, null);
         AircraftState stateB = Substitute.For<AircraftState>(stateMachine, null);
-        stateMachine.Initialize(stateA);
+        stateMachine.ChangeState(stateA);
         Assert.AreEqual(stateA, stateMachine.currentState, "Initial state is incorrect.");
         stateMachine.ChangeState(stateB);
         Assert.AreEqual(stateB, stateMachine.currentState, "State does not change correctly.");
     }
-
 
     [Test]
     public void State_Changes_To_TakeOff_After_Speed_Goes_Above_TakeOffSpeed()
@@ -64,7 +63,7 @@ public class AircraftControllerTests
     [Test]
     public void State_Changes_To_InAir_After_Climbing_Above_AirborneAltitude()
     {
-        aircraftController.StateMachine.Initialize(aircraftController.StateTakeOff);
+        aircraftController.StateMachine.ChangeState(aircraftController.StateTakeOff);
 
         aircraftGameObject.transform.position = new Vector3(0, GlobalAircraftControllerSettings.airborneAltitude, 0);
         aircraftController.Update(1);

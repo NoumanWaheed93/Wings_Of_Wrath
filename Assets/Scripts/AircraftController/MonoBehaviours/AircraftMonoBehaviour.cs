@@ -49,6 +49,11 @@ namespace AircraftController
             health.onHealthDepleted += OnDie;
         }
 
+        public void Spawn(bool isInAir, float startAltitude, float startSpeed)
+        {
+            aircraft.Spawn(isInAir, startAltitude, startSpeed);
+        }
+
         public void PrepareToLand(Runway airstrip)
         {
             aircraft.RunwayInUse = airstrip;
@@ -61,8 +66,14 @@ namespace AircraftController
             pool.Despawn(this);
         }
 
-        public class Pool : MonoMemoryPool<AircraftMonoBehaviour>
+        public class Pool : MonoMemoryPool<bool, float, float, AircraftMonoBehaviour>
         {
+            protected override void Reinitialize(bool isInAir, float startAltitude, float startSpeed, AircraftMonoBehaviour aircraft)
+            {
+                aircraft.Spawn(isInAir, startAltitude, startSpeed);
+            }
         }
+    
     }
+
 }

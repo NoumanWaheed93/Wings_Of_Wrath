@@ -74,7 +74,7 @@ namespace AircraftController
         Vector3 IFormationMember.Position { get; set; }
         public Formation Formation { get; set; }
 
-        public Aircraft(IAircraftMovementData movementData, Transform transform, Rigidbody rigidbody, bool startsInAir = false, float startAltitude = 0f, float startSpeed = 0f)
+        public Aircraft(IAircraftMovementData movementData, Transform transform, Rigidbody rigidbody)
         {
             this.transform = transform;
             this.rigidbody = rigidbody;
@@ -89,22 +89,26 @@ namespace AircraftController
             stateFinalApproach = new FinalApproach(stateMachine, this);
             stateTouchDown = new TouchDown(stateMachine, this);
             stateLanded = new Landed(stateMachine, this);
-
-            if (startsInAir)
-            {
-                stateMachine.Initialize(stateInAir);
-                movementHandler.Initialize(startSpeed, startAltitude);
-            }
-            else
-            {
-                stateMachine.Initialize(stateOnGround);
-            }
         }
 
         public Aircraft SetSensors(ISensor[] sensors)
         {
             this.frontalSensors = sensors;
             return this;
+        }
+
+        public void Spawn(bool isInAir = false, float startAltitude = 0f, float startSpeed = 0f)
+        {
+            if (isInAir)
+            {
+
+                stateMachine.ChangeState(stateInAir);
+                movementHandler.Initialize(startSpeed, startAltitude);
+            }
+            else
+            {
+                stateMachine.ChangeState(stateOnGround);
+            }
         }
 
         public void Update(float simulationDeltaTime)

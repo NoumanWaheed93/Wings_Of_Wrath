@@ -39,7 +39,7 @@ namespace ZenjectInstallers
         private void InstallAircraft()
         {
             Container.BindInterfacesAndSelfTo<Aircraft>().AsSingle()
-                .WithArguments(movementData, aircraftTransform, rigidbody, true, 100.0f, 80.0f);
+                .WithArguments(movementData, aircraftTransform, rigidbody);
         }
 
         private void InstallHealth()

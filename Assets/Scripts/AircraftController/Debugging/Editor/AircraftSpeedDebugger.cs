@@ -15,6 +15,11 @@ namespace AircraftController.Debugging
         }
         private static void OnSceneGUI(SceneView sceneView)
         {
+            if (Application.isPlaying == false)
+            {
+                return;
+            }
+
             // Find all objects with MyMonoBehaviour
             AircraftMonoBehaviour[] allObjects = Object.FindObjectsOfType<AircraftMonoBehaviour>();
 

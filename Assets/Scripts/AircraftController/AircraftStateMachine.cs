@@ -4,12 +4,6 @@ namespace AircraftController
     {
         public AircraftState currentState { get; private set; }
 
-        public void Initialize(AircraftState initState)
-        {
-            currentState = initState;
-            currentState.Enter();
-        }
-
         public void ChangeState(AircraftState newState)
         {
             currentState?.Exit();
@@ -17,5 +11,7 @@ namespace AircraftController
             currentState = newState;
             currentState.Enter();
         }
+    
     }
+
 }
