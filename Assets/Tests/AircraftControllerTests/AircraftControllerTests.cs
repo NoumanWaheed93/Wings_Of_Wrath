@@ -4,6 +4,7 @@ using AircraftController;
 using NSubstitute;
 using Locomotion;
 using Assert = UnityEngine.Assertions.Assert;
+using Common;
 
 public class AircraftControllerTests
 {
@@ -22,6 +23,7 @@ public class AircraftControllerTests
         
         aircraftController =
             new AircraftController.Aircraft(ScriptableObject.CreateInstance<AircraftMovementData>(), aircraftGameObject.transform, rigidbody);
+        aircraftController.Spawn();
     }
 
     [Test]
@@ -112,6 +114,75 @@ public class AircraftControllerTests
         aircraftGameObject.transform.position = new Vector3(-1.1f, 0.2f, 0);
         Assert.IsTrue(aircraftController.HasDeviatedFromLine(Vector3.zero, new Vector3(0, 1, 0), 1));
 
+    }
+
+    [Test]
+    public void State_Changes_To_Landed_After_Completing_Landing_Sequence()
+    {
+        // Create runway approach points
+        GameObject initialApproachGO = new GameObject();
+        GameObject finalApproachGO = new GameObject();
+        GameObject touchDownPointGO = new GameObject();
+
+        GameObject runwayGO = new GameObject();
+
+        initialApproachGO.transform.position = new Vector3(0, 0, 300);
+        finalApproachGO.transform.position = new Vector3(0, 0, 200);
+        touchDownPointGO.transform.position = new Vector3(0, 0, 100);
+
+        Runway runway = runwayGO.AddComponent<Runway>();
+        runway.Init(Team.Blue, initialApproachGO.transform, finalApproachGO.transform, touchDownPointGO.transform);
+
+        // Spawn aircraft in air
+        aircraftController.Spawn(isInAir: true);
+        aircraftGameObject.transform.position = Vector3.zero;
+
+        // Set runway to trigger landing
+        aircraftController.RunwayInUse = runway;
+
+        // Update to transition from InAir to FinalApproach
+        aircraftController.Update(1);
+        Assert.AreEqual(aircraftController.StateFinalApproach, aircraftController.StateMachine.currentState, "Should transition to FinalApproach.");
+
+        // Move aircraft toward FinalApproach point and update
+        int ticks = 0;
+        while (aircraftController.StateMachine.currentState != aircraftController.StateTouchDown)
+        {
+            aircraftGameObject.transform.position = Vector3.MoveTowards(
+                aircraftGameObject.transform.position,
+                finalApproachGO.transform.position,
+                10f);
+            aircraftController.Update(1);
+            aircraftController.FixedUpdate(1);
+            ticks++;
+            if (ticks > 100)
+            {
+                Assert.IsTrue(false, "Did not reach TouchDown state.");
+                return;
+            }
+        }
+
+        Assert.AreEqual(aircraftController.StateTouchDown, aircraftController.StateMachine.currentState, "Should transition to TouchDown.");
+
+        // Move aircraft toward TouchDown point and update
+        ticks = 0;
+        while (aircraftController.StateMachine.currentState != aircraftController.StateLanded)
+        {
+            aircraftGameObject.transform.position = Vector3.MoveTowards(
+                aircraftGameObject.transform.position,
+                touchDownPointGO.transform.position,
+                10f);
+            aircraftController.Update(1);
+            aircraftController.FixedUpdate(1);
+            ticks++;
+            if (ticks > 100)
+            {
+                Assert.IsTrue(false, "Did not reach Landed state.");
+                return;
+            }
+        }
+
+        Assert.AreEqual(aircraftController.StateLanded, aircraftController.StateMachine.currentState, "Should transition to Landed.");
     }
 
     [Test]

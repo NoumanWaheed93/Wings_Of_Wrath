@@ -1,4 +1,6 @@
-﻿namespace AircraftController
+﻿using UnityEngine;
+
+namespace AircraftController
 {
     public class Landed : AircraftState
     {
@@ -9,6 +11,7 @@
 
         public override void Enter()
         {
+            Debug.Log("Landed aircraft.");
             aircraftController.SeekSpeed(0);
             //Play the particle effect
             //Play the screeching tyres SFX

@@ -642,7 +642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efdfb73e630ea24ab34d2bb1662afa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 2
+  count: 1
   position: {x: 157, y: 100, z: 1180}
   spacing: 20
   altitudeSpacing: 0
@@ -655,7 +655,6 @@ MonoBehaviour:
   isInAir: 0
   startAltitude: 2
   startSpeed: 0
-  runway: {fileID: 580540037979573235}
 --- !u!4 &759199350
 Transform:
   m_ObjectHideFlags: 0
@@ -3314,23 +3313,57 @@ PrefabInstance:
       propertyPath: m_Name
       value: Runway
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 364916277058221650, guid: eafe3fd5b8b9ab84c8e68a9d9f6772b4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1485820661538140339, guid: eafe3fd5b8b9ab84c8e68a9d9f6772b4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 580540037979573238}
   m_SourcePrefab: {fileID: 100100000, guid: eafe3fd5b8b9ab84c8e68a9d9f6772b4, type: 3}
 --- !u!114 &580540037979573235 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 364916277058221650, guid: eafe3fd5b8b9ab84c8e68a9d9f6772b4,
+  m_CorrespondingSourceObject: {fileID: 8233141933925139428, guid: eafe3fd5b8b9ab84c8e68a9d9f6772b4,
     type: 3}
   m_PrefabInstance: {fileID: 580540037979573234}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beb68703deb02dd4c9b9d0b173f8fc97, type: 3}
+  m_Script: {fileID: 11500000, guid: d75bf47ffe18cac4f91e36860204398b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &580540037979573236 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7028628632635833600, guid: eafe3fd5b8b9ab84c8e68a9d9f6772b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 580540037979573234}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &580540037979573237 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1485820661538140339, guid: eafe3fd5b8b9ab84c8e68a9d9f6772b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 580540037979573234}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &580540037979573238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580540037979573237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a8c8c5f37b9394cb06ca4ce1b03fe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 0
+  transformInitialApproach: {fileID: 1673672657}
+  finalApproach: {fileID: 68645917}
+  touchDownPoint: {fileID: 580540037979573236}
+  initalApproach: {fileID: 580540037979573235}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

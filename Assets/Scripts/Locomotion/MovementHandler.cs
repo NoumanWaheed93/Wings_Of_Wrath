@@ -42,6 +42,7 @@ namespace Locomotion
         /// <param name="throttle"></param>
         public void SetThrottle(float throttle)
         {
+            Debug.Log($"Set Throttle {throttle}");
             this.targetSpeed = Mathf.Lerp(0, movementData.maxSpeed, throttle);
             this.currAcceleration = Mathf.Lerp(0, movementData.maxAcceleration, throttle);
             this.currDeceleration = Mathf.Lerp(movementData.maxDeceleration, 0, throttle);

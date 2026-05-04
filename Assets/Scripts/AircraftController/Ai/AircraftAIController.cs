@@ -61,7 +61,7 @@ namespace AircraftController.AircraftAI
 
         public void Update(float simulationDeltaTime)
         {
-            Debug.Log("AI Controller Update");
+         //   Debug.Log("AI Controller Update");
 
             stateMachine.currentState.Update(simulationDeltaTime);
             aircraft.AltitudeOffset = altitudeOffset;
@@ -70,7 +70,7 @@ namespace AircraftController.AircraftAI
                 return;
             }
 
-            Debug.Log("AI Controller giving input to the aircraft");
+        //    Debug.Log("AI Controller giving input to the aircraft");
             aircraft.DesiredSpeed = desiredSpeed;
             aircraft.TurnInput = turnInput;
             aircraft.AfterBurnerInput = IsAfterBurnerOn;
