@@ -33,6 +33,7 @@ namespace Locomotion
 
         public void Update(float simulationDeltaTime)
         {
+            Debug.Log("Movement Handler in Aircraft");
             HandleMovement(simulationDeltaTime);
         }
 
@@ -68,6 +69,8 @@ namespace Locomotion
     
         protected void HandleCurrSpeed(float simulationDeltaTime)
         {
+            Debug.Log($"Currspeed : {currSpeed}, Target speed : {targetSpeed}");
+
             if (currSpeed < targetSpeed)
             {
                 currSpeed += currAcceleration * simulationDeltaTime;

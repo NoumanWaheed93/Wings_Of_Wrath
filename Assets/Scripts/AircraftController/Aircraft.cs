@@ -119,6 +119,7 @@ namespace AircraftController
 
         public void FixedUpdate(float simulationDeltaTime)
         {
+            Debug.Log("Fixed Update in Aircraft");
             movementHandler.Update(simulationDeltaTime);
         }
 
@@ -264,6 +265,7 @@ namespace AircraftController
 
         public void FixedTick()
         {
+            Debug.Log("Fixed tick in Aircraft");
             FixedUpdate(Time.fixedDeltaTime);
         }
     }

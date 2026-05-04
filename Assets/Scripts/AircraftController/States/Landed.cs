@@ -13,6 +13,7 @@ namespace AircraftController
         {
             Debug.Log("Landed aircraft.");
             aircraftController.SeekSpeed(0);
+            aircraftController.MovementHandler.SetBrake(1f);
             //Play the particle effect
             //Play the screeching tyres SFX
         }
