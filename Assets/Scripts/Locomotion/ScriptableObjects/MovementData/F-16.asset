@@ -15,7 +15,7 @@ MonoBehaviour:
   <maxSpeed>k__BackingField: 100
   <maxAcceleration>k__BackingField: 10
   <maxDeceleration>k__BackingField: 1
-  <maxBrake>k__BackingField: 2
+  <maxBrake>k__BackingField: 10
   <maxTurn>k__BackingField: 3
   <takeOffSpeed>k__BackingField: 30
   <lowAirSpeed>k__BackingField: 40

@@ -7,6 +7,7 @@ using Zenject;
 using WeaponSystem;
 using SelectableEntitySystem;
 using Game;
+using UnityEngine.InputSystem;
 
 namespace ZenjectInstallers {
     public class TestInstaller : MonoInstaller
@@ -16,6 +17,11 @@ namespace ZenjectInstallers {
         public GameObject ProjectilePrefab;
 
         public GameObject GuidedProjectilePrefab;
+
+        [Space]
+        [Header("Player Input Actions")]
+        public InputAction SteerAction;
+        public InputAction AfterBurnerAction;
 
         public override void InstallBindings()
         {
@@ -29,7 +35,9 @@ namespace ZenjectInstallers {
 
         private void InstallPlayerAircraftController()
         {
-            Container.Bind<IAircraftPlayerInputManager>().To<PlayerKeyboardInputManager>().AsSingle();
+            Container.Bind<IAircraftPlayerInputManager>().To<Game.PlayerInputManager>()
+            .AsSingle()
+            .WithArguments(SteerAction, AfterBurnerAction);
             Container.BindInterfacesAndSelfTo<AircraftPlayerController>().AsSingle();
         }
 
@@ -50,7 +58,7 @@ namespace ZenjectInstallers {
 
         private void InstallFormationManager()
         {
-            Container.Bind<Formation>().To<Trail>().AsSingle();
+            Container.Bind<Formation>().To<ArrowHead>().AsSingle();
 
             Container.BindMemoryPool<AircraftMonoBehaviour, AircraftMonoBehaviour.Pool>()
                 .FromComponentInNewPrefab(AircraftPrefab)

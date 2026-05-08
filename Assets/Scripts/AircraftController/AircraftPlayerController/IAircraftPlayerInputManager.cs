@@ -4,7 +4,6 @@ namespace AircraftController
     {
         float SteerDirection { get; }
         bool IsAfterBurnerOn { get; }
-
     }
 
 }

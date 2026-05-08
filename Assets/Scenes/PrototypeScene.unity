@@ -380,6 +380,56 @@ MonoBehaviour:
     type: 3}
   GuidedProjectilePrefab: {fileID: 3176515159500070112, guid: 6d7cf33ab3ad7e94d9c36dbd6875397a,
     type: 3}
+  SteerAction:
+    m_Name: Steer
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e137607f-d85b-4f20-85bf-7964004d631a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 1D Axis
+      m_Id: 45cd16e0-a0d0-4c9c-819b-170555fc9feb
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Steer
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 75c77e11-ad45-4fcf-83ed-c4662868fb6a
+      m_Path: <Keyboard>/leftArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Steer
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: ef2db35b-bb29-4c24-8013-be236f9fb0bd
+      m_Path: <Keyboard>/rightArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Steer
+      m_Flags: 8
+    m_Flags: 0
+  AfterBurnerAction:
+    m_Name: After Burner
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 809905b2-4ec0-4a73-8452-61a8d21cdcad
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: e0c1f5e3-2adc-41fd-9d44-0d1960658d04
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: After Burner
+      m_Flags: 0
+    m_Flags: 0
 --- !u!114 &553848463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -642,10 +692,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efdfb73e630ea24ab34d2bb1662afa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 1
+  count: 4
   position: {x: 157, y: 100, z: 1180}
-  spacing: 20
-  altitudeSpacing: 0
+  spacing: 10
+  altitudeSpacing: 5
   wayPoints:
   - {fileID: 1544074665}
   - {fileID: 1457636679}
@@ -3314,6 +3364,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Runway
       objectReference: {fileID: 0}
+    - target: {fileID: 8233141933925139428, guid: eafe3fd5b8b9ab84c8e68a9d9f6772b4,
+        type: 3}
+      propertyPath: runway
+      value: 
+      objectReference: {fileID: 580540037979573241}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

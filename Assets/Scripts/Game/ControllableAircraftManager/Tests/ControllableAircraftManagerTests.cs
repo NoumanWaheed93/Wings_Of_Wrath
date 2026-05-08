@@ -46,7 +46,7 @@ public class ControllableAircraftManagerTests
         var mockAIController = Substitute.For<IAircraftController>();
 
         // Act
-        manager.AddControllableAircraft(mockAircraft, mockAIController);
+        manager.AddControllableAircraft(mockAircraft, mockAIController, null, null, null);
 
         // Assert
         Assert.AreEqual(1, selectableEntityManager.SelectableEntities.Count);
@@ -60,7 +60,7 @@ public class ControllableAircraftManagerTests
         var aiController = Substitute.For<IAircraftController>();
 
         // Act
-        manager.AddControllableAircraft(mockAircraft, aiController);
+        manager.AddControllableAircraft(mockAircraft, aiController, null, null, null);
 
         // Assert
         Assert.AreEqual(1, selectableEntityManager.SelectableEntities.Count);
@@ -81,9 +81,9 @@ public class ControllableAircraftManagerTests
         var aiController3 = Substitute.For<IAircraftController>();
 
         // Act
-        manager.AddControllableAircraft(mockAircraft1, aiController1);
-        manager.AddControllableAircraft(mockAircraft2, aiController2);
-        manager.AddControllableAircraft(mockAircraft3, aiController3);
+        manager.AddControllableAircraft(mockAircraft1, aiController1, null, null, null);
+        manager.AddControllableAircraft(mockAircraft2, aiController2, null, null, null);
+        manager.AddControllableAircraft(mockAircraft3, aiController3, null, null, null);
 
         // Assert
         Assert.AreEqual(3, selectableEntityManager.SelectableEntities.Count);
@@ -99,8 +99,8 @@ public class ControllableAircraftManagerTests
         var aiController1 = Substitute.For<IAircraftController>();
         var aiController2 = Substitute.For<IAircraftController>();
 
-        manager.AddControllableAircraft(mockAircraft1, aiController1);
-        manager.AddControllableAircraft(mockAircraft2, aiController2);
+        manager.AddControllableAircraft(mockAircraft1, aiController1, null, null, null);
+        manager.AddControllableAircraft(mockAircraft2, aiController2, null, null, null);
 
         // Set first aircraft as player controlled
         playerController.Aircraft = mockAircraft1;
@@ -133,8 +133,8 @@ public class ControllableAircraftManagerTests
         var aiController1 = Substitute.For<IAircraftController>(); 
         var aiController2 = Substitute.For<IAircraftController>();
 
-        manager.AddControllableAircraft(mockAircraft1, aiController1);
-        manager.AddControllableAircraft(mockAircraft2, aiController2);
+        manager.AddControllableAircraft(mockAircraft1, aiController1, null, null, null);
+        manager.AddControllableAircraft(mockAircraft2, aiController2, null, null, null);
 
         // Set first aircraft as player controlled
         playerController.Aircraft = mockAircraft1;
@@ -163,9 +163,9 @@ public class ControllableAircraftManagerTests
         var aiController2 = Substitute.For<IAircraftController>();
         var aiController3 = Substitute.For<IAircraftController>();
 
-        manager.AddControllableAircraft(mockAircraft1, aiController1);
-        manager.AddControllableAircraft(mockAircraft2, aiController2);
-        manager.AddControllableAircraft(mockAircraft3, aiController3);
+        manager.AddControllableAircraft(mockAircraft1, aiController1, null, null, null);
+        manager.AddControllableAircraft(mockAircraft2, aiController2, null, null, null);
+        manager.AddControllableAircraft(mockAircraft3, aiController3, null, null, null);
 
         playerController.Aircraft = mockAircraft1;
         aiController1.IsActive = false;
@@ -198,8 +198,8 @@ public class ControllableAircraftManagerTests
         var aiController1 = Substitute.For<IAircraftController>(); 
         var aiController2 = Substitute.For<IAircraftController>();
 
-        manager.AddControllableAircraft(mockAircraft1, aiController1);
-        manager.AddControllableAircraft(mockAircraft2, aiController2);
+        manager.AddControllableAircraft(mockAircraft1, aiController1, null, null, null);
+        manager.AddControllableAircraft(mockAircraft2, aiController2, null, null, null);
 
         playerController.Aircraft = mockAircraft1;
         aiController1.IsActive = false;
@@ -223,7 +223,7 @@ public class ControllableAircraftManagerTests
         
         var aiController1 = Substitute.For<IAircraftController>();
         
-        manager.AddControllableAircraft(mockAircraft1, aiController1);
+        manager.AddControllableAircraft(mockAircraft1, aiController1, null, null, null);
 
         // Start with no player aircraft
         playerController.Aircraft = null;
@@ -256,7 +256,7 @@ public class ControllableAircraftManagerTests
         // Act
         for (int i = 0; i < aircraftCount; i++)
         {
-            manager.AddControllableAircraft(mockAircrafts[i], aiControllers[i]);
+            manager.AddControllableAircraft(mockAircrafts[i], aiControllers[i], null, null, null);
         }
 
         // Assert

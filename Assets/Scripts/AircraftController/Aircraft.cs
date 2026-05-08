@@ -119,7 +119,7 @@ namespace AircraftController
 
         public void FixedUpdate(float simulationDeltaTime)
         {
-            Debug.Log("Fixed Update in Aircraft");
+//            Debug.Log("Fixed Update in Aircraft");
             movementHandler.Update(simulationDeltaTime);
         }
 
@@ -154,7 +154,7 @@ namespace AircraftController
         public void SeekSpeed(float targetSpeed)
         {
             //calculate required throttle
-            Debug.Log($"Seeking speed : {targetSpeed}");
+//            Debug.Log($"Seeking speed : {targetSpeed}");
             float requiredThrottle = GetRequiredThrottleForSpeed(targetSpeed);
             movementHandler.SetThrottle(requiredThrottle);
         }
@@ -192,7 +192,7 @@ namespace AircraftController
             //Guzara if statement below, with guzara jugaar
             if (forwardDistanceToTargetPos < -1f)
             {
-                MovementHandler.SetBrake(1);
+                MovementHandler.SetBrake(0.5f); //Airbrake -> 0.5f, Wheel brake -> 1f
                 return movementHandler.AerodynamicMovementData.lowAirSpeed;
             }
 
@@ -207,7 +207,7 @@ namespace AircraftController
                 if (distanceThatCanBeCoveredUntilZeroRelSpeed - forwardDistanceToTargetPos > 3)
                 {
                     //hit the brakes
-                    MovementHandler.SetBrake(1);
+                    MovementHandler.SetBrake(0.5f); //Airbrake -> 0.5f, Wheel brake -> 1f
                 }
                 else
                 {
@@ -265,7 +265,7 @@ namespace AircraftController
 
         public void FixedTick()
         {
-            Debug.Log("Fixed tick in Aircraft");
+//            Debug.Log("Fixed tick in Aircraft");
             FixedUpdate(Time.fixedDeltaTime);
         }
     }

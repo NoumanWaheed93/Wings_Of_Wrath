@@ -5,6 +5,7 @@ using SelectableEntitySystem;
 using AircraftController;
 using AircraftController.AircraftAI;
 using Common;
+using WeaponSystem;
 
 namespace Game
 {
@@ -15,6 +16,9 @@ namespace Game
             public IAircraft aircraft;
             public IAircraftController controller;
             public SelectableEntity selectableEntity;
+            public Weapon cannon;
+            public Weapon missileLauncher;
+            public Weapon bombDropper;
         }
 
         private List<ControllableAircraft> controllableAircrafts = new List<ControllableAircraft>();
@@ -33,7 +37,8 @@ namespace Game
             this.selectableEntityManager.OnEntitySelected += SelectableEntityManager_OnEntitySelected;
         }
 
-        public void AddControllableAircraft(IAircraft aircraft, IAircraftController aiController)
+        public void AddControllableAircraft(IAircraft aircraft, IAircraftController aiController, 
+        Weapon cannon, Weapon missileLauncher, Weapon bombDropper)
         {
             SelectableEntity selectableEntity = new SelectableEntity("aircraft");
             selectableEntityManager.AddSelectableEntity(selectableEntity);
@@ -41,6 +46,9 @@ namespace Game
             {
                 aircraft = aircraft,
                 controller = aiController,
+                cannon = cannon,
+                missileLauncher = missileLauncher,
+                bombDropper = bombDropper,
                 selectableEntity = selectableEntity
             };
             controllableAircrafts.Add(controllableAircraft);
