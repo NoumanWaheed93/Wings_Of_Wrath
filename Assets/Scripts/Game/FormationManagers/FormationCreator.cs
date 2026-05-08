@@ -33,11 +33,11 @@ namespace Game
 
 
         private Formation currentFormation;
-        private AircraftMonoBehaviour.Pool aircraftPool;
+        private AircraftFacade.Pool aircraftPool;
         private ControllableAircraftManager controllableAircraftManager;
 
         [Inject]
-        private void Init(AircraftMonoBehaviour.Pool aircraftFactory, Formation formation, ControllableAircraftManager controllableAircraftManager)
+        private void Init(AircraftFacade.Pool aircraftFactory, Formation formation, ControllableAircraftManager controllableAircraftManager)
         {
             this.aircraftPool = aircraftFactory;
             this.currentFormation = formation;
@@ -52,7 +52,7 @@ namespace Game
             {
                 for (int i = 0; i < count; i++)
                 {
-                    AircraftMonoBehaviour newAircraft = aircraftPool.Spawn(isInAir, startAltitude, startSpeed);
+                    AircraftFacade newAircraft = aircraftPool.Spawn(isInAir, startAltitude, startSpeed);
                     newAircraft.transform.position = position + currentFormation.GetMemberPositionSpaced(i);
                     newAircraft.transform.rotation = Quaternion.identity;
                     newAircraft.transform.SetParent(transform);
@@ -73,7 +73,7 @@ namespace Game
                         yield return null;
                     }
 
-                    AircraftMonoBehaviour newAircraft = aircraftPool.Spawn(isInAir, startAltitude, startSpeed);
+                    AircraftFacade newAircraft = aircraftPool.Spawn(isInAir, startAltitude, startSpeed);
                     newAircraft.Aircraft.RunwayInUse = runway;
                     runway.IsInUse = true;
                     newAircraft.transform.position = runway.TouchDownPoint.position;

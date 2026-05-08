@@ -60,7 +60,7 @@ namespace ZenjectInstallers {
         {
             Container.Bind<Formation>().To<ArrowHead>().AsSingle();
 
-            Container.BindMemoryPool<AircraftMonoBehaviour, AircraftMonoBehaviour.Pool>()
+            Container.BindMemoryPool<AircraftFacade, AircraftFacade.Pool>()
                 .FromComponentInNewPrefab(AircraftPrefab)
                 .WithGameObjectName("Aircraft")
                 .UnderTransformGroup("Aircrafts");

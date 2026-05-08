@@ -10,7 +10,7 @@ namespace Game
         private ArcLineRenderer arcLineRenderer;
 
         [SerializeField]
-        private Rigidbody rigidbody;
+        private new Rigidbody rigidbody;
 
         // Update is called once per frame
         void Update()

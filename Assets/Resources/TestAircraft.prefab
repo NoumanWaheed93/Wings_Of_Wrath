@@ -1263,6 +1263,7 @@ GameObject:
   - component: {fileID: 6087905188102575368}
   - component: {fileID: 1604655158}
   - component: {fileID: 1604655157}
+  - component: {fileID: 1088883786176553728}
   - component: {fileID: 8875805196594098338}
   m_Layer: 0
   m_Name: TestAircraft
@@ -1333,10 +1334,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bece779cc0fe3024c8246aa677985dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementData: {fileID: 0}
+  team: 0
   sensors:
   - {fileID: 8900919222387801858}
   - {fileID: 339922604710040553}
   - {fileID: 1208735735532716362}
+  isAutoInit: 0
+  rigidbody: {fileID: 0}
+--- !u!114 &1088883786176553728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6900703714199412117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9ec8a56e9744d18a8ed1b6be7b5bb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monoBehaviour: {fileID: 1604655157}
 --- !u!114 &8875805196594098338
 MonoBehaviour:
   m_ObjectHideFlags: 0
