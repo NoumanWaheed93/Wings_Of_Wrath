@@ -23,13 +23,6 @@ namespace ZenjectInstallers {
         public InputAction SteerAction;
         public InputAction AfterBurnerAction;
 
-        private AircraftPlayerController playerController;
-
-        void Update()
-        {
-            playerController.Update(Time.deltaTime);    
-        }
-
         public override void InstallBindings()
         {
             InstallTimeProvider();
@@ -46,7 +39,7 @@ namespace ZenjectInstallers {
             .AsSingle()
             .WithArguments(SteerAction, AfterBurnerAction);
             Container.Bind<AircraftPlayerController>().AsSingle();
-            playerController = Container.Resolve<AircraftPlayerController>();
+            Container.BindInterfacesAndSelfTo<PlayerControllerZenjectWrapper>().AsSingle();
         }
 
         private void InstallControllableAircraftManager()
