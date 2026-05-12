@@ -412,6 +412,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Steer
       m_Flags: 8
+    - m_Name: 
+      m_Id: fc7e7d81-8426-4490-8aeb-f7e833f315c3
+      m_Path: <Joystick>/stick/x
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Steer
+      m_Flags: 0
     m_Flags: 0
   AfterBurnerAction:
     m_Name: After Burner
@@ -564,6 +572,7 @@ GameObject:
   - component: {fileID: 721948523}
   - component: {fileID: 721948522}
   - component: {fileID: 721948521}
+  - component: {fileID: 721948525}
   - component: {fileID: 721948524}
   m_Layer: 5
   m_Name: ThumbDriftInput
@@ -663,6 +672,20 @@ MonoBehaviour:
   _useSceneContext: 1
   _context: {fileID: 0}
   _bindType: 0
+--- !u!114 &721948525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721948519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb2523e8bf9a47c8bff650cc1287dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thumbDriftInput: {fileID: 721948521}
+  m_ControlPath: <Joystick>/stick/x
 --- !u!1 &759199348
 GameObject:
   m_ObjectHideFlags: 0
