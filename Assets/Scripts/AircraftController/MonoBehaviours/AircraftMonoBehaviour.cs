@@ -1,7 +1,5 @@
 using UnityEngine;
 using Common;
-using FormationSystem;
-using AircraftController.AircraftAI;
 using Locomotion;
 
 namespace AircraftController

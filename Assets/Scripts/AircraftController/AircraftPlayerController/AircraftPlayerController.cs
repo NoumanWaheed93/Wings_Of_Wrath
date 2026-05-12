@@ -1,12 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Zenject;
-using ScreenInputControls;
 
 namespace AircraftController
 {
-    public class AircraftPlayerController : IAircraftController, ITickable
+    public class AircraftPlayerController : IAircraftController
     {
         private IAircraft aircraft;
         public IAircraft Aircraft 
@@ -45,11 +40,6 @@ namespace AircraftController
         public float GetTurn()
         {
             return turnInput;
-        }
-
-        public void Tick()
-        {
-            Update(Time.deltaTime);
         }
 
         public void Update(float simulationDeltaTime)
