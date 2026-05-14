@@ -15,15 +15,26 @@ namespace Game
         [SerializeField]
         private TimeScaleManager timeScaleManager;
 
+        [SerializeField]
+        private bool isTimeScaleActive = true;
 
         private void OnEnable()
         {
+            if(isTimeScaleActive == false)
+            {
+                return;
+            }
             thumbDriftInput.OnHoldStart += OnThumbDriftHoldStart;
             thumbDriftInput.OnHoldEnd += OnThumbDriftHoldEnd;
         }
 
         private void OnDisable()
         {
+            if (isTimeScaleActive == false)
+            {
+                return;
+            }
+            
             thumbDriftInput.OnHoldStart -= OnThumbDriftHoldStart;
             thumbDriftInput.OnHoldEnd -= OnThumbDriftHoldEnd;
         }

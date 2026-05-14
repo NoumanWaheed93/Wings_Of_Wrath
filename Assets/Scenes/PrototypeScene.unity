@@ -2266,6 +2266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thumbDriftInput: {fileID: 721948521}
   timeScaleManager: {fileID: 675011983}
+  isTimeScaleActive: 0
 --- !u!1 &1544074664
 GameObject:
   m_ObjectHideFlags: 0
