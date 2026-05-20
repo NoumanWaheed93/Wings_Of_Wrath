@@ -32,12 +32,12 @@ namespace Game
         private Runway runway;
 
 
-        private Formation currentFormation;
+        private Formation<AircraftFormationMember> currentFormation;
         private AircraftFacade.Pool aircraftPool;
         private ControllableAircraftManager controllableAircraftManager;
 
         [Inject]
-        private void Init(AircraftFacade.Pool aircraftFactory, Formation formation, ControllableAircraftManager controllableAircraftManager)
+        private void Init(AircraftFacade.Pool aircraftFactory, Formation<AircraftFormationMember> formation, ControllableAircraftManager controllableAircraftManager)
         {
             this.aircraftPool = aircraftFactory;
             this.currentFormation = formation;
@@ -57,7 +57,7 @@ namespace Game
                     newAircraft.transform.rotation = Quaternion.identity;
                     newAircraft.transform.SetParent(transform);
                     yield return null;
-                    currentFormation.AddMember(newAircraft.FormationMember);
+                    currentFormation.AddMember(newAircraft.FormationMember.Self);
                     newAircraft.FormationMember.Formation = currentFormation;
                     controllableAircraftManager.AddControllableAircraft(newAircraft.Aircraft, newAircraft.AIController, null, null, null);
                     newAircraft.AIController.SetWaypoints(GetWaypointPositions());
@@ -81,7 +81,7 @@ namespace Game
                     newAircraft.transform.SetParent(transform);
                     
                     yield return null;
-                    currentFormation.AddMember(newAircraft.FormationMember);
+                    currentFormation.AddMember(newAircraft.FormationMember.Self);
                     newAircraft.FormationMember.Formation = currentFormation;
                     controllableAircraftManager.AddControllableAircraft(newAircraft.Aircraft, newAircraft.AIController, null, null, null);
                     newAircraft.AIController.SetWaypoints(GetWaypointPositions());

@@ -59,7 +59,7 @@ namespace ZenjectInstallers {
 
         private void InstallFormationManager()
         {
-            Container.Bind<Formation>().To<ArrowHead>().AsSingle();
+            Container.Bind<Formation<AircraftFormationMember>>().To<ArrowHead<AircraftFormationMember>>().AsSingle();
 
             Container.BindMemoryPool<AircraftFacade, AircraftFacade.Pool>()
                 .FromComponentInNewPrefab(AircraftPrefab)

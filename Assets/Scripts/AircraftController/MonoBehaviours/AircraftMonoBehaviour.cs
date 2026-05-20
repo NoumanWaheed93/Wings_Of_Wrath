@@ -32,7 +32,8 @@ namespace AircraftController
         {
             if (isAutoInit)
             {
-                Init(new Aircraft(movementData, transform, rigidbody), team);
+                AircraftFormationMember member = new AircraftFormationMember();
+                Init(new Aircraft(movementData, transform, rigidbody, member), team);
             }
         }
 

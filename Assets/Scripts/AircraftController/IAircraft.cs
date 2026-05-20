@@ -23,13 +23,18 @@ namespace AircraftController
         float DesiredSpeed { get; set; }
         float AltitudeOffset { get; set; }
 
-        IFormationMember formationMember { get; }
+
+        public Vector3 Velocity { get; }
+ 
+        public Vector3 AngularVelocity { get; }
+ 
+        public IFormationMember<AircraftFormationMember> FormationMember { get; }
         public void Spawn(bool isInAir = false, float startAltitude = 0f, float startSpeed = 0f);
         void CalculateAndSetPitch(float targetAltitude, float targetDistance);
         void CalculateAndSetPitch(Vector3 targetPosition);
         bool HasDeviatedFromLine(Vector3 lineStart, Vector3 lineEnd, float acceptableDeviation);
         void SeekSpeed(float targetSpeed);
-        float GetSpeedToFollow(Vector3 targetPosition, IFormationMember toFollow);
+        float GetSpeedToFollow(Vector3 targetPosition, IAircraft toFollow);
         float GetRequiredThrottleForSpeed(float targetSpeed);
     }
 }

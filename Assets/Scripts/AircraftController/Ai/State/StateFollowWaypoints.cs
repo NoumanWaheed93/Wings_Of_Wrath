@@ -41,11 +41,13 @@ namespace AircraftController
                     }
                 }
 
-                if(aircraftController.aircraft.formationMember.Formation != null && aircraftController.aircraft.formationMember.PositionIndex != 0)
+                if(aircraftController.aircraft.FormationMember.Formation != null && aircraftController.aircraft.FormationMember.PositionIndex != 0)
                 {
                     stateMachine.ChangeState(aircraftController.stateFollowFormation);
                 }
             }
         }
+    
     }
+
 }

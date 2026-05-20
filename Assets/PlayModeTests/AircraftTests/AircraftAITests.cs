@@ -37,7 +37,7 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
         aiController.SetWaypoints(wayPoints);
 
         yield return null;
-        aiController.aircraft.formationMember.Formation = null;
+        aiController.aircraft.FormationMember.Formation = null;
         aiController.Update(0);
         Assert.AreEqual(aiController.stateFollowWaypoints, aiController.StateMachine.currentState);
     }
@@ -58,7 +58,7 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
         aiController.SetWaypoints(wayPoints);
 
         yield return null;
-        aiController.aircraft.formationMember.Formation = Substitute.For<Formation>();
+        aiController.aircraft.FormationMember.Formation = Substitute.For<Formation<AircraftFormationMember>>();
         aiController.Update(0);
         Assert.AreEqual(aiController.stateFollowWaypoints, aiController.StateMachine.currentState);
     }
@@ -156,7 +156,7 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
         Container.Bind<AircraftAIController>().FromSubContainerResolve().ByMethod(InstallNewAIAircraft).AsTransient();
         PostInstall();
 
-        FormationSystem.Formation formation = Substitute.For<FormationSystem.Formation>();
+        FormationSystem.Formation<AircraftFormationMember> formation = Substitute.For<FormationSystem.Formation<AircraftFormationMember>>();
         formation.spacing = 10;
         formation.GetMemberPosition(0).Returns(Vector3.zero);
         formation.GetMemberPosition(1).Returns(new Vector3(1, 0, 0));
@@ -172,13 +172,13 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
         aiController.SetWaypoints(wayPoints);
 
         yield return null;
-        formation.AddMember(leader.aircraft.formationMember);
-        leader.aircraft.formationMember.Formation = formation;
-        formation.leader.Returns(leader.aircraft.formationMember);
+        formation.AddMember(leader.aircraft.FormationMember.Self);
+        leader.aircraft.FormationMember.Formation = formation;
+        formation.leader.Returns(leader.aircraft.FormationMember);
 
-        formation.AddMember(aiController.aircraft.formationMember);
-        aiController.aircraft.formationMember.Formation = formation;
-        aiController.aircraft.formationMember.PositionIndex = 1;
+        formation.AddMember(aiController.aircraft.FormationMember.Self);
+        aiController.aircraft.FormationMember.Formation = formation;
+        aiController.aircraft.FormationMember.PositionIndex = 1;
 
         aiController.StateMachine.ChangeState(aiController.stateFollowFormation);
 
@@ -224,7 +224,7 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
         Container.Bind<AircraftAIController>().FromSubContainerResolve().ByMethod(InstallNewAIAircraft).AsTransient();
         PostInstall();
 
-        FormationSystem.Formation formation = Substitute.For<FormationSystem.Formation>();
+        FormationSystem.Formation<AircraftFormationMember> formation = Substitute.For<FormationSystem.Formation<AircraftFormationMember>>();
         formation.spacing = 10;
         formation.GetMemberPosition(0).Returns(Vector3.zero);
         formation.GetMemberPosition(1).Returns(new Vector3(1, 0, 0));
@@ -241,13 +241,13 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
         aiController.SetWaypoints(wayPoints);
 
         yield return null;
-        formation.AddMember(leader.aircraft.formationMember);
-        leader.aircraft.formationMember.Formation = formation;
-        formation.leader.Returns(leader.aircraft.formationMember);
+        formation.AddMember(leader.aircraft.FormationMember.Self);
+        leader.aircraft.FormationMember.Formation = formation;
+        formation.leader.Returns(leader.aircraft.FormationMember);
 
-        formation.AddMember(aiController.aircraft.formationMember);
-        aiController.aircraft.formationMember.Formation = formation;
-        aiController.aircraft.formationMember.PositionIndex = 1;
+        formation.AddMember(aiController.aircraft.FormationMember.Self);
+        aiController.aircraft.FormationMember.Formation = formation;
+        aiController.aircraft.FormationMember.PositionIndex = 1;
 
         aiController.StateMachine.ChangeState(aiController.stateFollowFormation);
 
@@ -317,7 +317,7 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
             new Vector3(-1000, 100, -1000),
             new Vector3(1000, 100, 1000)
         };
-        FormationSystem.Formation formation = Substitute.For<FormationSystem.Formation>();
+        FormationSystem.Formation<AircraftFormationMember> formation = Substitute.For<FormationSystem.Formation<AircraftFormationMember>>();
 
         AircraftAIController leader = Container.Resolve<AircraftAIController>();
         leader.SetWaypoints(wayPoints);
@@ -325,12 +325,12 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
         aiController.SetWaypoints(wayPoints);
         yield return null;
 
-        formation.AddMember(leader.aircraft.formationMember);
-        leader.aircraft.formationMember.Formation = formation;
+        formation.AddMember(leader.aircraft.FormationMember.Self);
+        leader.aircraft.FormationMember.Formation = formation;
       
-        formation.AddMember(aiController.aircraft.formationMember);
-        aiController.aircraft.formationMember.Formation = formation;
-        aiController.aircraft.formationMember.PositionIndex = 1;
+        formation.AddMember(aiController.aircraft.FormationMember.Self);
+        aiController.aircraft.FormationMember.Formation = formation;
+        aiController.aircraft.FormationMember.PositionIndex = 1;
         aiController.Update(0);
         Assert.AreEqual(aiController.stateFollowFormation, aiController.StateMachine.currentState, "Incorrect State");
     }

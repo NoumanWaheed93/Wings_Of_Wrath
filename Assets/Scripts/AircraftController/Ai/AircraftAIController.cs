@@ -101,18 +101,18 @@ namespace AircraftController.AircraftAI
 
         public void FollowFormation()
         {
-            IFormationMember leader = aircraft.formationMember.Formation.leader;
-            IFormationMember myFormationMember = aircraft.formationMember;
+            AircraftFormationMember leader = aircraft.FormationMember.Formation.leader;
+            AircraftFormationMember myFormationMember = aircraft.FormationMember.Self;
 
             Vector3 myPositionInTheFormation = myFormationMember.Formation.GetMemberPositionSpaced(myFormationMember.PositionIndex);
             altitudeOffset = myPositionInTheFormation.y;
             //Get global position
-            Vector3 targetPosition = leader.Transform.TransformPoint(myPositionInTheFormation);
-            desiredSpeed = aircraft.GetSpeedToFollow(targetPosition, leader);
+            Vector3 targetPosition = leader.aircraft.Transform.TransformPoint(myPositionInTheFormation);
+            desiredSpeed = aircraft.GetSpeedToFollow(targetPosition, leader.aircraft);
 
-            float predictionTime = CalculatePredictionTime(leader, myFormationMember, myPositionInTheFormation);
+            float predictionTime = CalculatePredictionTime(leader.aircraft, aircraft, myPositionInTheFormation);
 
-            Vector3 leaderPredictedPosition = PredictPosition(leader.Transform, leader.velocity.magnitude, leader.angularVelocity.y * Mathf.Rad2Deg, predictionTime);
+            Vector3 leaderPredictedPosition = PredictPosition(leader.aircraft.Transform, leader.aircraft.Velocity.magnitude, leader.aircraft.AngularVelocity.y * Mathf.Rad2Deg, predictionTime);
 
             targetPosition += leaderPredictedPosition;
             TurnTowardsPosition(targetPosition);
@@ -125,28 +125,28 @@ namespace AircraftController.AircraftAI
         /// <param name="myFormationMember"></param>
         /// <param name="myPositionInTheFormation"></param>
         /// <returns></returns>
-        private float CalculatePredictionTime(IFormationMember leader, IFormationMember myFormationMember, Vector3 myPositionInTheFormation)
+        private float CalculatePredictionTime(IAircraft leader, IAircraft myFormationMember, Vector3 myPositionInTheFormation)
         {
             float predictionTime = 1;
-            float SidewaysDistanceToLeader = Mathf.Abs(myPositionInTheFormation.x) / myFormationMember.Formation.spacing;
+            float SidewaysDistanceToLeader = Mathf.Abs(myPositionInTheFormation.x) / myFormationMember.FormationMember.Formation.spacing;
             if (SidewaysDistanceToLeader > 1)
             {
                 SidewaysDistanceToLeader *= 0.6f;
             }
 
-            if (leader.angularVelocity.y > 0.1f && myPositionInTheFormation.x < 0)
+            if (leader.AngularVelocity.y > 0.1f && myPositionInTheFormation.x < 0)
             {
                 predictionTime = 0.5f / SidewaysDistanceToLeader; // If leader is turning right and I am on the left side, predict less
             }
-            else if (leader.angularVelocity.y < -0.1f && myPositionInTheFormation.x > 0)
+            else if (leader.AngularVelocity.y < -0.1f && myPositionInTheFormation.x > 0)
             {
                 predictionTime = 0.5f / SidewaysDistanceToLeader; // If leader is turning left and I am on the right side, predict less
             }
-            else if (leader.angularVelocity.y > 0.1f && myPositionInTheFormation.x > 0)
+            else if (leader.AngularVelocity.y > 0.1f && myPositionInTheFormation.x > 0)
             {
                 predictionTime = 1.5f * SidewaysDistanceToLeader; // If leader is turning right and I am on the right side, predict more
             }
-            else if (leader.angularVelocity.y < -0.1f && myPositionInTheFormation.x < 0)
+            else if (leader.AngularVelocity.y < -0.1f && myPositionInTheFormation.x < 0)
             {
                 predictionTime = 1.5f * SidewaysDistanceToLeader; // If leader is turning left and I am on the left side, predict more
             }
@@ -188,18 +188,18 @@ namespace AircraftController.AircraftAI
         /// </summary>
         /// <param name="myFormationMember"></param>
         /// <returns></returns>
-        private Vector3 CalculateSeparationForce(IFormationMember myFormationMember)
+        private Vector3 CalculateSeparationForce(AircraftFormationMember myFormationMember)
         {
             float separationDistance = myFormationMember.Formation.spacing; // Desired separation distance
             float separationStrength = 1.0f; // Strength of the separation force
 
             Vector3 separationForce = Vector3.zero;
 
-            foreach (IFormationMember member in myFormationMember.Formation.Members)
+            foreach (IFormationMember<AircraftFormationMember> member in myFormationMember.Formation.Members)
             {
                 if (member != myFormationMember)
                 {
-                    Vector3 toMember = myFormationMember.Transform.position - member.Transform.position;
+                    Vector3 toMember = myFormationMember.aircraft.Transform.position - member.Self.aircraft.Transform.position;
                     float distance = toMember.magnitude;
 
                     if (distance < separationDistance)

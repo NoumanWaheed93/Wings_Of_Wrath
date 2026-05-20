@@ -4,7 +4,7 @@ using System;
 
 namespace FormationSystem
 {
-    public abstract class Formation
+    public abstract class Formation<T> where T : IFormationMember<T>
     {
         public int MemberCount { get { return members.Count; } }
 
@@ -12,12 +12,12 @@ namespace FormationSystem
 
         public float altitudeSpacing { get; set; }
 
-        public virtual IFormationMember leader { get; private set; }
+        public virtual T leader { get; private set; }
 
-        protected HashSet<IFormationMember> members = new HashSet<IFormationMember>();
-        public HashSet<IFormationMember> Members { get { return members; } }
+        protected HashSet<T> members = new HashSet<T>();
+        public HashSet<T> Members { get { return members; } }
 
-        public virtual void AddMember(IFormationMember member)
+        public virtual void AddMember(T member)
         {
             //Add the member's position index before adding the member in the list. 
             //Because, this member's positionIndex is equal to Count before adding the new member
@@ -25,6 +25,7 @@ namespace FormationSystem
             member.PositionIndex = members.Count-1;
             TryResetLeader(member);
             member.Position = GetMemberPosition(member.PositionIndex);
+            member.Formation = this;
         }
 
         public abstract Vector3 GetMemberPosition(int memberIndex);
@@ -38,11 +39,11 @@ namespace FormationSystem
             return spacedPosition;
         }
 
-        public virtual void RemoveMember(IFormationMember memberToRemove)
+        public virtual void RemoveMember(T memberToRemove)
         {
             int removedMemberIndex = memberToRemove.PositionIndex;
             members.Remove(memberToRemove);
-            foreach (IFormationMember member in members)
+            foreach (T member in members)
             {
                 if (member.PositionIndex > removedMemberIndex)
                 {
@@ -59,12 +60,14 @@ namespace FormationSystem
                 throw new ArgumentException("Index cannot be a negative number");
         }
 
-        protected void TryResetLeader(IFormationMember member)
+        protected void TryResetLeader(T member)
         {
             if (member.PositionIndex == 0)
             {
                 leader = member;
             }
         }
+    
     }
+
 }

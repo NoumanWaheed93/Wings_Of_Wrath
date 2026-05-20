@@ -7,7 +7,7 @@ using Zenject;
 
 namespace AircraftController
 {
-    public class Aircraft : IAircraft, IFormationMember, ITickable, IFixedTickable
+    public class Aircraft : IAircraft, ITickable, IFixedTickable
     {
         private AircraftStateMachine stateMachine;
         public AircraftStateMachine StateMachine { get => stateMachine; }
@@ -46,8 +46,8 @@ namespace AircraftController
         public Landed StateLanded { get => stateLanded; }
         #endregion
 
-        Vector3 IFormationMember.velocity { get => rigidbody.velocity; }
-        Vector3 IFormationMember.angularVelocity { get => rigidbody.angularVelocity; }
+        public Vector3 Velocity { get => rigidbody.velocity; }
+        public Vector3 AngularVelocity { get => rigidbody.angularVelocity; }
 
         public float TurnInput { get; set; }
         public float DesiredSpeed { get; set; }
@@ -69,15 +69,13 @@ namespace AircraftController
         private Runway runwayInUse; //The runway that this aircraft is going to land on or is going to take off from.
         public Runway RunwayInUse { get => runwayInUse; set => runwayInUse = value; }
 
-        public IFormationMember formationMember { get => this; }
-        int IFormationMember.PositionIndex { get; set; }
-        Vector3 IFormationMember.Position { get; set; }
-        public Formation Formation { get; set; }
+        public IFormationMember<AircraftFormationMember> FormationMember { get; private set; }
 
-        public Aircraft(IAircraftMovementData movementData, Transform transform, Rigidbody rigidbody)
+        public Aircraft(IAircraftMovementData movementData, Transform transform, Rigidbody rigidbody, IFormationMember<AircraftFormationMember> formationMember)
         {
             this.transform = transform;
             this.rigidbody = rigidbody;
+            this.FormationMember = formationMember;
 
             stateMachine = new AircraftStateMachine();
             movementHandler = new AircraftMovementHandler(movementData, transform, rigidbody);
@@ -173,15 +171,15 @@ namespace AircraftController
             return requiredBrakePressure;
         }
 
-        public float GetSpeedToFollow(Vector3 targetPosition, IFormationMember toFollow)
+        public float GetSpeedToFollow(Vector3 targetPosition, IAircraft toFollow)
         {
             Debug.DrawLine(transform.position, targetPosition, Color.white);
          
-            IFormationMember myFormationMember = formationMember;
+            IFormationMember<AircraftFormationMember> myFormationMember = FormationMember;
             float forwardDistanceToTargetPos = GetDistanceAhead(targetPosition);
-            float leaderSpeed = toFollow.velocity.magnitude;
+            float leaderSpeed = toFollow.Velocity.magnitude;
 
-            Vector3 relativeVelocity = myFormationMember.velocity - toFollow.velocity;
+            Vector3 relativeVelocity = this.Velocity - toFollow.Velocity;
             float closureSpeed = RelativeVelocityUtility.CalculateClosureSpeed(toFollow.Transform.position, Transform.position, relativeVelocity);// CalculateClosureSpeed(leader.Transform.position, myFormationMember.Transform.position, relativeVelocity);
 
             float throttleRequiredForTargetSpeed = GetRequiredThrottleForSpeed(leaderSpeed);

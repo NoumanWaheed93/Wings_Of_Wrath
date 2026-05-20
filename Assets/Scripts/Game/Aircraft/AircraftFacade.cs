@@ -24,10 +24,10 @@ namespace Game
         private Team team;
         public Team Team { get => team; set => team = value; }
         
-        public Transform Transform => formationMember.Transform;
+        public Transform Transform => aircraft.Transform;
 
-        private IFormationMember formationMember;
-        public IFormationMember FormationMember { get => formationMember; }
+        private IFormationMember<AircraftFormationMember> formationMember;
+        public IFormationMember<AircraftFormationMember> FormationMember { get => formationMember; }
 
         private AircraftAIController aiController;
         public AircraftAIController AIController { get => aiController; }
@@ -40,7 +40,7 @@ namespace Game
         private Health health;
 
         [Inject]
-        public void Init(IAircraft aircraft, AircraftAIController aiController, IFormationMember formationMember, Team team, Health health, Pool pool)
+        public void Init(IAircraft aircraft, AircraftAIController aiController, AircraftFormationMember formationMember, Team team, Health health, Pool pool)
         {
             this.team = team;
             this.aircraft = aircraft;
