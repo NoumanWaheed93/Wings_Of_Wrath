@@ -45,9 +45,12 @@ namespace Game
             this.team = team;
             this.aircraft = aircraft;
             this.aiController = aiController;
-            this.formationMember = formationMember;
             this.pool = pool;
             this.health = health;
+
+
+            this.formationMember = formationMember;
+            this.formationMember.Self.aircraft = aircraft;
 
             monoBehaviour.Init(aircraft, team);
             health.onHealthDepleted += OnDie;

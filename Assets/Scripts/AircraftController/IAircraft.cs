@@ -28,7 +28,6 @@ namespace AircraftController
  
         public Vector3 AngularVelocity { get; }
  
-        public IFormationMember<AircraftFormationMember> FormationMember { get; }
         public void Spawn(bool isInAir = false, float startAltitude = 0f, float startSpeed = 0f);
         void CalculateAndSetPitch(float targetAltitude, float targetDistance);
         void CalculateAndSetPitch(Vector3 targetPosition);

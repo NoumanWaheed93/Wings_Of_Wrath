@@ -41,7 +41,7 @@ namespace AircraftController
                     }
                 }
 
-                if(aircraftController.aircraft.FormationMember.Formation != null && aircraftController.aircraft.FormationMember.PositionIndex != 0)
+                if(aircraftController.FormationMember.Formation != null && aircraftController.FormationMember.PositionIndex != 0)
                 {
                     stateMachine.ChangeState(aircraftController.stateFollowFormation);
                 }

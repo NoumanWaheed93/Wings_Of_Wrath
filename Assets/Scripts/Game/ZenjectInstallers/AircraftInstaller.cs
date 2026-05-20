@@ -1,6 +1,7 @@
 using AircraftController;
 using AircraftController.AircraftAI;
 using Common;
+using FormationSystem;
 using Game;
 using HealthSystem;
 using Locomotion;
@@ -27,6 +28,7 @@ namespace ZenjectInstallers
 
             InstallHealth();
             InstallRadar();
+            InstallFormationMember();
             InstallAircraft();
             InstallAircraftAI();
         }
@@ -52,7 +54,12 @@ namespace ZenjectInstallers
         {
             Container.Bind<TargetTracker>().AsSingle();
         }
-    
+
+        private void InstallFormationMember()
+        {
+            Container.BindInterfacesAndSelfTo<AircraftFormationMember>().AsSingle();
+        }
+
     }
 
 }

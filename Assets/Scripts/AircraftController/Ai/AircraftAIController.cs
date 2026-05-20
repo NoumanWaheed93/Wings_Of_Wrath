@@ -20,6 +20,8 @@ namespace AircraftController.AircraftAI
         private float altitudeOffset;
         public float AltitudeOffset { get => altitudeOffset; }
 
+        
+        public AircraftFormationMember FormationMember { get; private set; }
         public StateFollowWaypoints stateFollowWaypoints { get; private set; }
         public StateFollowFormation stateFollowFormation { get; private set; }
 
@@ -34,9 +36,10 @@ namespace AircraftController.AircraftAI
         //And when the player stops controlling the aircraft, the AI controller can make good decisions.
         public bool IsActive { get; set; }
 
-        public AircraftAIController(IAircraft aircraft, Transform transform)
+        public AircraftAIController(IAircraft aircraft, AircraftFormationMember formationMember, Transform transform)
         {
             this.aircraft = aircraft;
+            this.FormationMember = formationMember;
             this.transform = transform;
             stateFollowWaypoints = new StateFollowWaypoints(stateMachine, this, new Vector3[0]); // Initialize with empty waypoints
             stateFollowFormation = new StateFollowFormation(stateMachine, this);
@@ -101,8 +104,8 @@ namespace AircraftController.AircraftAI
 
         public void FollowFormation()
         {
-            AircraftFormationMember leader = aircraft.FormationMember.Formation.leader;
-            AircraftFormationMember myFormationMember = aircraft.FormationMember.Self;
+            AircraftFormationMember leader = FormationMember.Formation.leader;
+            AircraftFormationMember myFormationMember = FormationMember.Self;
 
             Vector3 myPositionInTheFormation = myFormationMember.Formation.GetMemberPositionSpaced(myFormationMember.PositionIndex);
             altitudeOffset = myPositionInTheFormation.y;
@@ -110,7 +113,7 @@ namespace AircraftController.AircraftAI
             Vector3 targetPosition = leader.aircraft.Transform.TransformPoint(myPositionInTheFormation);
             desiredSpeed = aircraft.GetSpeedToFollow(targetPosition, leader.aircraft);
 
-            float predictionTime = CalculatePredictionTime(leader.aircraft, aircraft, myPositionInTheFormation);
+            float predictionTime = CalculatePredictionTime(leader.aircraft, FormationMember, myPositionInTheFormation);
 
             Vector3 leaderPredictedPosition = PredictPosition(leader.aircraft.Transform, leader.aircraft.Velocity.magnitude, leader.aircraft.AngularVelocity.y * Mathf.Rad2Deg, predictionTime);
 
@@ -125,10 +128,10 @@ namespace AircraftController.AircraftAI
         /// <param name="myFormationMember"></param>
         /// <param name="myPositionInTheFormation"></param>
         /// <returns></returns>
-        private float CalculatePredictionTime(IAircraft leader, IAircraft myFormationMember, Vector3 myPositionInTheFormation)
+        private float CalculatePredictionTime(IAircraft leader, AircraftFormationMember myFormationMember, Vector3 myPositionInTheFormation)
         {
             float predictionTime = 1;
-            float SidewaysDistanceToLeader = Mathf.Abs(myPositionInTheFormation.x) / myFormationMember.FormationMember.Formation.spacing;
+            float SidewaysDistanceToLeader = Mathf.Abs(myPositionInTheFormation.x) / myFormationMember.Formation.spacing;
             if (SidewaysDistanceToLeader > 1)
             {
                 SidewaysDistanceToLeader *= 0.6f;

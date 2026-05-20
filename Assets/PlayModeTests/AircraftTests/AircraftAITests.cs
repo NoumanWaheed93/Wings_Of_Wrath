@@ -37,7 +37,7 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
         aiController.SetWaypoints(wayPoints);
 
         yield return null;
-        aiController.aircraft.FormationMember.Formation = null;
+        aiController.FormationMember.Formation = null;
         aiController.Update(0);
         Assert.AreEqual(aiController.stateFollowWaypoints, aiController.StateMachine.currentState);
     }
@@ -58,7 +58,7 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
         aiController.SetWaypoints(wayPoints);
 
         yield return null;
-        aiController.aircraft.FormationMember.Formation = Substitute.For<Formation<AircraftFormationMember>>();
+        aiController.FormationMember.Formation = Substitute.For<Formation<AircraftFormationMember>>();
         aiController.Update(0);
         Assert.AreEqual(aiController.stateFollowWaypoints, aiController.StateMachine.currentState);
     }
@@ -172,13 +172,13 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
         aiController.SetWaypoints(wayPoints);
 
         yield return null;
-        formation.AddMember(leader.aircraft.FormationMember.Self);
-        leader.aircraft.FormationMember.Formation = formation;
-        formation.leader.Returns(leader.aircraft.FormationMember);
+        formation.AddMember(leader.FormationMember.Self);
+        leader.FormationMember.Formation = formation;
+        formation.leader.Returns(leader.FormationMember);
 
-        formation.AddMember(aiController.aircraft.FormationMember.Self);
-        aiController.aircraft.FormationMember.Formation = formation;
-        aiController.aircraft.FormationMember.PositionIndex = 1;
+        formation.AddMember(aiController.FormationMember.Self);
+        aiController.FormationMember.Formation = formation;
+        aiController.FormationMember.PositionIndex = 1;
 
         aiController.StateMachine.ChangeState(aiController.stateFollowFormation);
 
@@ -241,13 +241,13 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
         aiController.SetWaypoints(wayPoints);
 
         yield return null;
-        formation.AddMember(leader.aircraft.FormationMember.Self);
-        leader.aircraft.FormationMember.Formation = formation;
-        formation.leader.Returns(leader.aircraft.FormationMember);
+        formation.AddMember(leader.FormationMember.Self);
+        leader.FormationMember.Formation = formation;
+        formation.leader.Returns(leader.FormationMember);
 
-        formation.AddMember(aiController.aircraft.FormationMember.Self);
-        aiController.aircraft.FormationMember.Formation = formation;
-        aiController.aircraft.FormationMember.PositionIndex = 1;
+        formation.AddMember(aiController.FormationMember.Self);
+        aiController.FormationMember.Formation = formation;
+        aiController.FormationMember.PositionIndex = 1;
 
         aiController.StateMachine.ChangeState(aiController.stateFollowFormation);
 
@@ -325,12 +325,12 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
         aiController.SetWaypoints(wayPoints);
         yield return null;
 
-        formation.AddMember(leader.aircraft.FormationMember.Self);
-        leader.aircraft.FormationMember.Formation = formation;
+        formation.AddMember(leader.FormationMember.Self);
+        leader.FormationMember.Formation = formation;
       
-        formation.AddMember(aiController.aircraft.FormationMember.Self);
-        aiController.aircraft.FormationMember.Formation = formation;
-        aiController.aircraft.FormationMember.PositionIndex = 1;
+        formation.AddMember(aiController.FormationMember.Self);
+        aiController.FormationMember.Formation = formation;
+        aiController.FormationMember.PositionIndex = 1;
         aiController.Update(0);
         Assert.AreEqual(aiController.stateFollowFormation, aiController.StateMachine.currentState, "Incorrect State");
     }
@@ -346,9 +346,10 @@ public class AircraftAITests : ZenjectIntegrationTestFixture
 
 
         subContainer.Bind<Team>().FromInstance(Team.Blue).AsSingle();
+        subContainer.BindInterfacesAndSelfTo<AircraftFormationMember>().AsSingle();
         subContainer.BindInterfacesAndSelfTo<Aircraft>().AsSingle()
-            .WithArguments(GetAircraftMovementDataSubstitute(), aircraftGameObject.transform, rigidbody, true, 100f, 80f);
-        subContainer.BindInterfacesAndSelfTo<AircraftAIController>().AsSingle();
+            .WithArguments(GetAircraftMovementDataSubstitute(), aircraftGameObject.transform, rigidbody);
+        subContainer.BindInterfacesAndSelfTo<AircraftAIController>().AsSingle().WithArguments(aircraftGameObject.transform);
         subContainer.Bind<AircraftMonoBehaviour>().FromNewComponentOn(aircraftGameObject).AsSingle();
 
         //Aircraft aircraft =
