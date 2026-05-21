@@ -39,7 +39,7 @@ namespace AircraftController.AircraftAI
                 }
             }
 
-            if (aircraftController.aircraft.RunwayInUse != null)
+            if (aircraftController.aircraft.StateMachine.currentState == aircraftController.aircraft.StateFinalApproach)
             {
                 stateMachine.ChangeState(aircraftController.stateLanding);
                 return;
