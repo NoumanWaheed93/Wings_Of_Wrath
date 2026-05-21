@@ -62,7 +62,18 @@ namespace Locomotion
             rigidbody.velocity = transform.forward * currSpeed;
 
             Vector3 pitchVelocity = transform.right * pitchSeeker.CurrValue * aerodynamicMovementData.maxPitch;
-            Vector3 turnVelocity = Vector3.up * turnSeeker.CurrValue * aerodynamicMovementData.maxTurn;
+            float turnFactor = 0;
+            
+            if(Mathf.Sign(turnSeeker.CurrValue) == Mathf.Sign(currTurn))
+            {
+                turnFactor = Mathf.Min(Mathf.Abs(turnSeeker.CurrValue), Mathf.Abs(currTurn));
+                turnFactor *= Mathf.Sign(currTurn);
+            }
+            else if(currTurn != 0)
+            {
+            }
+
+            Vector3 turnVelocity = Vector3.up * turnFactor * aerodynamicMovementData.maxTurn;
             rigidbody.angularVelocity = pitchVelocity + turnVelocity;
             CorrectYRotation();
         }
