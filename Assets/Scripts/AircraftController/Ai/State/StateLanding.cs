@@ -15,7 +15,9 @@ namespace AircraftController.AircraftAI
 
         private LandingPhase phase;
 
-        private float reachDistance; //If the distance to the targetPosition is less than reachDistance, it means the target is reached.
+        private float reachDistance = 20; //If the distance to the targetPosition is less than reachDistance, it means the target is reached.
+
+        private int holdingPatternIndex = 0; // 0 means, aircraft has not started holding yet. 
 
         public StateLanding(AIStateMachine stateMachine, AircraftAIController aircraftController) : base(stateMachine, aircraftController)
         {
@@ -69,10 +71,13 @@ namespace AircraftController.AircraftAI
 
             Vector3 RunwayDirection = homeRunway.TouchDownPoint.position - homeRunway.FinalApproach.position;
             Vector3 Waypoint1 = homeRunway.InitialApproach.position - RunwayDirection;
-            aircraftController.TurnTowardsPosition(Waypoint1);
+           
+            if(holdingPatternIndex == 2)
+            {
+                Waypoint1 -= new Vector3(0, 0, 600);
+            }
 
-            // 2. When near the home base. If it is not in use, go to the initial approach.
-            if (Vector3.Distance(Waypoint1, aircraftController.transform.position) < 10)
+            if(holdingPatternIndex != 0) //The aircraft is holding 
             {
                 if (homeRunway.IsInUse == false)
                 {
@@ -80,6 +85,23 @@ namespace AircraftController.AircraftAI
                     homeRunway.IsInUse = true;
                     aircraftController.aircraft.RunwayInUse = homeRunway;
                 }
+            }
+
+            // 2. When near the home base. If it is not in use, go to the initial approach.
+            if (GoToPosition(Waypoint1))
+            {
+                if(holdingPatternIndex == 0) //Because, 0 and 1 are the same waypoints. They just indicate the state
+                {
+                    holdingPatternIndex = 1;
+                }
+
+                holdingPatternIndex ++;
+                if(holdingPatternIndex > 2)
+                {
+                    holdingPatternIndex = 1;
+                }
+
+                Debug.Log($"Holding pattern index is {holdingPatternIndex}");
             }
         }
 

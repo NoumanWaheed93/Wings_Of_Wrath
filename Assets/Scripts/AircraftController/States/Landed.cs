@@ -26,6 +26,14 @@ namespace AircraftController
         {
             //Slow down to a halt
             //Automatically turn the aircraft to keep it aligned with the runway
+            Debug.Log($"magnitude of vel is {aircraftController.Velocity.magnitude}");
+            if(aircraftController.Velocity.magnitude < 0.1f)
+            {
+                aircraftController.RunwayInUse.IsInUse = false;
+                aircraftController.Transform.gameObject.SetActive(false);
+            }
         }
+    
     }
+
 }
