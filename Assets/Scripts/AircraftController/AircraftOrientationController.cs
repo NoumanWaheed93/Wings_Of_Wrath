@@ -25,7 +25,7 @@ namespace AircraftController
 
         public void Update(float simulationDeltaTime)
         {
-            transform.localEulerAngles = new Vector3(pitchOffset + movementData.maxPitchAngle * currPitch, 0, movementData.maxRollAngle * -turnFactor.TurnFactor);
+            transform.localEulerAngles = new Vector3(pitchOffset + movementData.maxPitchAngle * currPitch, 0, movementData.maxRollAngle * -turnFactor.RollFactor);
         }
     }
 }

@@ -9,13 +9,14 @@ namespace Locomotion
         public IAircraftMovementData AerodynamicMovementData { get => aerodynamicMovementData; }
 
         private TargetValueSeeker pitchSeeker;
+        private TargetValueSeeker rollSeeker;
         private TargetValueSeeker turnSeeker;
 
-        public float TurnFactor 
+        public float RollFactor 
         { 
             get
             {
-                return turnSeeker.CurrValue;
+                return rollSeeker.CurrValue;
             } 
         }
 
@@ -33,6 +34,7 @@ namespace Locomotion
         {
             this.aerodynamicMovementData = aerodynamicMovementData;
             pitchSeeker = new TargetValueSeeker(aerodynamicMovementData.pitchSpeed);
+            rollSeeker = new TargetValueSeeker(aerodynamicMovementData.rollSpeed);
             turnSeeker = new TargetValueSeeker(aerodynamicMovementData.rollSpeed);
         }
 
@@ -55,7 +57,9 @@ namespace Locomotion
         protected override void HandleMovement(float simulationDeltaTime)
         {
             turnSeeker.Target = currTurn;
+            rollSeeker.Target = currTurn;
             turnSeeker.Seek(simulationDeltaTime);
+            rollSeeker.Seek(simulationDeltaTime);
             pitchSeeker.Seek(simulationDeltaTime);
             HandleCurrSpeed(simulationDeltaTime);
 
@@ -63,15 +67,30 @@ namespace Locomotion
 
             Vector3 pitchVelocity = transform.right * pitchSeeker.CurrValue * aerodynamicMovementData.maxPitch;
             float turnFactor = 0;
-            
-            if(Mathf.Sign(turnSeeker.CurrValue) == Mathf.Sign(currTurn))
+
+
+            //--- Done for the better Control feeling ---
+
+            if (Mathf.Sign(turnSeeker.CurrValue) != Mathf.Sign(rollSeeker.CurrValue))
+            {
+                turnSeeker.Target = currTurn * 0.5f;
+            }
+
+            if (Mathf.Sign(turnSeeker.CurrValue) == Mathf.Sign(currTurn))
             {
                 turnFactor = Mathf.Min(Mathf.Abs(turnSeeker.CurrValue), Mathf.Abs(currTurn));
                 turnFactor *= Mathf.Sign(currTurn);
             }
             else if(currTurn != 0)
             {
+                turnSeeker.Target = 0;
+                turnSeeker.Seek(10000); //Snap to the target;
+                turnSeeker.Target = currTurn;
+                turnSeeker.Seek(simulationDeltaTime);
+                turnFactor = turnSeeker.CurrValue;
             }
+
+            // --- Above is done for the better control feeling ---
 
             Vector3 turnVelocity = Vector3.up * turnFactor * aerodynamicMovementData.maxTurn;
             rigidbody.angularVelocity = pitchVelocity + turnVelocity;

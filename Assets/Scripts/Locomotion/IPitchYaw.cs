@@ -2,7 +2,7 @@ namespace Locomotion
 {
     public interface IPitchYaw
     {
-        float TurnFactor { get; }
+        float RollFactor { get; }
         float PitchFactor { get; }
     }
 }
