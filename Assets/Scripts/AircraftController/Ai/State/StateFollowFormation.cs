@@ -23,6 +23,12 @@ namespace AircraftController
 
             public override void Update(float simulationDeltaTime)
             {
+                IAircraft leader = aircraftController.FormationMember.Formation.leader.aircraft;
+                if(leader.RunwayInUse != null)
+                {
+                    stateMachine.ChangeState(aircraftController.stateLanding);
+                    return;
+                }
                 aircraftController.FollowFormation();
             }
         }

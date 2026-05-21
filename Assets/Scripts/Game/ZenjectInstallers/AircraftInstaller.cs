@@ -1,12 +1,8 @@
 using AircraftController;
 using AircraftController.AircraftAI;
 using Common;
-using FormationSystem;
-using Game;
 using HealthSystem;
 using Locomotion;
-using System.Collections;
-using System.Collections.Generic;
 using TargetingSystem;
 using UnityEngine;
 using Zenject;

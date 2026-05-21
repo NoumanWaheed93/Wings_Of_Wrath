@@ -74,6 +74,7 @@ namespace Game
                     }
 
                     AircraftFacade newAircraft = aircraftPool.Spawn(isInAir, startAltitude, startSpeed);
+                    newAircraft.Aircraft.HomeRunway = runway;
                     newAircraft.Aircraft.RunwayInUse = runway;
                     runway.IsInUse = true;
                     newAircraft.transform.position = runway.TouchDownPoint.position;

@@ -7,6 +7,7 @@ namespace AircraftController
     public interface IAircraft
     {
         bool AfterBurnerInput { get; set; }
+        Runway HomeRunway { get; set; }
         Runway RunwayInUse { get; set; }
         AircraftMovementHandler MovementHandler { get; }
         AircraftOrientationController OrientationController { get; }

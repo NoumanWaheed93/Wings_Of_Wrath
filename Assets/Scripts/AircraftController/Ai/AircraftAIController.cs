@@ -24,6 +24,7 @@ namespace AircraftController.AircraftAI
         public AircraftFormationMember FormationMember { get; private set; }
         public StateFollowWaypoints stateFollowWaypoints { get; private set; }
         public StateFollowFormation stateFollowFormation { get; private set; }
+        public StateLanding stateLanding { get; private set; }
 
         public bool IsAfterBurnerOn => true;
 
@@ -43,6 +44,7 @@ namespace AircraftController.AircraftAI
             this.transform = transform;
             stateFollowWaypoints = new StateFollowWaypoints(stateMachine, this, new Vector3[0]); // Initialize with empty waypoints
             stateFollowFormation = new StateFollowFormation(stateMachine, this);
+            stateLanding = new StateLanding(stateMachine, this);
             stateMachine.Initialize(stateFollowWaypoints);
             IsActive = true;
         }

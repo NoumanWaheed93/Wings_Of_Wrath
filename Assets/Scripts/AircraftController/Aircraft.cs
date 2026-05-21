@@ -66,8 +66,9 @@ namespace AircraftController
             }
         }
 
-        private Runway runwayInUse; //The runway that this aircraft is going to land on or is going to take off from.
-        public Runway RunwayInUse { get => runwayInUse; set => runwayInUse = value; }
+        public Runway RunwayInUse { get; set; }
+
+        public Runway HomeRunway { get; set; }
 
         public IFormationMember<AircraftFormationMember> FormationMember { get; private set; }
 
