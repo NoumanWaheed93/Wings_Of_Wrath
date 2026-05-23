@@ -24,7 +24,9 @@ namespace AircraftController
             public override void Update(float simulationDeltaTime)
             {
                 IAircraft leader = aircraftController.FormationMember.Formation.leader.aircraft;
-                if(leader.RunwayInUse != null)
+
+                bool isLeaderLanding = leader.StateMachine.currentState ==  leader.StateFinalApproach;
+                if(isLeaderLanding)
                 {
                     stateMachine.ChangeState(aircraftController.stateLanding);
                     return;
@@ -32,5 +34,7 @@ namespace AircraftController
                 aircraftController.FollowFormation();
             }
         }
+
     }
+
 }

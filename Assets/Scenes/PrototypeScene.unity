@@ -715,7 +715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efdfb73e630ea24ab34d2bb1662afa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 4
+  count: 2
   position: {x: 157, y: 100, z: 1180}
   spacing: 10
   altitudeSpacing: 5

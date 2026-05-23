@@ -15,7 +15,7 @@ namespace AircraftController.AircraftAI
 
         private LandingPhase phase;
 
-        private float reachDistance = 20; //If the distance to the targetPosition is less than reachDistance, it means the target is reached.
+        private float reachDistance = 60; //If the distance to the targetPosition is less than reachDistance, it means the target is reached.
 
         private int holdingPatternIndex = 0; // 0 means, aircraft has not started holding yet. 
 
@@ -41,15 +41,19 @@ namespace AircraftController.AircraftAI
                 switch (phase)
                 {
                     case LandingPhase.InitialApproachPrep:
+                        Debug.Log("InitialApproachPrep");
                         InitialApproachPreparation();
                         break;
                     case LandingPhase.InitialApproach:
+                        Debug.Log("Initial approach");
                         InitialApproach();
                         break;
                     case LandingPhase.FinalApproach:
+                        Debug.Log("Final Approach");
                         FinalApproach();
                         break;
                     case LandingPhase.TouchDown:
+                        Debug.Log("Touch down");
                         TouchDown();
                         break;
                 }
@@ -60,6 +64,7 @@ namespace AircraftController.AircraftAI
             }
             else
             {
+                Debug.Log("Returning home");
                 ReturningHome();
             }
         }
@@ -74,7 +79,7 @@ namespace AircraftController.AircraftAI
            
             if(holdingPatternIndex == 2)
             {
-                Waypoint1 -= new Vector3(0, 0, 600);
+                Waypoint1 -= new Vector3(0, 0, 1000);
             }
 
             if(holdingPatternIndex != 0) //The aircraft is holding 
@@ -87,6 +92,7 @@ namespace AircraftController.AircraftAI
                 }
             }
 
+            Debug.Log($"Holding pattern index is {holdingPatternIndex}");
             // 2. When near the home base. If it is not in use, go to the initial approach.
             if (GoToPosition(Waypoint1))
             {
@@ -100,8 +106,6 @@ namespace AircraftController.AircraftAI
                 {
                     holdingPatternIndex = 1;
                 }
-
-                Debug.Log($"Holding pattern index is {holdingPatternIndex}");
             }
         }
 

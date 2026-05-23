@@ -9,6 +9,8 @@ namespace AircraftController
 
         private void OnTriggerEnter(Collider other)
         {
+            if(runway.IsInUse == true)
+                return;
             AircraftMonoBehaviour landingAircraft = other.GetComponentInParent<AircraftMonoBehaviour>();
             if (landingAircraft == null)
                 return;
@@ -21,6 +23,8 @@ namespace AircraftController
 
             Debug.Log("Initial Approach done");
             //initial approach done
+
+            runway.IsInUse = true;
             landingAircraft.PrepareToLand(runway);
         }
 

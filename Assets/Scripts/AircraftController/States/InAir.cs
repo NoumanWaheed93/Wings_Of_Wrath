@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace AircraftController
 {
     public class InAir : AircraftState
@@ -20,6 +22,7 @@ namespace AircraftController
             if(aircraftController.RunwayInUse != null)
             {
                 aircraftController.RunwayInUse.IsInUse = false;
+                aircraftController.RunwayInUse = null;
             } 
         }
 
@@ -64,7 +67,12 @@ namespace AircraftController
 
         private bool IsInitialApproachDone()
         {
-            return aircraftController.RunwayInUse != null;
+            if(aircraftController.RunwayInUse != null)
+            {
+                bool isNearInitialApproach = Vector3.Distance(aircraftController.Transform.position, aircraftController.RunwayInUse.InitialApproach.position) < 20;
+                return isNearInitialApproach;
+            }
+            return false;
         }
 
         private void MoveToFinalApproach()
