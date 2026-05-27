@@ -57,10 +57,6 @@ namespace AircraftController.AircraftAI
                         TouchDown();
                         break;
                 }
-                if(phase == LandingPhase.InitialApproachPrep)
-                {
-                    InitialApproachPreparation();
-                }
             }
             else
             {
@@ -86,7 +82,7 @@ namespace AircraftController.AircraftAI
             {
                 if (homeRunway.IsInUse == false)
                 {
-                    phase = LandingPhase.InitialApproach;
+                    phase = LandingPhase.InitialApproachPrep;
                     homeRunway.IsInUse = true;
                     aircraftController.aircraft.RunwayInUse = homeRunway;
                 }
@@ -114,7 +110,7 @@ namespace AircraftController.AircraftAI
             Runway homeRunway = aircraftController.aircraft.RunwayInUse;
 
             Vector3 ApproachDirection = homeRunway.FinalApproach.position - homeRunway.InitialApproach.position;
-            Vector3 initalApproachPreparePoint = homeRunway.InitialApproach.position - ApproachDirection.normalized * 60;
+            Vector3 initalApproachPreparePoint = homeRunway.InitialApproach.position - ApproachDirection.normalized * 200;
             
             if(GoToPosition(initalApproachPreparePoint))
             {
