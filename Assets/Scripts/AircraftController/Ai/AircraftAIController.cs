@@ -171,20 +171,31 @@ namespace AircraftController.AircraftAI
         {
             Vector3 currentPosition = Vector3.zero;
 
-            forwardSpeed *= predictionTime;
-            angularSpeedY *= predictionTime;
+            float totalDistance = forwardSpeed * predictionTime;
+            float totalRotation = angularSpeedY * predictionTime;
 
-            Vector3 halfWayForward = transform.forward * forwardSpeed * 0.5f;
+            // Handle near-zero angular velocity (straight line)
+            if (Mathf.Abs(totalRotation) < 0.01f)
+            {
+                return transform.forward * totalDistance;
+            }
 
-            Debug.DrawRay(transform.position, halfWayForward, Color.blue);
+            // Calculate circular arc parameters
+            float radiusOfTurn = totalDistance / (totalRotation * Mathf.Deg2Rad);
 
-            Vector3 halfWayTurned = Quaternion.AngleAxis(angularSpeedY, Vector3.up) * halfWayForward;
+            // The center of the circular arc is perpendicular to the current forward direction
+            Vector3 centerOffset = transform.right * radiusOfTurn;
+            Vector3 arcCenter = transform.position + centerOffset;
 
-            Debug.DrawRay(transform.position + halfWayForward, halfWayTurned, Color.red);
+            // Start position on the arc (current position)
+            Vector3 startOnArc = transform.position;
 
-            Vector3 predictedPosition = currentPosition + halfWayForward + halfWayTurned;
+            // Calculate end position by rotating around the arc center
+            Quaternion rotationAroundCenter = Quaternion.AngleAxis(totalRotation, Vector3.up);
+            Vector3 endOnArc = arcCenter + rotationAroundCenter * (startOnArc - arcCenter);
 
-            return predictedPosition;
+            // Return the predicted offset from current position
+            return endOnArc - transform.position;
         }
 
 
