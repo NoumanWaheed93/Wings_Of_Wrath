@@ -16,11 +16,16 @@ namespace Game
         private TimeScaleManager timeScaleManager;
 
         [SerializeField]
+        private int targetFrameRate = 60;
+
+        [SerializeField]
         private bool isTimeScaleActive = true;
 
         private void OnEnable()
         {
-            if(isTimeScaleActive == false)
+            Application.targetFrameRate = targetFrameRate;
+
+            if (isTimeScaleActive == false)
             {
                 return;
             }

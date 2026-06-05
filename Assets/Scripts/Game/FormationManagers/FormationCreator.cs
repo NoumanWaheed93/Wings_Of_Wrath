@@ -69,7 +69,6 @@ namespace Game
                 {
                     while (runway.IsInUse)
                     {
-                        Debug.Log("Waiting for the runway to be free.");
                         yield return null;
                     }
 

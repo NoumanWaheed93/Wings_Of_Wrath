@@ -313,6 +313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 80, z: -50}
+  smoothTime: 0.1
   target: {fileID: 1604655155}
 --- !u!114 &231476386
 MonoBehaviour:
@@ -2266,6 +2267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thumbDriftInput: {fileID: 721948521}
   timeScaleManager: {fileID: 675011983}
+  targetFrameRate: 15
   isTimeScaleActive: 0
 --- !u!1 &1544074664
 GameObject:
