@@ -44,6 +44,17 @@ namespace Game
             thumbDriftInput.OnHoldEnd -= OnThumbDriftHoldEnd;
         }
 
+        private void OnGUI()
+        {
+            if (targetFrameRate < 30)
+            {
+                //write the target frame rate in red
+                GUI.color = Color.red;
+                GUI.Label(new Rect(10, 10, 200, 20), "Warning Low target frame rate :" + targetFrameRate);
+                GUI.color = Color.white;
+            }
+        }
+
         private void OnThumbDriftHoldStart()
         {
             timeScaleManager.SetTimeScale(1f, false);

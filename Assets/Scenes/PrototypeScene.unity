@@ -2267,7 +2267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thumbDriftInput: {fileID: 721948521}
   timeScaleManager: {fileID: 675011983}
-  targetFrameRate: 15
+  targetFrameRate: 60
   isTimeScaleActive: 0
 --- !u!1 &1544074664
 GameObject:
