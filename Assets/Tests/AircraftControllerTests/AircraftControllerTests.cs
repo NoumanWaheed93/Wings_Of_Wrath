@@ -140,12 +140,16 @@ public class AircraftControllerTests
         // Set runway to trigger landing
         aircraftController.RunwayInUse = runway;
 
-        // Update to transition from InAir to FinalApproach
+        // Move toward InitialApproach to satisfy proximity check, then transition to FinalApproach
+        int ticks = 0;
+        aircraftGameObject.transform.position = initialApproachGO.transform.position;
         aircraftController.Update(1);
+        aircraftController.FixedUpdate(1);
+
         Assert.AreEqual(aircraftController.StateFinalApproach, aircraftController.StateMachine.currentState, "Should transition to FinalApproach.");
 
         // Move aircraft toward FinalApproach point and update
-        int ticks = 0;
+        ticks = 0;
         while (aircraftController.StateMachine.currentState != aircraftController.StateTouchDown)
         {
             aircraftGameObject.transform.position = Vector3.MoveTowards(
@@ -204,17 +208,21 @@ public class AircraftControllerTests
 
         // Spawn aircraft in air
         aircraftController.Spawn(isInAir: true, 100, 80);
-        aircraftGameObject.transform.position = Vector3.zero;
+        aircraftGameObject.transform.position = new Vector3(0, 100, 0);
 
         // Set runway to trigger landing
         aircraftController.RunwayInUse = runway;
 
-        // Update to transition from InAir to FinalApproach
+        // Move toward InitialApproach to satisfy proximity check, then transition to FinalApproach
+        int ticks = 0;
+        aircraftGameObject.transform.position = initialApproachGO.transform.position;
         aircraftController.Update(1);
+        aircraftController.FixedUpdate(1);
+
         Assert.AreEqual(aircraftController.StateFinalApproach, aircraftController.StateMachine.currentState, "Should transition to FinalApproach.");
 
         // Move aircraft toward FinalApproach point and update
-        int ticks = 0;
+        ticks = 0;
         while (aircraftController.StateMachine.currentState != aircraftController.StateTouchDown)
         {
             aircraftGameObject.transform.position = Vector3.MoveTowards(
