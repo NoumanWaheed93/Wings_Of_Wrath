@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using AircraftController.AircraftAI;
 
 namespace AircraftController.Debugging
 {
@@ -13,6 +14,20 @@ namespace AircraftController.Debugging
         {
             SceneView.duringSceneGui += OnSceneGUI;
         }
+
+        private static System.Type FindType(string typeName)
+        {
+            foreach (var assembly in System.AppDomain.CurrentDomain.GetAssemblies())
+            {
+                var type = assembly.GetType(typeName);
+                if (type != null)
+                {
+                    return type;
+                }
+            }
+            return null;
+        }
+
         private static void OnSceneGUI(SceneView sceneView)
         {
             if (Application.isPlaying == false)
@@ -36,7 +51,46 @@ namespace AircraftController.Debugging
                     hover = { textColor = Color.red },
                 };
 
-                Handles.Label(labelPos, obj.CurrSpeed.ToString(), style);
+                string speedText = $"Speed: {obj.CurrSpeed:F1}";
+                
+                string physStateText = "Phys State: None";
+                if (obj.Aircraft?.StateMachine?.currentState != null)
+                {
+                    physStateText = $"Phys State: {obj.Aircraft.StateMachine.currentState.GetType().Name}";
+                }
+
+                string aiStateText = "AI State: None";
+                System.Type facadeType = FindType("Game.AircraftFacade");
+                Component facade = null;
+                if (facadeType != null)
+                {
+                    facade = obj.GetComponent(facadeType) ?? obj.GetComponentInParent(facadeType) ?? obj.GetComponentInChildren(facadeType);
+                }
+
+                if (facade != null)
+                {
+                    object aiControllerObj = facade.GetType()
+                        .GetProperty("AIController", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+                        ?.GetValue(facade);
+
+                    if (aiControllerObj == null)
+                    {
+                        aiControllerObj = facade.GetType()
+                            .GetField("aiController", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                            ?.GetValue(facade);
+                    }
+
+                    if (aiControllerObj is AircraftAIController aiController)
+                    {
+                        if (aiController.StateMachine?.currentState != null)
+                        {
+                            aiStateText = $"AI State: {aiController.StateMachine.currentState.GetType().Name}";
+                        }
+                    }
+                }
+
+                string text = $"{speedText}\n{physStateText}\n{aiStateText}";
+                Handles.Label(labelPos, text, style);
 
                 // Draw a wire circle
                 Handles.color = Color.green;

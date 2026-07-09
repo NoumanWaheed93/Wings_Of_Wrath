@@ -47,8 +47,7 @@ namespace Game
             this.aiController = aiController;
             this.pool = pool;
             this.health = health;
-
-
+            
             this.formationMember = formationMember;
             this.formationMember.Self.aircraft = aircraft;
 
