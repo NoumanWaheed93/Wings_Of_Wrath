@@ -6,7 +6,7 @@ namespace AircraftController.AircraftAI
 {
     public class StateLanding : AIState
     {
-        private enum LandingPhase { 
+        public enum LandingPhase { 
             InitialApproachPrep,
             InitialApproach,
             FinalApproach,
@@ -14,6 +14,7 @@ namespace AircraftController.AircraftAI
         }
 
         private LandingPhase phase;
+        public LandingPhase Phase => phase;
 
         private float reachDistance = 60; //If the distance to the targetPosition is less than reachDistance, it means the target is reached.
 
@@ -26,6 +27,9 @@ namespace AircraftController.AircraftAI
         public override void Enter()
         {
             phase = LandingPhase.InitialApproachPrep;
+
+            //aircraftController.aircraft.MovementHandler.SetBrake(0);
+            //aircraftController.aircraft.AfterBurnerInput = false;
         }
 
         public override void Exit()
@@ -60,7 +64,7 @@ namespace AircraftController.AircraftAI
             }
             else
             {
-                Debug.Log("Returning home");
+            //    Debug.Log("Returning home");
                 ReturningHome();
             }
         }
@@ -88,7 +92,7 @@ namespace AircraftController.AircraftAI
                 }
             }
 
-            Debug.Log($"Holding pattern index is {holdingPatternIndex}");
+        //    Debug.Log($"Holding pattern index is {holdingPatternIndex}");
             // 2. When near the home base. If it is not in use, go to the initial approach.
             if (GoToPosition(Waypoint1))
             {

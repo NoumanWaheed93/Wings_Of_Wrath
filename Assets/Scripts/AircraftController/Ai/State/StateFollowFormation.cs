@@ -19,6 +19,9 @@ namespace AircraftController
 
             public override void Exit()
             {
+                aircraftController.aircraft.MovementHandler.SetBrake(0);
+                aircraftController.aircraft.AfterBurnerInput = false;
+                aircraftController.SetThrottleNormal();
             }
 
             public override void Update(float simulationDeltaTime)

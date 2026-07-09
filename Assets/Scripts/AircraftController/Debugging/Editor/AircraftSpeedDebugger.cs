@@ -84,7 +84,21 @@ namespace AircraftController.Debugging
                     {
                         if (aiController.StateMachine?.currentState != null)
                         {
-                            aiStateText = $"AI State: {aiController.StateMachine.currentState.GetType().Name}";
+                            var currentState = aiController.StateMachine.currentState;
+                            aiStateText = $"AI State: {currentState.GetType().Name}";
+                            
+                            if (currentState is StateLanding landingState)
+                            {
+                                var phaseField = typeof(StateLanding).GetField("phase", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                                if (phaseField != null)
+                                {
+                                    var phaseVal = phaseField.GetValue(landingState);
+                                    if (phaseVal != null)
+                                    {
+                                        aiStateText += $" ({phaseVal})";
+                                    }
+                                }
+                            }
                         }
                     }
                 }
