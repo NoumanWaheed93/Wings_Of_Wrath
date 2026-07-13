@@ -46,7 +46,7 @@ namespace AircraftController
         public Landed StateLanded { get => stateLanded; }
         #endregion
 
-        public Vector3 Velocity { get => rigidbody.velocity; }
+        public Vector3 Velocity { get => rigidbody.linearVelocity; }
         public Vector3 AngularVelocity { get => rigidbody.angularVelocity; }
 
         public float TurnInput { get; set; }

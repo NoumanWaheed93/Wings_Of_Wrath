@@ -25,7 +25,7 @@ namespace WeaponSystem
 
         protected virtual void FixedUpdate()
         {
-            m_rigidbody.velocity = m_transform.forward * speed;
+            m_rigidbody.linearVelocity = m_transform.forward * speed;
         }
     }
 }

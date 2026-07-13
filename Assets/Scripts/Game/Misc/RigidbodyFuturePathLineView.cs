@@ -15,7 +15,7 @@ namespace Game
         // Update is called once per frame
         void Update()
         {
-            arcLineRenderer.linearVelocity = rigidbody.velocity.magnitude;
+            arcLineRenderer.linearVelocity = rigidbody.linearVelocity.magnitude;
             arcLineRenderer.angularVelocity = rigidbody.angularVelocity.y;
         }
     }

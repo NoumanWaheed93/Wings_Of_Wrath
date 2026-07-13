@@ -63,7 +63,7 @@ namespace Locomotion
         protected virtual void HandleMovement(float simulationDeltaTime)
         {
             HandleCurrSpeed(simulationDeltaTime);
-            rigidbody.velocity = transform.forward * currSpeed;
+            rigidbody.linearVelocity = transform.forward * currSpeed;
             rigidbody.angularVelocity = Vector3.up * currTurn * movementData.maxTurn;
         }
     

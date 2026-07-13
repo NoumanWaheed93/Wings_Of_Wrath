@@ -45,7 +45,7 @@ namespace Locomotion
             transform.position = newPosition;
             rigidbody.position = newPosition;
             rigidbody.rotation = transform.rotation;
-            rigidbody.velocity = Vector3.zero;
+            rigidbody.linearVelocity = Vector3.zero;
             currSpeed = startSpeed;
         }
 
@@ -63,7 +63,7 @@ namespace Locomotion
             pitchSeeker.Seek(simulationDeltaTime);
             HandleCurrSpeed(simulationDeltaTime);
 
-            rigidbody.velocity = transform.forward * currSpeed;
+            rigidbody.linearVelocity = transform.forward * currSpeed;
 
             Vector3 pitchVelocity = transform.right * pitchSeeker.CurrValue * aerodynamicMovementData.maxPitch;
             float turnFactor = 0;
