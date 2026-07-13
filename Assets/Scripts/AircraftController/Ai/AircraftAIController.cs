@@ -28,6 +28,8 @@ namespace AircraftController.AircraftAI
 
         public bool IsAfterBurnerOn => true;
 
+        public bool IsFormationBreaking { get; set; }
+
         private float turnInput;
         private float desiredSpeed;
 
@@ -121,6 +123,31 @@ namespace AircraftController.AircraftAI
 
             targetPosition += leaderPredictedPosition;
             TurnTowardsPosition(targetPosition);
+        }
+
+        /// <summary>
+        /// Gets the target destination for breaking formation.
+        /// </summary>
+        public Vector3 GetBreakFormationTargetDestination()
+        {
+
+            AircraftFormationMember leader = FormationMember.Formation.leader;
+            AircraftFormationMember myFormationMember = FormationMember.Self;
+
+            Vector3 myPositionInTheFormation = myFormationMember.Formation.GetMemberPosition(myFormationMember.PositionIndex);
+            altitudeOffset = myPositionInTheFormation.y;
+
+            Vector3 breakDestination = myPositionInTheFormation;
+            if(breakDestination.z <= 0)
+            {
+                breakDestination.z = 1;
+            }
+
+            breakDestination = breakDestination.normalized * 300f;
+
+            //Get global position
+            breakDestination = leader.aircraft.Transform.TransformPoint(breakDestination);
+            return breakDestination;
         }
 
         /// <summary>
