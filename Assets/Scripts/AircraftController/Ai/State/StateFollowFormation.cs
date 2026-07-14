@@ -34,6 +34,13 @@ namespace AircraftController
                     stateMachine.ChangeState(aircraftController.stateLanding);
                     return;
                 }
+
+                if (aircraftController.IsFormationBreaking)
+                {
+                    stateMachine.ChangeState(aircraftController.stateBreakFormation);
+                    return;
+                }
+
                 aircraftController.FollowFormation();
             }
         }

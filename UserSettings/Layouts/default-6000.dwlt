@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 109
+  controlID: 107
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 110
+  controlID: 108
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -713,7 +713,7 @@ MonoBehaviour:
       m_LastClickedID:
         m_rawData: 0
       m_ExpandedIDs:
-      - m_rawData: 568105589213756068
+      - m_rawData: 568105589213756062
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -2460,7 +2460,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Scripts/AircraftController/Ai
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -2470,7 +2470,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Scripts/AircraftController/Ai
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\user\Documents\GitHub\Wings_Of_Wrath
   m_LockTracker:
@@ -2479,16 +2479,18 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs:
-    - m_rawData: 568105584918831344
+    - m_rawData: 568105584918837478
     m_LastClickedID:
-      m_rawData: 568105584918831344
+      m_rawData: 568105584918837478
     m_ExpandedIDs:
     - m_rawData: 0
-    - m_rawData: 568105584918831344
-    - m_rawData: 568105584918831346
-    - m_rawData: 568105584918831348
-    - m_rawData: 568105584918831350
-    - m_rawData: 568105584918831352
+    - m_rawData: 568105584918837032
+    - m_rawData: 568105584918837034
+    - m_rawData: 568105584918837036
+    - m_rawData: 568105584918837038
+    - m_rawData: 568105584918837040
+    - m_rawData: 568105584918837042
+    - m_rawData: 568105584918837044
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2522,11 +2524,13 @@ MonoBehaviour:
       m_rawData: 0
     m_ExpandedIDs:
     - m_rawData: 0
-    - m_rawData: 568105584918831344
-    - m_rawData: 568105584918831346
-    - m_rawData: 568105584918831348
-    - m_rawData: 568105584918831350
-    - m_rawData: 568105584918831352
+    - m_rawData: 568105584918837032
+    - m_rawData: 568105584918837034
+    - m_rawData: 568105584918837036
+    - m_rawData: 568105584918837038
+    - m_rawData: 568105584918837040
+    - m_rawData: 568105584918837042
+    - m_rawData: 568105584918837044
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2554,9 +2558,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: []
+    m_SelectedInstanceIDs:
+    - m_rawData: 568105584918832614
     m_LastClickedEntityId:
-      m_rawData: 0
+      m_rawData: 568105584918832614
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: []
     m_RenameOverlay:
