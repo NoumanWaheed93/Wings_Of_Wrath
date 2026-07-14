@@ -19,11 +19,16 @@ namespace Game
         private int targetFrameRate = 60;
 
         [SerializeField]
+        private float timeScale = 1f;
+
+        [SerializeField]
         private bool isTimeScaleActive = true;
 
         private void OnEnable()
         {
             Application.targetFrameRate = targetFrameRate;
+
+            Time.timeScale = timeScale;
 
             if (isTimeScaleActive == false)
             {

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 107
+  controlID: 49
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -167,8 +167,8 @@ MonoBehaviour:
     y: 0
     width: 879
     height: 329
-  m_MinSize: {x: 201, y: 226}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 108
+  controlID: 123
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -272,8 +272,8 @@ MonoBehaviour:
     y: 0
     width: 282
     height: 379
-  m_MinSize: {x: 276, y: 76}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 43
     width: 1920
     height: 36
   m_SerializedDataModeController:
@@ -581,8 +581,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1
-    y: 403
+    x: 1638
+    y: 458
     width: 281
     height: 528
   m_SerializedDataModeController:
@@ -688,7 +688,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 24
+    y: 79
     width: 878
     height: 303
   m_SerializedDataModeController:
@@ -709,11 +709,13 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: []
+      m_SelectedIDs:
+      - m_rawData: 568105584918837970
       m_LastClickedID:
-        m_rawData: 0
+        m_rawData: 568105584918837970
       m_ExpandedIDs:
-      - m_rawData: 568105589213756062
+      - m_rawData: 568105589213749594
+      - m_rawData: 568105584918837858
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1798,7 +1800,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 353
+    y: 408
     width: 878
     height: 578
   m_SerializedDataModeController:
@@ -2368,7 +2370,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.21534567, y: 0.62199926, z: -0.18345354, w: -0.73013}
     speed: 2
-    m_Value: {x: -0.21534567, y: 0.62199926, z: -0.18345353, w: -0.73013}
+    m_Value: {x: -0.21534546, y: 0.62199867, z: -0.18345337, w: -0.7301293}
   m_Size:
     m_Target: 10
     speed: 2
@@ -2430,8 +2432,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 880
-    y: 24
+    x: 879
+    y: 79
     width: 757
     height: 907
   m_SerializedDataModeController:
@@ -2460,7 +2462,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/AircraftController/Ai
+    - Assets/FormationSystem/Runtime
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -2470,7 +2472,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/AircraftController/Ai
+  - Assets/FormationSystem/Runtime
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\user\Documents\GitHub\Wings_Of_Wrath
   m_LockTracker:
@@ -2479,9 +2481,9 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs:
-    - m_rawData: 568105584918837478
+    - m_rawData: 568105584918837734
     m_LastClickedID:
-      m_rawData: 568105584918837478
+      m_rawData: 568105584918837734
     m_ExpandedIDs:
     - m_rawData: 0
     - m_rawData: 568105584918837032
@@ -2491,6 +2493,9 @@ MonoBehaviour:
     - m_rawData: 568105584918837040
     - m_rawData: 568105584918837042
     - m_rawData: 568105584918837044
+    - m_rawData: 568105584918837432
+    - m_rawData: 568105584918837446
+    - m_rawData: 568105584918837462
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2559,9 +2564,9 @@ MonoBehaviour:
       m_ResourceFile: 
   m_ListAreaState:
     m_SelectedInstanceIDs:
-    - m_rawData: 568105584918832614
+    - m_rawData: 568105584918837970
     m_LastClickedEntityId:
-      m_rawData: 568105584918832614
+      m_rawData: 568105584918837970
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: []
     m_RenameOverlay:
@@ -2616,8 +2621,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1
-    y: 24
+    x: 1638
+    y: 79
     width: 281
     height: 353
   m_SerializedDataModeController:
@@ -2643,7 +2648,7 @@ MonoBehaviour:
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectEntityId:
     m_rawData: 0
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 63
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:

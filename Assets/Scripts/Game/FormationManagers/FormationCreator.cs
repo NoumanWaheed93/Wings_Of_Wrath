@@ -35,13 +35,15 @@ namespace Game
         private Formation<AircraftFormationMember> currentFormation;
         private AircraftFacade.Pool aircraftPool;
         private ControllableAircraftManager controllableAircraftManager;
+        private FormationCommandSystem formationCommandSystem;
 
         [Inject]
-        private void Init(AircraftFacade.Pool aircraftFactory, Formation<AircraftFormationMember> formation, ControllableAircraftManager controllableAircraftManager)
+        private void Init(AircraftFacade.Pool aircraftFactory, Formation<AircraftFormationMember> formation, ControllableAircraftManager controllableAircraftManager, FormationCommandSystem formationCommandSystem)
         {
             this.aircraftPool = aircraftFactory;
             this.currentFormation = formation;
             this.controllableAircraftManager = controllableAircraftManager;
+            this.formationCommandSystem = formationCommandSystem;
         }
 
         private IEnumerator Start()
@@ -60,6 +62,7 @@ namespace Game
                     currentFormation.AddMember(newAircraft.FormationMember.Self);
                     newAircraft.FormationMember.Formation = currentFormation;
                     controllableAircraftManager.AddControllableAircraft(newAircraft.Aircraft, newAircraft.AIController, null, null, null);
+                    formationCommandSystem.Register(newAircraft.AIController);
                     newAircraft.AIController.SetWaypoints(GetWaypointPositions());
                 }
             }
@@ -84,10 +87,11 @@ namespace Game
                     currentFormation.AddMember(newAircraft.FormationMember.Self);
                     newAircraft.FormationMember.Formation = currentFormation;
                     controllableAircraftManager.AddControllableAircraft(newAircraft.Aircraft, newAircraft.AIController, null, null, null);
+                    formationCommandSystem.Register(newAircraft.AIController);
                     newAircraft.AIController.SetWaypoints(GetWaypointPositions());
                 }
             }
-            
+
             yield return null;
         }
 

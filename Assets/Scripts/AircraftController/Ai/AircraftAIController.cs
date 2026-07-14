@@ -146,7 +146,12 @@ namespace AircraftController.AircraftAI
                 breakDestination.z = 1;
             }
 
-            breakDestination = breakDestination.normalized * 300f;
+            if(breakDestination.x == 0)
+            {
+                breakDestination.x = 1;
+            }
+
+            breakDestination = breakDestination.normalized * 600f;
 
             //Get global position
             breakDestination = leader.aircraft.Transform.TransformPoint(breakDestination);

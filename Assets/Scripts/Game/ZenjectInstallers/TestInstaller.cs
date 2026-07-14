@@ -23,6 +23,11 @@ namespace ZenjectInstallers {
         public InputAction SteerAction;
         public InputAction AfterBurnerAction;
 
+        [Space]
+        [Header("Formation Command Actions")]
+        public InputAction JoinFormationAction = new InputAction("JoinFormation", binding: "<Keyboard>/1");
+        public InputAction BreakFormationAction = new InputAction("BreakFormation", binding: "<Keyboard>/2");
+
         public override void InstallBindings()
         {
             InstallTimeProvider();
@@ -31,6 +36,7 @@ namespace ZenjectInstallers {
             InstallSelectableEntityManager();
             InstallPlayerAircraftController();
             InstallControllableAircraftManager();
+            InstallFormationCommandSystem();
         }
 
         private void InstallPlayerAircraftController()
@@ -47,6 +53,13 @@ namespace ZenjectInstallers {
             Container.Bind<ControllableAircraftManager>().AsSingle();
         }
 
+        private void InstallFormationCommandSystem()
+        {
+            Container.Bind<FormationCommandSystem>().AsSingle();
+            Container.BindInterfacesAndSelfTo<FormationCommandInput>().AsSingle()
+                .WithArguments(JoinFormationAction, BreakFormationAction);
+        }
+
         private void InstallSelectableEntityManager()
         {
             Container.Bind<SelectableEntityManager>().AsSingle();
@@ -59,7 +72,7 @@ namespace ZenjectInstallers {
 
         private void InstallFormationManager()
         {
-            Container.Bind<Formation<AircraftFormationMember>>().To<ArrowHead<AircraftFormationMember>>().AsSingle();
+            Container.Bind<Formation<AircraftFormationMember>>().To<BattleSpread<AircraftFormationMember>>().AsSingle();
 
             Container.BindMemoryPool<AircraftFacade, AircraftFacade.Pool>()
                 .FromComponentInNewPrefab(AircraftPrefab)
