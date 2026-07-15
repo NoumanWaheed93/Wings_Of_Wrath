@@ -373,7 +373,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed701b8df3497814692635606b84ba89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AircraftPrefab: {fileID: 6900703714199412117, guid: d91ac27617af7144d9f31619f2e7210e,
+  BlueTeamAircraftPrefab: {fileID: 6900703714199412117, guid: d91ac27617af7144d9f31619f2e7210e,
+    type: 3}
+  RedTeamAircraftPrefab: {fileID: 4501332318389845397, guid: a1f512cba23b24543b743ed468b332f2,
     type: 3}
   ProjectilePrefab: {fileID: 5032136201682549379, guid: 496e07e73018fce41a4554815e7a2229,
     type: 3}
@@ -513,6 +515,66 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &583231907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 583231909}
+  - component: {fileID: 583231908}
+  m_Layer: 0
+  m_Name: FormationCreator-Red
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &583231908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583231907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5efdfb73e630ea24ab34d2bb1662afa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 1
+  formationType: 0
+  count: 4
+  position: {x: 157, y: 100, z: 1180}
+  spacing: 10
+  altitudeSpacing: 5
+  wayPoints:
+  - {fileID: 1544074665}
+  - {fileID: 1457636679}
+  - {fileID: 1705215643}
+  - {fileID: 705522790}
+  - {fileID: 789878204}
+  isInAir: 1
+  startAltitude: 100
+  startSpeed: 100
+  runway: {fileID: 0}
+--- !u!4 &583231909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583231907}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 157, y: 100, z: 1180.7067}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -730,7 +792,7 @@ GameObject:
   - component: {fileID: 759199350}
   - component: {fileID: 759199349}
   m_Layer: 0
-  m_Name: FormationCreator
+  m_Name: FormationCreator-Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -748,6 +810,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efdfb73e630ea24ab34d2bb1662afa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 0
+  formationType: 2
   count: 4
   position: {x: 157, y: 100, z: 1180}
   spacing: 10
@@ -3448,13 +3512,8 @@ PrefabInstance:
     - target: {fileID: 1485820661538140339, guid: eafe3fd5b8b9ab84c8e68a9d9f6772b4,
         type: 3}
       propertyPath: m_Name
-      value: Runway
+      value: Runway-Blue
       objectReference: {fileID: 0}
-    - target: {fileID: 8233141933925139428, guid: eafe3fd5b8b9ab84c8e68a9d9f6772b4,
-        type: 3}
-      propertyPath: runway
-      value: 
-      objectReference: {fileID: 580540037979573241}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3483,6 +3542,7 @@ SceneRoots:
   - {fileID: 879192997}
   - {fileID: 1292448055}
   - {fileID: 759199350}
+  - {fileID: 583231909}
   - {fileID: 553848464}
   - {fileID: 1323722349}
   - {fileID: 1748043053}

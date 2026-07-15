@@ -26,10 +26,14 @@ namespace Game
 
         private void OnEnable()
         {
+#if UNITY_EDITOR
+            Debug.unityLogger.logHandler = new LogUtility.CustomLogHandler();
+#endif
+
             Application.targetFrameRate = targetFrameRate;
 
             Time.timeScale = timeScale;
-
+            
             if (isTimeScaleActive == false)
             {
                 return;

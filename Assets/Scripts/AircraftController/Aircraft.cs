@@ -153,7 +153,7 @@ namespace AircraftController
         public void SeekSpeed(float targetSpeed)
         {
             //calculate required throttle
-            Debug.Log($"Seeking speed : {targetSpeed}");
+           // Debug.Log($"Seeking speed : {targetSpeed}");
             float requiredThrottle = GetRequiredThrottleForSpeed(targetSpeed);
             movementHandler.SetThrottle(requiredThrottle);
         }

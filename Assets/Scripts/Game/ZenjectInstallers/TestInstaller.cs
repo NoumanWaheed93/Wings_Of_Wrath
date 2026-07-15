@@ -12,7 +12,9 @@ using UnityEngine.InputSystem;
 namespace ZenjectInstallers {
     public class TestInstaller : MonoInstaller
     {
-        public GameObject AircraftPrefab;
+        public GameObject BlueTeamAircraftPrefab;
+
+        public GameObject RedTeamAircraftPrefab;
 
         public GameObject ProjectilePrefab;
 
@@ -72,12 +74,19 @@ namespace ZenjectInstallers {
 
         private void InstallFormationManager()
         {
-            Container.Bind<Formation<AircraftFormationMember>>().To<BattleSpread<AircraftFormationMember>>().AsSingle();
-
             Container.BindMemoryPool<AircraftFacade, AircraftFacade.Pool>()
-                .FromComponentInNewPrefab(AircraftPrefab)
+                .WithId(Team.Blue)
+                .FromComponentInNewPrefab(BlueTeamAircraftPrefab)
                 .WithGameObjectName("Aircraft")
                 .UnderTransformGroup("Aircrafts");
+
+            Container.BindMemoryPool<AircraftFacade, AircraftFacade.Pool>()
+                .WithId(Team.Red)
+                .FromComponentInNewPrefab(RedTeamAircraftPrefab)
+                .WithGameObjectName("Aircraft")
+                .UnderTransformGroup("Aircrafts");
+
+            Container.Bind<TeamAircraftFactoryProvider>().AsSingle();
         }
 
         private void InstallProjectileFactory()

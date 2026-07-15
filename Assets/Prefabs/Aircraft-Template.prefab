@@ -1285,6 +1285,7 @@ MonoBehaviour:
   movementData: {fileID: 11400000, guid: bc6ddd266af170b4e935b05e59081150, type: 2}
   rigidbody: {fileID: 1604655158}
   aircraftTransform: {fileID: 6087905188102575368}
+  team: 0
 --- !u!1 &6900703714199412117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,7 +1300,7 @@ GameObject:
   - component: {fileID: 1088883786176553728}
   - component: {fileID: 8875805196594098338}
   m_Layer: 0
-  m_Name: TestAircraft
+  m_Name: Aircraft-Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

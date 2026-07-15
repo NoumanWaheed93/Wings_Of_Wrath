@@ -40,19 +40,23 @@ namespace Game
         private Health health;
 
         [Inject]
-        public void Init(IAircraft aircraft, AircraftAIController aiController, AircraftFormationMember formationMember, Team team, Health health, Pool pool)
+        public void Init(IAircraft aircraft, AircraftAIController aiController, AircraftFormationMember formationMember, Team team, Health health)
         {
             this.team = team;
             this.aircraft = aircraft;
             this.aiController = aiController;
-            this.pool = pool;
             this.health = health;
-            
+
             this.formationMember = formationMember;
             this.formationMember.Self.aircraft = aircraft;
 
             monoBehaviour.Init(aircraft, team);
             health.onHealthDepleted += OnDie;
+        }
+
+        public void SetPool(Pool pool)
+        {
+            this.pool = pool;
         }
 
         public void Spawn(bool isInAir, float startAltitude, float startSpeed)
@@ -70,6 +74,12 @@ namespace Game
 
         public class Pool : MonoMemoryPool<bool, float, float, AircraftFacade>
         {
+            protected override void OnCreated(AircraftFacade aircraft)
+            {
+                base.OnCreated(aircraft);
+                aircraft.SetPool(this);
+            }
+
             protected override void Reinitialize(bool isInAir, float startAltitude, float startSpeed, AircraftFacade aircraft)
             {
                 aircraft.Spawn(isInAir, startAltitude, startSpeed);

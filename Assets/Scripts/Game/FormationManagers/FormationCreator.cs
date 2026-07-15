@@ -5,11 +5,26 @@ using FormationSystem;
 using Zenject;
 using AircraftController.AircraftAI;
 using AircraftController;
+using Common;
 
 namespace Game
 {
     public class FormationCreator : MonoBehaviour
     {
+        public enum Formation
+        {
+            Trail,
+            Echelon,
+            ArrowHead,
+            BattleSpread
+        }
+
+        [SerializeField]
+        private Team team;
+        [SerializeField]
+        private Formation formationType;
+
+
         [SerializeField]
         private int count;
         [SerializeField]
@@ -21,7 +36,6 @@ namespace Game
         [SerializeField]
         private Transform[] wayPoints;
 
-
         [SerializeField]
         private bool isInAir;
         [SerializeField]
@@ -32,22 +46,41 @@ namespace Game
         private Runway runway;
 
 
+
         private Formation<AircraftFormationMember> currentFormation;
         private AircraftFacade.Pool aircraftPool;
         private ControllableAircraftManager controllableAircraftManager;
         private FormationCommandSystem formationCommandSystem;
 
         [Inject]
-        private void Init(AircraftFacade.Pool aircraftFactory, Formation<AircraftFormationMember> formation, ControllableAircraftManager controllableAircraftManager, FormationCommandSystem formationCommandSystem)
+        private void Init(TeamAircraftFactoryProvider factoryProvider, ControllableAircraftManager controllableAircraftManager, FormationCommandSystem formationCommandSystem)
         {
-            this.aircraftPool = aircraftFactory;
-            this.currentFormation = formation;
+            this.aircraftPool = factoryProvider.GetPool(team);
             this.controllableAircraftManager = controllableAircraftManager;
             this.formationCommandSystem = formationCommandSystem;
         }
 
         private IEnumerator Start()
         {
+            switch (formationType)
+            {
+                case Formation.Trail:
+                    currentFormation = new Trail<AircraftFormationMember>();
+                    break;
+                case Formation.Echelon:
+                    currentFormation = new Echelon<AircraftFormationMember>();
+                    break;
+                case Formation.ArrowHead:
+                    currentFormation = new ArrowHead<AircraftFormationMember>();
+                    break;
+                case Formation.BattleSpread:
+                    currentFormation = new BattleSpread<AircraftFormationMember>();
+                    break;
+                default:
+                    throw new System.ArgumentException("Invalid formation type");
+                    break;
+            }
+
             currentFormation.spacing = this.spacing;
             currentFormation.altitudeSpacing = this.altitudeSpacing;
             if (isInAir)

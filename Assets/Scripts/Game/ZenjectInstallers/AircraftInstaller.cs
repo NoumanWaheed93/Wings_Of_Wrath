@@ -17,10 +17,13 @@ namespace ZenjectInstallers
         private new Rigidbody rigidbody;
         [SerializeField]
         private Transform aircraftTransform;
+        [SerializeField]
+        private Team team;
+
 
         public override void InstallBindings()
         {
-            Container.Bind<Team>().FromInstance(Team.Blue).AsSingle();
+            Container.Bind<Team>().FromInstance(team).AsSingle();
 
             InstallHealth();
             InstallRadar();
