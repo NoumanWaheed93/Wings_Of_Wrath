@@ -642,7 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   formationType: 0
-  count: 4
+  count: 1
   position: {x: 157, y: 100, z: 1180}
   spacing: 10
   altitudeSpacing: 5
@@ -777,7 +777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   formationType: 2
-  count: 4
+  count: 3
   position: {x: 157, y: 100, z: 1180}
   spacing: 10
   altitudeSpacing: 5
@@ -994,7 +994,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0701d0300cd57b47a780a98c2fb7b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thumbDriftInput: {fileID: 0}
   speedView: {fileID: 1601023284}
   aircraftControlsMenu: {fileID: 2079537719}
   fireHoldableButton: {fileID: 1247042568}
@@ -1977,7 +1976,6 @@ MonoBehaviour:
   onHold:
     m_PersistentCalls:
       m_Calls: []
-  _thumbDriftInput: {fileID: 0}
   buttonCanvasGroup: {fileID: 1247042567}
 --- !u!1 &1277962998
 GameObject:

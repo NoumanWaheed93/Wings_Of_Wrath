@@ -65,11 +65,15 @@ namespace TargetingSystem
 
         private void Tracker_OnTargetAdded(ITargetable target)
         {
-            targetIcons.Add(target, CreateNewTargetIcon(target));
+            if(target.Team == Team.Red)
+                targetIcons.Add(target, CreateNewTargetIcon(target));
         }
 
         private void Tracker_OnTargetRemoved(ITargetable target)
         {
+            if (target.Team != Team.Red)
+                return;
+
             TargetIconView targetIcon = targetIcons[target];
             targetIcon.OnTargetClicked -= OnClick_Target;
 
