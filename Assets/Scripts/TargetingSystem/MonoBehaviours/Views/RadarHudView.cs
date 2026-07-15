@@ -29,6 +29,11 @@ namespace TargetingSystem
             radar = playerTransform.GetComponentInChildren<RadarMonobehaviour>();
             tracker = radar.Tracker;
 
+            foreach(ITargetable target in tracker.TargetsList)
+            {
+                Tracker_OnTargetAdded(target);
+            }
+
             tracker.OnAddedTarget += Tracker_OnTargetAdded;
             tracker.OnRemovedTarget += Tracker_OnTargetRemoved;
             tracker.OnSelectTarget += OnSelect_Target;

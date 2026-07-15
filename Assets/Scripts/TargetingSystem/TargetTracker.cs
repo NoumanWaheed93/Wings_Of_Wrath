@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Collections.ObjectModel;
 
 namespace TargetingSystem
 {
@@ -15,6 +16,7 @@ namespace TargetingSystem
         public event Action<ITargetable> OnSelectTarget;
 
         protected List<ITargetable> targets = new List<ITargetable>();
+        public ReadOnlyCollection<ITargetable> TargetsList { get => targets.AsReadOnly(); }
 
         private ITargetable selectedTarget;
         public ITargetable SelectedTarget 
