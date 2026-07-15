@@ -4,7 +4,6 @@ namespace HealthSystem
 {
     public class CollisionDamager : MonoBehaviour
     {
-        private const string LOG_FORMAT = "<color=#00FF62><b>[CollisionDamager]</b></color> {{0}}";
         [SerializeField]
         private float damageAmount;
 
@@ -23,7 +22,7 @@ namespace HealthSystem
 
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.LogFormat(LOG_FORMAT, "OnCollisionEnter()");
+            Debug.Log("OnCollisionEnter()");
             if (isCollisionDamageEnabled == false)
                 return;
 
@@ -36,7 +35,7 @@ namespace HealthSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.LogFormat(LOG_FORMAT, "OnTriggerEnter()");
+            Debug.Log("OnTriggerEnter()");
             if (isTriggerDamageEnabled == false) 
                 return;
 

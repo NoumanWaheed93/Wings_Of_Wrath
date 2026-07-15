@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Common;
 using UnityEngine;
 
 namespace TargetingSystem
 {
-    public class RadarHudView : MonoBehaviour
+    public class RadarHudView : MonoBehaviour, ITargetTransformReceiver
     {
         [SerializeField]
         private Transform transform_targetsParent;
@@ -12,20 +13,49 @@ namespace TargetingSystem
         [SerializeField]
         private TargetIconView prefab_TargetIcon;
 
-        [SerializeField]
         private RadarMonobehaviour radar;
 
         private TargetTracker tracker;
 
         private Dictionary<ITargetable, TargetIconView> targetIcons = new Dictionary<ITargetable, TargetIconView>();
 
-        private void OnEnable()
+        public Transform Target { set => SetPlayer(value); }
+
+        private void SetPlayer(Transform playerTransform)
         {
+            UnsubscribeFromTracker();
+            ClearTargetIcons();
+
+            radar = playerTransform.GetComponentInChildren<RadarMonobehaviour>();
             tracker = radar.Tracker;
+
             tracker.OnAddedTarget += Tracker_OnTargetAdded;
             tracker.OnRemovedTarget += Tracker_OnTargetRemoved;
             tracker.OnSelectTarget += OnSelect_Target;
             tracker.OnDeselectTarget += OnDeselect_Target;
+        }
+
+        private void UnsubscribeFromTracker()
+        {
+            if (tracker == null)
+            {
+                return;
+            }
+
+            tracker.OnAddedTarget -= Tracker_OnTargetAdded;
+            tracker.OnRemovedTarget -= Tracker_OnTargetRemoved;
+            tracker.OnSelectTarget -= OnSelect_Target;
+            tracker.OnDeselectTarget -= OnDeselect_Target;
+        }
+
+        private void ClearTargetIcons()
+        {
+            foreach (TargetIconView targetIcon in targetIcons.Values)
+            {
+                targetIcon.OnTargetClicked -= OnClick_Target;
+                Destroy(targetIcon.gameObject);
+            }
+            targetIcons.Clear();
         }
 
         private void Tracker_OnTargetAdded(ITargetable target)

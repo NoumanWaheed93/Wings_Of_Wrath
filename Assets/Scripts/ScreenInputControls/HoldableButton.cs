@@ -7,7 +7,6 @@ namespace ScreenInputControls
 {
     public class HoldableButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        private const string LOG_FORMAT = "<color=#D9CE00><b>[HoldableButton]</b></color> {0}";
         private string gameObjectName;
         private string GameObjectName
         {
@@ -29,14 +28,14 @@ namespace ScreenInputControls
 
         public virtual void OnPointerDown(PointerEventData eventData) 
         {
-            Debug.LogFormat(GameObjectName + LOG_FORMAT, "OnPointerDown()");
+            Debug.Log("OnPointerDown()");
             isHeldDown = true;
             OnHoldStart?.Invoke();
         }
 
         public virtual void OnPointerUp(PointerEventData eventData) 
         {
-            Debug.LogFormat(GameObjectName + LOG_FORMAT, "OnPointerUp()");
+            Debug.Log("OnPointerUp()");
             isHeldDown = false;
             OnHoldEnd?.Invoke();
         }

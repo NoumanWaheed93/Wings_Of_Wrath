@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 namespace Game
 {
     public class FireHoldableButton : HoldableButton//, IPointerMoveHandler
     {
         private const string LOG_FORMAT = "<color=#FF7800><b>[FireHoldableButton]</b></color> {0}";
-        [SerializeField]
+        [Inject]
         private ThumbDriftInput _thumbDriftInput;
 
         [SerializeField]

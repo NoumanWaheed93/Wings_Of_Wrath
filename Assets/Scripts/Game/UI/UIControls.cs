@@ -5,6 +5,7 @@ using ScreenInputControls;
 using UnityEngine;
 using UnityEngine.UI;
 using WeaponSystem;
+using Zenject;
 
 namespace Game
 {
@@ -12,7 +13,7 @@ namespace Game
     {
         [Space]
         [Header("UI Components")]
-        [SerializeField]
+        [Inject]
         private ThumbDriftInput thumbDriftInput;
         [SerializeField]
         private SpeedView speedView;
