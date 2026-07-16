@@ -32,6 +32,12 @@ namespace Game
                 base.OnCreated(item);
                 item.SetPool(this);
             }
+
+            protected override void OnSpawned(ProjectileFacade item)
+            {
+                base.OnSpawned(item);
+                item.ResetPhysics();
+            }
         }
 
         public class GuidedProjectileFactory : MonoMemoryPool<GuidedProjectileFacade>
@@ -40,6 +46,12 @@ namespace Game
             {
                 base.OnCreated(item);
                 item.SetPool(this);
+            }
+
+            protected override void OnSpawned(GuidedProjectileFacade item)
+            {
+                base.OnSpawned(item);
+                item.ResetPhysics();
             }
         }
     }
