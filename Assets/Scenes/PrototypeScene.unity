@@ -642,7 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   formationType: 2
-  count: 3
+  count: 6
   position: {x: 157, y: 100, z: 1180}
   spacing: 10
   altitudeSpacing: 5
@@ -654,7 +654,7 @@ MonoBehaviour:
   - {fileID: 789878204}
   isInAir: 1
   startAltitude: 100
-  startSpeed: 100
+  startSpeed: 80
   runway: {fileID: 0}
 --- !u!4 &583231909
 Transform:

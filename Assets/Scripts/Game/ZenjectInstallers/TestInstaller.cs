@@ -91,12 +91,12 @@ namespace ZenjectInstallers {
 
         private void InstallProjectileFactory()
         {
-            Container.BindMemoryPool<GuidedProjectile, Game.ProjectileFactory.GuidedProjectileFactory>()
+            Container.BindMemoryPool<Game.GuidedProjectileFacade, Game.ProjectileFactory.GuidedProjectileFactory>()
                 .FromComponentInNewPrefab(GuidedProjectilePrefab)
                 .WithGameObjectName("GuidedProjectile")
                 .UnderTransformGroup("GuidedProjectiles");
 
-            Container.BindMemoryPool<Projectile, Game.ProjectileFactory.SimpleProjectileFactory>()
+            Container.BindMemoryPool<Game.ProjectileFacade, Game.ProjectileFactory.SimpleProjectileFactory>()
                .FromComponentInNewPrefab(ProjectilePrefab)
                .WithGameObjectName("Projectile")
                .UnderTransformGroup("Projectiles");

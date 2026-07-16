@@ -22,17 +22,25 @@ namespace Game
 
         public Transform GetProjectile()
         {
-            return simpleProjectileFactory.Spawn().transform;
+            return simpleProjectileFactory.Spawn().Transform;
         }
 
-        public class SimpleProjectileFactory : MonoMemoryPool<Projectile>
+        public class SimpleProjectileFactory : MonoMemoryPool<ProjectileFacade>
         {
-
+            protected override void OnCreated(ProjectileFacade item)
+            {
+                base.OnCreated(item);
+                item.SetPool(this);
+            }
         }
 
-        public class GuidedProjectileFactory : MonoMemoryPool<GuidedProjectile> 
+        public class GuidedProjectileFactory : MonoMemoryPool<GuidedProjectileFacade>
         {
-            
+            protected override void OnCreated(GuidedProjectileFacade item)
+            {
+                base.OnCreated(item);
+                item.SetPool(this);
+            }
         }
     }
 }

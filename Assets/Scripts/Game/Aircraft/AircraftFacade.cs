@@ -49,6 +49,7 @@ namespace Game
 
             this.formationMember = formationMember;
             this.formationMember.Self.aircraft = aircraft;
+            this.formationMember.Self.aiController = aiController;
 
             monoBehaviour.Init(aircraft, team);
             health.onHealthDepleted += OnDie;
@@ -69,7 +70,16 @@ namespace Game
             Debug.LogFormat(LOG_FORMAT, "OnDie()");
             if (formationMember.Formation != null)
             {
+                bool wasLeader = formationMember.PositionIndex == 0;
+                int currentWaypointIndex = aiController.stateFollowWaypoints.CurrentWaypointIndex;
+
                 formationMember.Formation.RemoveMember(formationMember.Self);
+
+                AircraftFormationMember newLeader = formationMember.Formation.leader;
+                if (wasLeader && newLeader != null)
+                {
+                    newLeader.aiController.stateFollowWaypoints.CurrentWaypointIndex = currentWaypointIndex;
+                }
             }
             gameObject.SetActive(false);
             pool.Despawn(this);

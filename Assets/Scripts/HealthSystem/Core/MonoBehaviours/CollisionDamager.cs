@@ -1,9 +1,12 @@
 using UnityEngine;
+using System;
 
 namespace HealthSystem
 {
     public class CollisionDamager : MonoBehaviour
     {
+        public event Action OnCollided;
+
         [SerializeField]
         private float damageAmount;
 
@@ -11,7 +14,7 @@ namespace HealthSystem
         private bool isCollisionDamageEnabled;
         [SerializeField]
         private bool isTriggerDamageEnabled;
-
+        
         private HitDamager hitDamager;
 
         private void Awake()
@@ -23,6 +26,9 @@ namespace HealthSystem
         private void OnCollisionEnter(Collision collision)
         {
             Debug.Log("OnCollisionEnter()");
+
+            OnCollided?.Invoke(); //We have to notify the collision even if it does not damage. Because, collision affects physics
+
             if (isCollisionDamageEnabled == false)
                 return;
 
@@ -47,6 +53,7 @@ namespace HealthSystem
             if(other.TryGetComponent(out damageable))
             {
                 hitDamager.Hit(damageable);
+                OnCollided?.Invoke(); //We have to notify the collision only when the damage is applied because, trigger do not affect physics.
             }
         }
     }

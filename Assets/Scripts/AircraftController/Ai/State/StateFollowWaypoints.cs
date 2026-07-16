@@ -9,6 +9,12 @@ namespace AircraftController.AircraftAI
         private int currentIndex = 0;
         private Vector3[] wayPoints;
 
+        public int CurrentWaypointIndex
+        {
+            get => currentIndex;
+            set => currentIndex = value;
+        }
+
         public StateFollowWaypoints(AIStateMachine stateMachine, AircraftAIController aircraftController, Vector3[] wayPoints) : base(stateMachine, aircraftController)
         {
             this.wayPoints = wayPoints;
