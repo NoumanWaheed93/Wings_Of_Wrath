@@ -67,6 +67,10 @@ namespace Game
         private void OnDie()
         {
             Debug.LogFormat(LOG_FORMAT, "OnDie()");
+            if (formationMember.Formation != null)
+            {
+                formationMember.Formation.RemoveMember(formationMember.Self);
+            }
             gameObject.SetActive(false);
             pool.Despawn(this);
         }

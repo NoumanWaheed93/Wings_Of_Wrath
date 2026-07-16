@@ -641,8 +641,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
-  formationType: 0
-  count: 1
+  formationType: 2
+  count: 3
   position: {x: 157, y: 100, z: 1180}
   spacing: 10
   altitudeSpacing: 5
@@ -777,7 +777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   formationType: 2
-  count: 3
+  count: 1
   position: {x: 157, y: 100, z: 1180}
   spacing: 10
   altitudeSpacing: 5

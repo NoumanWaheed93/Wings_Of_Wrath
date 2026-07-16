@@ -14,6 +14,12 @@ namespace FormationSystem
             bool isRemovedMemberIndexEven = removedMemberIndex % 2 == 0;
             members.Remove(memberToRemove);
 
+            if (members.Count == 0)
+            {
+                leader = default(T);
+                return;
+            }
+
             int evenMemberCount = 0;
             int oddMemberCount = 0;
             T memberWithGreatestEvenIndex = default(T);

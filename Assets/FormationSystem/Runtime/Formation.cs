@@ -12,7 +12,7 @@ namespace FormationSystem
 
         public float altitudeSpacing { get; set; }
 
-        public virtual T leader { get; private set; }
+        public virtual T leader { get; protected set; }
 
         protected HashSet<T> members = new HashSet<T>();
         public HashSet<T> Members { get { return members; } }
@@ -43,6 +43,11 @@ namespace FormationSystem
         {
             int removedMemberIndex = memberToRemove.PositionIndex;
             members.Remove(memberToRemove);
+            if (members.Count == 0)
+            {
+                leader = default(T);
+                return;
+            }
             foreach (T member in members)
             {
                 if (member.PositionIndex > removedMemberIndex)
