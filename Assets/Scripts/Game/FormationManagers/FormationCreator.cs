@@ -94,7 +94,7 @@ namespace Game
                     yield return null;
                     currentFormation.AddMember(newAircraft.FormationMember.Self);
                     newAircraft.FormationMember.Formation = currentFormation;
-                  //  if(newAircraft.Team == Team.Blue)
+                    if(newAircraft.Team == Team.Blue)
                     {
                         controllableAircraftManager.AddControllableAircraft(newAircraft.Aircraft, newAircraft.AIController, null, null, null);
                     }
@@ -122,7 +122,7 @@ namespace Game
                     yield return null;
                     currentFormation.AddMember(newAircraft.FormationMember.Self);
                     newAircraft.FormationMember.Formation = currentFormation;
-                 //   if(newAircraft.Team == Team.Blue)
+                    if(newAircraft.Team == Team.Blue)
                     {
                         controllableAircraftManager.AddControllableAircraft(newAircraft.Aircraft, newAircraft.AIController, null, null, null);
                     }
