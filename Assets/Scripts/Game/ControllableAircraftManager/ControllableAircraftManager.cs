@@ -6,6 +6,7 @@ using AircraftController;
 using AircraftController.AircraftAI;
 using Common;
 using WeaponSystem;
+using FormationSystem;
 
 namespace Game
 {
@@ -15,7 +16,6 @@ namespace Game
         {
             public IAircraft aircraft;
             public IAircraftController controller;
-            public SelectableEntity selectableEntity;
             public Weapon cannon;
             public Weapon missileLauncher;
             public Weapon bombDropper;
@@ -23,6 +23,8 @@ namespace Game
 
         private List<ControllableAircraft> controllableAircrafts = new List<ControllableAircraft>();
 
+        private Dictionary<SelectableEntity, Formation<AircraftFormationMember>> formations = new Dictionary<SelectableEntity, Formation<AircraftFormationMember>>();
+        
         private SelectableEntityManager selectableEntityManager;
 
         private AircraftPlayerController aircraftPlayerController;
@@ -37,19 +39,24 @@ namespace Game
             this.selectableEntityManager.OnEntitySelected += SelectableEntityManager_OnEntitySelected;
         }
 
+        public void AddControllableFormation(Formation<AircraftFormationMember> formation)
+        {
+            SelectableEntity selectableEntity = new SelectableEntity("formation");
+            selectableEntityManager.AddSelectableEntity(selectableEntity);
+            formations[selectableEntity] = formation;
+        }
+
         public void AddControllableAircraft(IAircraft aircraft, IAircraftController aiController, 
         Weapon cannon, Weapon missileLauncher, Weapon bombDropper)
         {
-            SelectableEntity selectableEntity = new SelectableEntity("aircraft");
-            selectableEntityManager.AddSelectableEntity(selectableEntity);
+            
             ControllableAircraft controllableAircraft = new ControllableAircraft
             {
                 aircraft = aircraft,
                 controller = aiController,
                 cannon = cannon,
                 missileLauncher = missileLauncher,
-                bombDropper = bombDropper,
-                selectableEntity = selectableEntity
+                bombDropper = bombDropper
             };
             controllableAircrafts.Add(controllableAircraft);
         }
@@ -59,7 +66,7 @@ namespace Game
             GiveAircraftControlToPlayer(entity);
         }
 
-        private void GiveAircraftControlToPlayer(SelectableEntity aircraftEntity)
+        private void GiveAircraftControlToPlayer(SelectableEntity formationEntity)
         {
             Debug.Log("GiveAircraftControlToPlayer(SelectableEntity)");
 
@@ -73,9 +80,11 @@ namespace Game
                 }
             }
 
+            IAircraft formationLeader = formations[formationEntity].leader.aircraft;
+
             for (int i = 0; i < controllableAircrafts.Count; i++)
             {
-                if (controllableAircrafts[i].selectableEntity == aircraftEntity)
+                if (controllableAircrafts[i].aircraft == formationLeader)
                 {
                     controllableAircrafts[i].controller.IsActive = false;
                     aircraftPlayerController.Aircraft = controllableAircrafts[i].aircraft;
