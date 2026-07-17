@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3176515159500070141}
+  - component: {fileID: -510381760602744814}
   - component: {fileID: 3176515159500070115}
   - component: {fileID: 3994556913578839487}
   - component: {fileID: 3176515159500070114}
   - component: {fileID: 490524134495247061}
-  - component: {fileID: -510381760602744814}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -39,6 +39,19 @@ Transform:
   - {fileID: 1214954792509212202}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-510381760602744814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3176515159500070112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06076ba5172d2b4d8ad7c137b7bfbab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.GuidedProjectileFacade
+  trail: {fileID: 3946824842929871801}
 --- !u!114 &3176515159500070115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,6 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
+  m_rigidbody: {fileID: 3176515159500070114}
   turningSpeed: 1
 --- !u!114 &3994556913578839487
 MonoBehaviour:
@@ -116,18 +130,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-510381760602744814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3176515159500070112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e06076ba5172d2b4d8ad7c137b7bfbab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game::Game.GuidedProjectileFacade
 --- !u!1 &3176515160404787086
 GameObject:
   m_ObjectHideFlags: 0

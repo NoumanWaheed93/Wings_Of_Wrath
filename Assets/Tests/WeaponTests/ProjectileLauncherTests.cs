@@ -11,7 +11,8 @@ public class ProjectileLauncherTests : WeaponTests
     {
         base.SetUp();
         IProjectileFactory projectileFactory = Substitute.For<IProjectileFactory>();
-        projectileFactory.GetProjectile().Returns(projectileTransform);
+        IProjectile projectile = Substitute.For<IProjectile>();
+        projectileFactory.GetProjectile().Returns(projectile);
         weapon = new ProjectileLauncher(barrelTransform, Substitute.For<ITimeProvider>(), 100, 1, projectileFactory);
     }
 

@@ -2,9 +2,8 @@ using UnityEngine;
 
 namespace WeaponSystem
 {
-    public interface IGuidedProjectile
+    public interface IGuidedProjectile : IProjectile
     {
-        public Transform Transform { get; }
         public Transform Target { get; set; }
     }
 }

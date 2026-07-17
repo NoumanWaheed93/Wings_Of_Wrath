@@ -14,9 +14,9 @@ namespace WeaponSystem
             return Instantiate(homingProjectilePrefab).GetComponent<IGuidedProjectile>();
         }
 
-        public Transform GetProjectile()
+        public IProjectile GetProjectile()
         {
-            return Instantiate(simpleProjectilePrefab).transform;
+            return Instantiate(simpleProjectilePrefab).GetComponent<IProjectile>();
         }
     }
 }

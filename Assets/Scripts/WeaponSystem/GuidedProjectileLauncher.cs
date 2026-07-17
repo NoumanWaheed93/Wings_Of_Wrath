@@ -21,8 +21,7 @@ namespace WeaponSystem
             if (base.Fire())
             {
                 IGuidedProjectile newProjectile = projectileFactory.GetHomingProjectile();
-                newProjectile.Transform.position = Barrel.position;
-                newProjectile.Transform.rotation = Barrel.rotation;
+                newProjectile.Launch(Barrel);
                 newProjectile.Target = target;
                 return true;
             }

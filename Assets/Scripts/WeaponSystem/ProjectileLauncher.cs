@@ -16,9 +16,8 @@ namespace WeaponSystem
         {
             if (base.Fire())
             {
-                Transform newProjectile = projectileFactory.GetProjectile(); // GameObject.Instantiate<Projectile>(projectile);
-                newProjectile.position = Barrel.position; // newProjectile.transform.position = Barrel.position;
-                newProjectile.rotation = Barrel.rotation; // newProjectile.transform.rotation = Barrel.rotation;
+                IProjectile newProjectile = projectileFactory.GetProjectile(); // GameObject.Instantiate<Projectile>(projectile);
+                newProjectile.Launch(Barrel);
                 return true;
             }
             return false;

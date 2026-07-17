@@ -20,9 +20,9 @@ namespace Game
             return guidedProjectileFactory.Spawn();
         }
 
-        public Transform GetProjectile()
+        public IProjectile GetProjectile()
         {
-            return simpleProjectileFactory.Spawn().Transform;
+            return simpleProjectileFactory.Spawn();
         }
 
         public class SimpleProjectileFactory : MonoMemoryPool<ProjectileFacade>
@@ -36,7 +36,6 @@ namespace Game
             protected override void OnSpawned(ProjectileFacade item)
             {
                 base.OnSpawned(item);
-                item.ResetPhysics();
             }
         }
 
@@ -51,7 +50,6 @@ namespace Game
             protected override void OnSpawned(GuidedProjectileFacade item)
             {
                 base.OnSpawned(item);
-                item.ResetPhysics();
             }
         }
     }
