@@ -1,8 +1,8 @@
 namespace CommandSystem
 {
-    public class ICommandable
+    public interface ICommandable
     {
-        
+        public void GiveCommand(ICommand command);
     }
 
 }
