@@ -1,50 +1,78 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CommandSystem
 {
     public class CommandManager
     {
-        /// <summary>
-        /// This dicitionary contains the list of all commandables, and the boolean indicates
-        /// whether the commandable is selected for the command or not.
-        /// </summary>
-        private Dictionary<ICommandable, bool> dictSelectedCommandables = new Dictionary<ICommandable, bool>();
-        
+        public event Action<ICommandable> OnCommandableAdded;
+        public event Action<ICommandable> OnCommandableRemoved;
+        public event Action<ICommandable> OnCommandableSelected;
+        public event Action<ICommandable> OnCommandableDeselected;
+
+        private readonly HashSet<ICommandable> commandables = new HashSet<ICommandable>();
+        private readonly HashSet<ICommandable> selectedCommandables = new HashSet<ICommandable>();
+
+        public IReadOnlyCollection<ICommandable> Commandables => commandables;
+        public IReadOnlyCollection<ICommandable> SelectedCommandables => selectedCommandables;
+
         public void AddCommandable(ICommandable commandable)
         {
-            dictSelectedCommandables[commandable] = false; //by default a new commandable is not selected
+            commandables.Add(commandable);
+            OnCommandableAdded?.Invoke(commandable);
         }
 
         public void RemoveCommandable(ICommandable commandable)
         {
-            dictSelectedCommandables.Remove(commandable);
+            commandables.Remove(commandable);
+            if (selectedCommandables.Remove(commandable))
+            {
+                OnCommandableDeselected?.Invoke(commandable);
+            }
+            OnCommandableRemoved?.Invoke(commandable);
         }
 
         public bool ToggleCommandableSelection(ICommandable commandable)
         {
-            bool isSelected = !dictSelectedCommandables[commandable];
-            dictSelectedCommandables[commandable] = isSelected;
-            return isSelected;
+            if (selectedCommandables.Add(commandable))
+            {
+                OnCommandableSelected?.Invoke(commandable);
+                return true;
+            }
+
+            selectedCommandables.Remove(commandable);
+            OnCommandableDeselected?.Invoke(commandable);
+            return false;
         }
 
         public bool ToggleAllCommandableSelection()
         {
-            bool mostCommon = dictSelectedCommandables.Values
-            .GroupBy(v => v)
-            .OrderByDescending(g => g.Count()).First().Key;
+            bool selectAll = selectedCommandables.Count < commandables.Count;
 
-            bool isSelected = !mostCommon;
-            foreach(ICommandable commandable in dictSelectedCommandables.Keys)
+            foreach (ICommandable commandable in commandables)
             {
-                dictSelectedCommandables[commandable] = isSelected;
+                if (selectAll)
+                {
+                    if (selectedCommandables.Add(commandable))
+                    {
+                        OnCommandableSelected?.Invoke(commandable);
+                    }
+                }
+                else
+                {
+                    if (selectedCommandables.Remove(commandable))
+                    {
+                        OnCommandableDeselected?.Invoke(commandable);
+                    }
+                }
             }
-            return isSelected;
+
+            return selectAll;
         }
 
         public void GiveCommandToSelected(ICommand command)
         {
-            foreach(ICommandable commandable in dictSelectedCommandables.Keys)
+            foreach (ICommandable commandable in selectedCommandables)
             {
                 commandable.GiveCommand(command);
             }

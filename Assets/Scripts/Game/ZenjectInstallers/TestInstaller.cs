@@ -7,6 +7,8 @@ using Zenject;
 using WeaponSystem;
 using SelectableEntitySystem;
 using Game;
+using Game.Commands;
+using CommandSystem;
 using UnityEngine.InputSystem;
 
 namespace ZenjectInstallers {
@@ -39,6 +41,7 @@ namespace ZenjectInstallers {
             InstallPlayerAircraftController();
             InstallControllableAircraftManager();
             InstallFormationCommandSystem();
+            InstallCommandSystem();
         }
 
         private void InstallPlayerAircraftController()
@@ -65,6 +68,13 @@ namespace ZenjectInstallers {
         private void InstallSelectableEntityManager()
         {
             Container.Bind<SelectableEntityManager>().AsSingle();
+        }
+
+        private void InstallCommandSystem()
+        {
+            Container.Bind<CommandManager>().AsSingle();
+            Container.Bind<CommandTargetManager>().AsSingle();
+            Container.Bind<CommandPalette>().AsSingle();
         }
 
         private void InstallTimeProvider()

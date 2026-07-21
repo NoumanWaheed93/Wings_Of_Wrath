@@ -6,6 +6,8 @@ using Zenject;
 using AircraftController.AircraftAI;
 using AircraftController;
 using Common;
+using CommandSystem;
+using Game.Commands;
 
 namespace Game
 {
@@ -51,13 +53,30 @@ namespace Game
         private AircraftFacade.Pool aircraftPool;
         private ControllableAircraftManager controllableAircraftManager;
         private FormationCommandSystem formationCommandSystem;
+        private CommandManager commandManager;
+        private CommandTargetManager commandTargetManager;
 
         [Inject]
-        private void Init(TeamAircraftFactoryProvider factoryProvider, ControllableAircraftManager controllableAircraftManager, FormationCommandSystem formationCommandSystem)
+        private void Init(TeamAircraftFactoryProvider factoryProvider, ControllableAircraftManager controllableAircraftManager, FormationCommandSystem formationCommandSystem,
+            CommandManager commandManager, CommandTargetManager commandTargetManager)
         {
             this.aircraftPool = factoryProvider.GetPool(team);
             this.controllableAircraftManager = controllableAircraftManager;
             this.formationCommandSystem = formationCommandSystem;
+            this.commandManager = commandManager;
+            this.commandTargetManager = commandTargetManager;
+        }
+
+        private void RegisterAircraftForCommandSystem(AircraftFacade aircraft)
+        {
+            if (aircraft.Team == Team.Blue)
+            {
+                commandManager.AddCommandable(aircraft);
+            }
+            else
+            {
+                commandTargetManager.AddTarget(aircraft);
+            }
         }
 
         private IEnumerator Start()
@@ -98,6 +117,7 @@ namespace Game
                     {
                         controllableAircraftManager.AddControllableAircraft(newAircraft.Aircraft, newAircraft.AIController, null, null, null);
                     }
+                    RegisterAircraftForCommandSystem(newAircraft);
                     formationCommandSystem.Register(newAircraft.AIController);
                     newAircraft.AIController.SetWaypoints(GetWaypointPositions());
                 }
@@ -126,6 +146,7 @@ namespace Game
                     {
                         controllableAircraftManager.AddControllableAircraft(newAircraft.Aircraft, newAircraft.AIController, null, null, null);
                     }
+                    RegisterAircraftForCommandSystem(newAircraft);
                     formationCommandSystem.Register(newAircraft.AIController);
                     newAircraft.AIController.SetWaypoints(GetWaypointPositions());
                 }

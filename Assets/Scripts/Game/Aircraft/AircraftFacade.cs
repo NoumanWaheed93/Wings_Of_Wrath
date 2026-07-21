@@ -9,10 +9,12 @@ using AircraftController;
 using HealthSystem;
 using AircraftController.AircraftAI;
 using FormationSystem;
+using CommandSystem;
+using Game.Commands;
 
 namespace Game
 {
-    public class AircraftFacade : MonoBehaviour, ISpeedProvider, ITargetable
+    public class AircraftFacade : MonoBehaviour, ISpeedProvider, ITargetable, ICommandable
     {
         private const string LOG_FORMAT = "<color=#FF0000><b>[AircraftFacade]</b></color> {{0}}";
 
@@ -32,6 +34,8 @@ namespace Game
         private AircraftAIController aiController;
         public AircraftAIController AIController { get => aiController; }
 
+        public string Name => name;
+
         [SerializeField]
         private AircraftMonoBehaviour monoBehaviour;
 
@@ -39,13 +43,19 @@ namespace Game
 
         private Health health;
 
+        private CommandManager commandManager;
+        private CommandTargetManager commandTargetManager;
+
         [Inject]
-        public void Init(IAircraft aircraft, AircraftAIController aiController, AircraftFormationMember formationMember, Team team, Health health)
+        public void Init(IAircraft aircraft, AircraftAIController aiController, AircraftFormationMember formationMember, Team team, Health health,
+            CommandManager commandManager, CommandTargetManager commandTargetManager)
         {
             this.team = team;
             this.aircraft = aircraft;
             this.aiController = aiController;
             this.health = health;
+            this.commandManager = commandManager;
+            this.commandTargetManager = commandTargetManager;
 
             this.formationMember = formationMember;
             this.formationMember.Self.aircraft = aircraft;
@@ -53,6 +63,11 @@ namespace Game
 
             monoBehaviour.Init(aircraft, team);
             health.onHealthDepleted += OnDie;
+        }
+
+        public void GiveCommand(ICommand command)
+        {
+            command.Execute(this);
         }
 
         public void SetPool(Pool pool)
@@ -68,6 +83,8 @@ namespace Game
         private void OnDie()
         {
             Debug.LogFormat(LOG_FORMAT, "OnDie()");
+            commandManager.RemoveCommandable(this);
+            commandTargetManager.RemoveTarget(this);
             if (formationMember.Formation != null)
             {
                 bool wasLeader = formationMember.PositionIndex == 0;
