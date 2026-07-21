@@ -1,5 +1,4 @@
 using CommandSystem;
-using TargetingSystem;
 
 namespace Game.Commands
 {
@@ -9,7 +8,7 @@ namespace Game.Commands
 
         public bool RequiresTarget => false;
 
-        public ICommand CreateCommand(ITargetable target)
+        public ICommand CreateCommand(ICommandTarget target)
         {
             return new JoinFormationCommand();
         }

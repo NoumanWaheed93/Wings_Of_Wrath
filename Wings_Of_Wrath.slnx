@@ -9,10 +9,10 @@
   <Project Path="Utilities.csproj" />
   <Project Path="Zenject-Editor.csproj" />
   <Project Path="HealthSystemAssembly.csproj" />
+  <Project Path="CommandSystem.csproj" />
   <Project Path="SelectableEntitySystem.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Game.csproj" />
-  <Project Path="CommandSystem.csproj" />
   <Project Path="TargetingSystem.csproj" />
   <Project Path="Common.csproj" />
   <Project Path="Zenject-TestFramework.csproj" />

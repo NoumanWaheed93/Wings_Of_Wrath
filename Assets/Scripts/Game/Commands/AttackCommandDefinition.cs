@@ -9,9 +9,9 @@ namespace Game.Commands
 
         public bool RequiresTarget => true;
 
-        public ICommand CreateCommand(ITargetable target)
+        public ICommand CreateCommand(ICommandTarget target)
         {
-            return new AttackCommand(target);
+            return new AttackCommand((ITargetable)target);
         }
     }
 

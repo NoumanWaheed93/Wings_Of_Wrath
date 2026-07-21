@@ -2,7 +2,6 @@ using UnityEngine;
 using Zenject;
 using CommandSystem;
 using TargetingSystem;
-using Game.Commands;
 
 namespace Game.UI.CommandSystemUI
 {
@@ -77,7 +76,7 @@ namespace Game.UI.CommandSystemUI
 
         private void CommandTargetListPresenter_OnTargetChosen(ITargetable target)
         {
-            commandManager.GiveCommandToSelected(pendingCommandDefinition.CreateCommand(target));
+            commandManager.GiveCommandToSelected(pendingCommandDefinition.CreateCommand((ICommandTarget)target));
             pendingCommandDefinition = null;
             SetStep(Step.SelectCommandables);
         }

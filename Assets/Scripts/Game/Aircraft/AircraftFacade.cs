@@ -14,7 +14,7 @@ using Game.Commands;
 
 namespace Game
 {
-    public class AircraftFacade : MonoBehaviour, ISpeedProvider, ITargetable, ICommandable
+    public class AircraftFacade : MonoBehaviour, ISpeedProvider, ITargetable, ICommandable, ICommandTarget
     {
         private const string LOG_FORMAT = "<color=#FF0000><b>[AircraftFacade]</b></color> {{0}}";
 

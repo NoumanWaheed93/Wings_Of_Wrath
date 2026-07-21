@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Game.Commands;
+using CommandSystem;
 
 namespace Game.UI.CommandSystemUI
 {

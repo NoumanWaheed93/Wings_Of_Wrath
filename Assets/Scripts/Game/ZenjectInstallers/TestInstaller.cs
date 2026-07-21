@@ -74,7 +74,7 @@ namespace ZenjectInstallers {
         {
             Container.Bind<CommandManager>().AsSingle();
             Container.Bind<CommandTargetManager>().AsSingle();
-            Container.Bind<CommandPalette>().AsSingle();
+            Container.Bind<AircraftCommandPalette>().AsSingle();
         }
 
         private void InstallTimeProvider()

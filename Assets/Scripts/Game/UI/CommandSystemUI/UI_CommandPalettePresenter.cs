@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Zenject;
+using CommandSystem;
 using Game.Commands;
 
 namespace Game.UI.CommandSystemUI
@@ -17,10 +18,10 @@ namespace Game.UI.CommandSystemUI
         [SerializeField]
         private UI_CommandButton commandButtonPrefab;
 
-        private CommandPalette commandPalette;
+        private AircraftCommandPalette commandPalette;
 
         [Inject]
-        public void Init(CommandPalette commandPalette)
+        public void Init(AircraftCommandPalette commandPalette)
         {
             this.commandPalette = commandPalette;
         }
