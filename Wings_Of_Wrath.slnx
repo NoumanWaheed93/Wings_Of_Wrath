@@ -11,6 +11,7 @@
   <Project Path="HealthSystemAssembly.csproj" />
   <Project Path="CommandSystem.csproj" />
   <Project Path="SelectableEntitySystem.csproj" />
+  <Project Path="CommandSystem.Tests.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Game.csproj" />
   <Project Path="TargetingSystem.csproj" />
