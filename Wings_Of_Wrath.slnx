@@ -13,6 +13,7 @@
   <Project Path="CommandSystem.csproj" />
   <Project Path="Game.csproj" />
   <Project Path="Common.csproj" />
+  <Project Path="ZenjectInstallers.csproj" />
   <Project Path="Zenject-TestFramework.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="Tests.csproj" />
@@ -28,7 +29,6 @@
   <Project Path="ControllableAircraftManager.Tests.csproj" />
   <Project Path="SelectableEntitySystem.csproj" />
   <Project Path="SelectableEntitySystem.Tests.csproj" />
-  <Project Path="ZenjectInstallers.csproj" />
   <Project Path="CameraControllers.csproj" />
   <Project Path="CustomLogHandler.csproj" />
 </Solution>

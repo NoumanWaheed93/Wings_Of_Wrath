@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 using CommandSystem;
 
 namespace CommandSystem.UI
@@ -29,7 +28,6 @@ namespace CommandSystem.UI
         private readonly Dictionary<ICommandable, UI_CommandableToggleButton> commandableToButton
             = new Dictionary<ICommandable, UI_CommandableToggleButton>();
 
-        [Inject]
         public void Init(CommandManager commandManager)
         {
             this.commandManager = commandManager;

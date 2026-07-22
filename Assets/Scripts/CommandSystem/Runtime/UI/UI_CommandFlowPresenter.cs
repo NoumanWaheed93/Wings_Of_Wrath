@@ -1,5 +1,4 @@
 using UnityEngine;
-using Zenject;
 using CommandSystem;
 
 namespace CommandSystem.UI
@@ -35,7 +34,6 @@ namespace CommandSystem.UI
 
         private ICommandDefinition pendingCommandDefinition;
 
-        [Inject]
         public void Init(CommandManager commandManager)
         {
             this.commandManager = commandManager;

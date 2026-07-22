@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 using CommandSystem;
 
 namespace CommandSystem.UI
@@ -24,7 +23,6 @@ namespace CommandSystem.UI
         private readonly Dictionary<ICommandTarget, UI_CommandTargetButton> targetToButton
             = new Dictionary<ICommandTarget, UI_CommandTargetButton>();
 
-        [Inject]
         public void Init(CommandTargetManager commandTargetManager)
         {
             this.commandTargetManager = commandTargetManager;

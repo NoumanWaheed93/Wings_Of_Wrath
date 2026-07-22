@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Zenject;
 using CommandSystem;
 
 namespace CommandSystem.UI
@@ -19,7 +18,6 @@ namespace CommandSystem.UI
 
         private ICommandPallette commandPalette;
 
-        [Inject]
         public void Init(ICommandPallette commandPalette)
         {
             this.commandPalette = commandPalette;
