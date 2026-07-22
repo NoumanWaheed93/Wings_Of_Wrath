@@ -44,11 +44,11 @@ namespace Game
         private Health health;
 
         private CommandManager commandManager;
-        private CommandTargetManager commandTargetManager;
+        private AircraftCommandTargetManager commandTargetManager;
 
         [Inject]
         public void Init(IAircraft aircraft, AircraftAIController aiController, AircraftFormationMember formationMember, Team team, Health health,
-            CommandManager commandManager, CommandTargetManager commandTargetManager)
+            CommandManager commandManager, AircraftCommandTargetManager commandTargetManager)
         {
             this.team = team;
             this.aircraft = aircraft;

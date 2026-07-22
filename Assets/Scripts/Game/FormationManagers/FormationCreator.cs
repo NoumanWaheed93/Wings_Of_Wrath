@@ -54,11 +54,11 @@ namespace Game
         private ControllableAircraftManager controllableAircraftManager;
         private FormationCommandSystem formationCommandSystem;
         private CommandManager commandManager;
-        private CommandTargetManager commandTargetManager;
+        private AircraftCommandTargetManager commandTargetManager;
 
         [Inject]
         private void Init(TeamAircraftFactoryProvider factoryProvider, ControllableAircraftManager controllableAircraftManager, FormationCommandSystem formationCommandSystem,
-            CommandManager commandManager, CommandTargetManager commandTargetManager)
+            CommandManager commandManager, AircraftCommandTargetManager commandTargetManager)
         {
             this.aircraftPool = factoryProvider.GetPool(team);
             this.controllableAircraftManager = controllableAircraftManager;

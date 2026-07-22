@@ -8,7 +8,7 @@ namespace Game.Commands
     /// Roster of entities that can be picked as the target of a command (e.g. an "Attack" order).
     /// Mirrors SelectableEntityManager's add/remove event shape so the UI can list it the same way.
     /// </summary>
-    public class CommandTargetManager
+    public class AircraftCommandTargetManager
     {
         public event Action<ITargetable> OnTargetAdded;
         public event Action<ITargetable> OnTargetRemoved;
