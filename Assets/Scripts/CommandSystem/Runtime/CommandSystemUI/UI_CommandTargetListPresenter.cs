@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using TargetingSystem;
-using Game.Commands;
+using CommandSystem;
 
 namespace Game.UI.CommandSystemUI
 {
@@ -13,7 +12,7 @@ namespace Game.UI.CommandSystemUI
     /// </summary>
     public class UI_CommandTargetListPresenter : MonoBehaviour
     {
-        public event Action<ITargetable> OnTargetChosen;
+        public event Action<ICommandTarget> OnTargetChosen;
 
         [SerializeField]
         private Transform targetButtonsParent;
@@ -22,8 +21,8 @@ namespace Game.UI.CommandSystemUI
 
         private CommandTargetManager commandTargetManager;
 
-        private readonly Dictionary<ITargetable, UI_CommandTargetButton> targetToButton
-            = new Dictionary<ITargetable, UI_CommandTargetButton>();
+        private readonly Dictionary<ICommandTarget, UI_CommandTargetButton> targetToButton
+            = new Dictionary<ICommandTarget, UI_CommandTargetButton>();
 
         [Inject]
         public void Init(CommandTargetManager commandTargetManager)
@@ -37,7 +36,7 @@ namespace Game.UI.CommandSystemUI
             commandTargetManager.OnTargetRemoved += CommandTargetManager_OnTargetRemoved;
         }
 
-        private void CommandTargetManager_OnTargetAdded(ITargetable target)
+        private void CommandTargetManager_OnTargetAdded(ICommandTarget target)
         {
             UI_CommandTargetButton button = Instantiate(targetButtonPrefab, targetButtonsParent);
             button.Init(target);
@@ -45,7 +44,7 @@ namespace Game.UI.CommandSystemUI
             targetToButton.Add(target, button);
         }
 
-        private void CommandTargetManager_OnTargetRemoved(ITargetable target)
+        private void CommandTargetManager_OnTargetRemoved(ICommandTarget target)
         {
             if (targetToButton.TryGetValue(target, out UI_CommandTargetButton button))
             {
@@ -55,7 +54,7 @@ namespace Game.UI.CommandSystemUI
             }
         }
 
-        private void Button_OnClicked(ITargetable target)
+        private void Button_OnClicked(ICommandTarget target)
         {
             OnTargetChosen?.Invoke(target);
         }

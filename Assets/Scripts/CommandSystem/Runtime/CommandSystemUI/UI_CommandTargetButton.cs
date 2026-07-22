@@ -2,20 +2,20 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using TargetingSystem;
+using CommandSystem;
 
 namespace Game.UI.CommandSystemUI
 {
     public class UI_CommandTargetButton : MonoBehaviour
     {
-        public event Action<ITargetable> OnClicked;
+        public event Action<ICommandTarget> OnClicked;
 
         [SerializeField]
         private Button button;
         [SerializeField]
         private TextMeshProUGUI buttonText;
 
-        private ITargetable target;
+        private ICommandTarget target;
 
         private void OnEnable()
         {
@@ -27,10 +27,10 @@ namespace Game.UI.CommandSystemUI
             button.onClick.RemoveListener(OnClick);
         }
 
-        public void Init(ITargetable target)
+        public void Init(ICommandTarget target)
         {
             this.target = target;
-            buttonText.text = target.Transform.name;
+            buttonText.text = target.Name;
         }
 
         private void OnClick()
