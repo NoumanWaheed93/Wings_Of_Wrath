@@ -27,6 +27,9 @@ namespace AircraftController.AircraftAI
         public StateLanding stateLanding { get; private set; }
 
         public StateBreakFormation stateBreakFormation { get; private set; }
+        public StateLongRangeEngage stateLongRangeEngage { get; private set; }
+
+        private readonly IWeaponController weaponController;
 
         public bool IsAfterBurnerOn => true;
 
@@ -41,11 +44,13 @@ namespace AircraftController.AircraftAI
         //And when the player stops controlling the aircraft, the AI controller can make good decisions.
         public bool IsActive { get; set; }
 
-        public AircraftAIController(IAircraft aircraft, AircraftFormationMember formationMember, Transform transform)
+        public AircraftAIController(IAircraft aircraft, AircraftFormationMember formationMember, Transform transform,
+            [InjectOptional] IWeaponController weaponController)
         {
             this.aircraft = aircraft;
             this.FormationMember = formationMember;
             this.transform = transform;
+            this.weaponController = weaponController;
             stateFollowWaypoints = new StateFollowWaypoints(stateMachine, this, new Vector3[0]); // Initialize with empty waypoints
             stateFollowFormation = new StateFollowFormation(stateMachine, this);
             stateLanding = new StateLanding(stateMachine, this);
@@ -62,6 +67,29 @@ namespace AircraftController.AircraftAI
                 stateMachine.Initialize(newWaypointState);
             }
             stateFollowWaypoints = newWaypointState;
+        }
+
+        /// <summary>
+        /// Enters the long range engagement state against the given target: the aircraft aims and
+        /// fires a missile, then rejoins its formation.
+        /// </summary>
+        public void EngageTarget(Transform target)
+        {
+            stateLongRangeEngage = new StateLongRangeEngage(stateMachine, this, target);
+            stateMachine.ChangeState(stateLongRangeEngage);
+        }
+
+        /// <summary>
+        /// Fires the aircraft's weapon at the target. No-op (returns false) if this aircraft has
+        /// no weapon.
+        /// </summary>
+        public bool FireAt(Transform target)
+        {
+            if (weaponController == null)
+            {
+                return false;
+            }
+            return weaponController.FireAt(target);
         }
 
         public void Tick()

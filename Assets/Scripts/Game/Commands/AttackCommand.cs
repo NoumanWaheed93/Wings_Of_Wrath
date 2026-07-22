@@ -1,12 +1,11 @@
 using CommandSystem;
 using TargetingSystem;
-using UnityEngine;
 
 namespace Game.Commands
 {
     /// <summary>
-    /// Demo-level "engage" order: sends the commandable to intercept the target's current
-    /// position by reusing the existing waypoint-following AI state. Not a combat system.
+    /// Orders the commandable to engage the target: it enters the long range engagement AI
+    /// state, fires a guided missile at the target, then rejoins its formation.
     /// </summary>
     public class AttackCommand : ICommand
     {
@@ -21,7 +20,7 @@ namespace Game.Commands
         {
             if (commandable is AircraftFacade aircraftFacade)
             {
-                aircraftFacade.AIController.SetWaypoints(new Vector3[] { target.Transform.position });
+                aircraftFacade.AIController.EngageTarget(target.Transform);
             }
         }
     }

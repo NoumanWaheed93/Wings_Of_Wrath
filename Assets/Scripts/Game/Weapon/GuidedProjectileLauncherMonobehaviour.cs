@@ -2,10 +2,12 @@ using Common;
 using Zenject;
 using WeaponSystem;
 using TargetingSystem;
+using UnityEngine;
+using AircraftController.AircraftAI;
 
 namespace Game
 {
-    public class GuidedProjectileLauncherMonobehaviour : WeaponMonoBehaviour
+    public class GuidedProjectileLauncherMonobehaviour : WeaponMonoBehaviour, IWeaponController
     {
         private GuidedProjectileLauncher launcher;
 
@@ -20,6 +22,12 @@ namespace Game
         public void Fire()
         {
             launcher.Fire();
+        }
+
+        public bool FireAt(Transform target)
+        {
+            launcher.Target = target;
+            return launcher.Fire();
         }
     }
 }

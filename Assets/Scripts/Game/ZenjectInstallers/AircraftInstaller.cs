@@ -28,8 +28,16 @@ namespace ZenjectInstallers
             InstallHealth();
             InstallRadar();
             InstallFormationMember();
+            InstallWeapons();
             InstallAircraft();
             InstallAircraftAI();
+        }
+
+        private void InstallWeapons()
+        {
+            // Optional: aircraft prefabs without a weapon simply have no IWeaponController bound,
+            // and the AI controller treats firing as a no-op (see AircraftAIController.FireAt).
+            Container.Bind<IWeaponController>().FromComponentInHierarchy().AsSingle();
         }
 
         private void InstallAircraftAI()
