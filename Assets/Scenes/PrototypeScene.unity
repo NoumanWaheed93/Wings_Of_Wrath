@@ -191,7 +191,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -0}
+  m_AnchoredPosition: {x: 25, y: 30}
   m_SizeDelta: {x: 50, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &24743650
@@ -1245,7 +1245,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 10}
+  m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &850533777
 MonoBehaviour:
@@ -2511,7 +2511,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 10}
+  m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1277943824
 MonoBehaviour:
@@ -3027,6 +3027,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1412086331}
+  - component: {fileID: 1412086333}
   - component: {fileID: 1412086332}
   m_Layer: 5
   m_Name: CommandFlowPanel
@@ -3075,6 +3076,22 @@ MonoBehaviour:
   commandableListPresenter: {fileID: 24743650}
   commandPalettePresenter: {fileID: 168238091}
   commandTargetListPresenter: {fileID: 1212820736}
+--- !u!114 &1412086333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412086330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 716c94ae226074293805a5ea662e9ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZenjectInstallers::ZenjectInstallers.CommandSystemUIBinder
+  commandPalettePresenter: {fileID: 168238091}
+  commandableListPresenter: {fileID: 24743650}
+  commandTargetListPresenter: {fileID: 1212820736}
+  commandFlowPresenter: {fileID: 1412086332}
 --- !u!1 &1457636678
 GameObject:
   m_ObjectHideFlags: 0
