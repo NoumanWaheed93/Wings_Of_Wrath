@@ -7,7 +7,6 @@ using AircraftController.AircraftAI;
 using AircraftController;
 using Common;
 using CommandSystem;
-using Game.Commands;
 
 namespace Game
 {
@@ -54,11 +53,11 @@ namespace Game
         private ControllableAircraftManager controllableAircraftManager;
         private FormationCommandSystem formationCommandSystem;
         private CommandManager commandManager;
-        private AircraftCommandTargetManager commandTargetManager;
+        private CommandTargetManager commandTargetManager;
 
         [Inject]
         private void Init(TeamAircraftFactoryProvider factoryProvider, ControllableAircraftManager controllableAircraftManager, FormationCommandSystem formationCommandSystem,
-            CommandManager commandManager, AircraftCommandTargetManager commandTargetManager)
+            CommandManager commandManager, CommandTargetManager commandTargetManager)
         {
             this.aircraftPool = factoryProvider.GetPool(team);
             this.controllableAircraftManager = controllableAircraftManager;

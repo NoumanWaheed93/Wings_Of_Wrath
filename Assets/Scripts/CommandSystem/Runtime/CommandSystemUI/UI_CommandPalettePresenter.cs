@@ -3,7 +3,7 @@ using UnityEngine;
 using Zenject;
 using CommandSystem;
 
-namespace Game.UI.CommandSystemUI
+namespace CommandSystem.UI
 {
     /// <summary>
     /// Step 2 of the command demo: lists every ICommandDefinition in the CommandPalette.

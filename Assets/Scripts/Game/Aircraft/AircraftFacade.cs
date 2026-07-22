@@ -10,7 +10,6 @@ using HealthSystem;
 using AircraftController.AircraftAI;
 using FormationSystem;
 using CommandSystem;
-using Game.Commands;
 
 namespace Game
 {
@@ -44,11 +43,11 @@ namespace Game
         private Health health;
 
         private CommandManager commandManager;
-        private AircraftCommandTargetManager commandTargetManager;
+        private CommandTargetManager commandTargetManager;
 
         [Inject]
         public void Init(IAircraft aircraft, AircraftAIController aiController, AircraftFormationMember formationMember, Team team, Health health,
-            CommandManager commandManager, AircraftCommandTargetManager commandTargetManager)
+            CommandManager commandManager, CommandTargetManager commandTargetManager)
         {
             this.team = team;
             this.aircraft = aircraft;

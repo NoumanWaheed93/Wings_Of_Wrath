@@ -2,7 +2,7 @@ using UnityEngine;
 using Zenject;
 using CommandSystem;
 
-namespace Game.UI.CommandSystemUI
+namespace CommandSystem.UI
 {
     /// <summary>
     /// Drives the 3-step command demo flow: select commandables -> select a command -> select

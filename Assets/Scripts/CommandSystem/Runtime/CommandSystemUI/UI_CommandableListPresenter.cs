@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Zenject;
 using CommandSystem;
 
-namespace Game.UI.CommandSystemUI
+namespace CommandSystem.UI
 {
     /// <summary>
     /// Step 1 of the command demo: lists every registered ICommandable as a toggle button

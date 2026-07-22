@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using CommandSystem;
 
-namespace Game.UI.CommandSystemUI
+namespace CommandSystem.UI
 {
     public class UI_CommandButton : MonoBehaviour
     {

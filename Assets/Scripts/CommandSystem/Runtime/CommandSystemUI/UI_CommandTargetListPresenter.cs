@@ -4,10 +4,10 @@ using UnityEngine;
 using Zenject;
 using CommandSystem;
 
-namespace Game.UI.CommandSystemUI
+namespace CommandSystem.UI
 {
     /// <summary>
-    /// Step 3 of the command demo: lists every ITargetable in the CommandTargetManager.
+    /// Step 3 of the command demo: lists every ICommandTarget in the CommandTargetManager.
     /// Only shown for commands whose ICommandDefinition.RequiresTarget is true.
     /// </summary>
     public class UI_CommandTargetListPresenter : MonoBehaviour
