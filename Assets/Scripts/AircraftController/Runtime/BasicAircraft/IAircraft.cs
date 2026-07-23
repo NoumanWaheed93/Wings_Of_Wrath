@@ -1,6 +1,5 @@
 ﻿using Locomotion;
 using UnityEngine;
-using FormationSystem;
 
 namespace AircraftController
 {
@@ -30,6 +29,8 @@ namespace AircraftController
         public Vector3 AngularVelocity { get; }
  
         public void Spawn(bool isInAir = false, float startAltitude = 0f, float startSpeed = 0f);
+        void Update(float simulationDeltaTime);
+        void FixedUpdate(float simulationDeltaTime);
         void CalculateAndSetPitch(float targetAltitude, float targetDistance);
         void CalculateAndSetPitch(Vector3 targetPosition);
         bool HasDeviatedFromLine(Vector3 lineStart, Vector3 lineEnd, float acceptableDeviation);

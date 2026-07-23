@@ -2,12 +2,10 @@ using UnityEngine;
 using Locomotion;
 using Utilities;
 using Common;
-using FormationSystem;
-using Zenject;
 
 namespace AircraftController
 {
-    public class Aircraft : IAircraft, ITickable, IFixedTickable
+    public class Aircraft : IAircraft
     {
         private AircraftStateMachine stateMachine;
         public AircraftStateMachine StateMachine { get => stateMachine; }
@@ -70,13 +68,10 @@ namespace AircraftController
 
         public Runway HomeRunway { get; set; }
 
-        public IFormationMember<AircraftFormationMember> FormationMember { get; private set; }
-
-        public Aircraft(IAircraftMovementData movementData, Transform transform, Rigidbody rigidbody, IFormationMember<AircraftFormationMember> formationMember)
+        public Aircraft(IAircraftMovementData movementData, Transform transform, Rigidbody rigidbody)
         {
             this.transform = transform;
             this.rigidbody = rigidbody;
-            this.FormationMember = formationMember;
 
             stateMachine = new AircraftStateMachine();
             movementHandler = new AircraftMovementHandler(movementData, transform, rigidbody);
@@ -175,8 +170,7 @@ namespace AircraftController
         public float GetSpeedToFollow(Vector3 targetPosition, IAircraft toFollow)
         {
             Debug.DrawLine(transform.position, targetPosition, Color.white);
-         
-            IFormationMember<AircraftFormationMember> myFormationMember = FormationMember;
+
             float forwardDistanceToTargetPos = GetDistanceAhead(targetPosition);
             float leaderSpeed = toFollow.Velocity.magnitude;
 
@@ -256,16 +250,5 @@ namespace AircraftController
         //{
         //    return transform.TransformPoint(localPosition);
         //}
-
-        public void Tick()
-        {
-            Update(Time.deltaTime);
-        }
-
-        public void FixedTick()
-        {
-//            Debug.Log("Fixed tick in Aircraft");
-            FixedUpdate(Time.fixedDeltaTime);
-        }
     }
 }

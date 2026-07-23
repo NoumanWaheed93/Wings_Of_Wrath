@@ -64,6 +64,17 @@ namespace Game
             health.onHealthDepleted += OnDie;
         }
 
+        private void Update()
+        {
+            aircraft.Update(Time.deltaTime);
+            aiController.Update(Time.deltaTime);
+        }
+
+        private void FixedUpdate()
+        {
+            aircraft.FixedUpdate(Time.fixedDeltaTime);
+        }
+
         public void GiveCommand(ICommand command)
         {
             command.Execute(this);

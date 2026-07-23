@@ -4,11 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Utilities;
-using Zenject;
 
 namespace AircraftController.AircraftAI
 {
-    public class AircraftAIController : IAircraftController, ITickable
+    public class AircraftAIController : IAircraftController
     {
 
         public IAircraft aircraft { get; private set; }
@@ -62,11 +61,6 @@ namespace AircraftController.AircraftAI
                 stateMachine.Initialize(newWaypointState);
             }
             stateFollowWaypoints = newWaypointState;
-        }
-
-        public void Tick()
-        {
-            Update(Time.deltaTime);
         }
 
         public void Update(float simulationDeltaTime)
