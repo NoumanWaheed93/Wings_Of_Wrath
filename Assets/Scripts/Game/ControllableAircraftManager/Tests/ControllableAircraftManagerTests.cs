@@ -12,12 +12,21 @@ using CameraController;
 using ScreenInputControls;
 using WeaponSystem;
 using Common;
+using FormationSystem;
 
 public class ControllableAircraftManagerTests
 {
     private SelectableEntityManager selectableEntityManager;
     private AircraftPlayerController playerController;
     private ControllableAircraftManager manager;
+
+    private Formation<AircraftFormationMember> CreateMockFormation(IAircraft leaderAircraft)
+    {
+        var formation = new Trail<AircraftFormationMember>();
+        var leaderMember = new AircraftFormationMember { aircraft = leaderAircraft };
+        formation.AddMember(leaderMember);
+        return formation;
+    }
 
     [SetUp]
     public void Setup()
@@ -39,51 +48,50 @@ public class ControllableAircraftManagerTests
     }
 
     [Test]
-    public void AddControllableAircraft_Adds_Aircraft_To_Manager()
+    public void AddControllableFormation_Adds_Formation_To_Manager()
     {
         // Arrange
         var mockAircraft = Substitute.For<IAircraft>();
-        var mockAIController = Substitute.For<IAircraftController>();
+        var formation = CreateMockFormation(mockAircraft);
 
         // Act
-        manager.AddControllableAircraft(mockAircraft, mockAIController, null, null, null);
+        manager.AddControllableFormation(formation);
 
         // Assert
         Assert.AreEqual(1, selectableEntityManager.SelectableEntities.Count);
     }
 
     [Test]
-    public void AddControllableAircraft_Creates_SelectableEntity_For_Aircraft()
+    public void AddControllableFormation_Creates_SelectableEntity_For_Formation()
     {
         // Arrange
         var mockAircraft = Substitute.For<IAircraft>();
-        var aiController = Substitute.For<IAircraftController>();
+        var formation = CreateMockFormation(mockAircraft);
 
         // Act
-        manager.AddControllableAircraft(mockAircraft, aiController, null, null, null);
+        manager.AddControllableFormation(formation);
 
         // Assert
         Assert.AreEqual(1, selectableEntityManager.SelectableEntities.Count);
-        Assert.AreEqual("aircraft", selectableEntityManager.SelectableEntities[0].Name);
+        Assert.AreEqual("formation", selectableEntityManager.SelectableEntities[0].Name);
     }
 
     [Test]
-    public void AddControllableAircraft_Multiple_Aircraft_Are_Added_Correctly()
+    public void AddControllableFormation_Multiple_Formations_Are_Added_Correctly()
     {
         // Arrange
         var mockAircraft1 = Substitute.For<IAircraft>();
         var mockAircraft2 = Substitute.For<IAircraft>();
         var mockAircraft3 = Substitute.For<IAircraft>();
 
-
-        var aiController1 = Substitute.For<IAircraftController>();
-        var aiController2 = Substitute.For<IAircraftController>();
-        var aiController3 = Substitute.For<IAircraftController>();
+        var formation1 = CreateMockFormation(mockAircraft1);
+        var formation2 = CreateMockFormation(mockAircraft2);
+        var formation3 = CreateMockFormation(mockAircraft3);
 
         // Act
-        manager.AddControllableAircraft(mockAircraft1, aiController1, null, null, null);
-        manager.AddControllableAircraft(mockAircraft2, aiController2, null, null, null);
-        manager.AddControllableAircraft(mockAircraft3, aiController3, null, null, null);
+        manager.AddControllableFormation(formation1);
+        manager.AddControllableFormation(formation2);
+        manager.AddControllableFormation(formation3);
 
         // Assert
         Assert.AreEqual(3, selectableEntityManager.SelectableEntities.Count);
@@ -102,25 +110,27 @@ public class ControllableAircraftManagerTests
         manager.AddControllableAircraft(mockAircraft1, aiController1, null, null, null);
         manager.AddControllableAircraft(mockAircraft2, aiController2, null, null, null);
 
+        var formation1 = CreateMockFormation(mockAircraft1);
+        var formation2 = CreateMockFormation(mockAircraft2);
+        manager.AddControllableFormation(formation1);
+        manager.AddControllableFormation(formation2);
+
         // Set first aircraft as player controlled
         playerController.Aircraft = mockAircraft1;
         aiController1.IsActive = false;
         aiController2.IsActive = true;
 
-        // Get the second aircraft's selectable entity
+        // Get the second formation's selectable entity
         var entities = selectableEntityManager.SelectableEntities;
-        var secondAircraftEntity = entities[1]; // Second entity is for second aircraft
+        var secondFormationEntity = entities[1];
 
-        // Act - Select the second aircraft
-        selectableEntityManager.SelectEntity(secondAircraftEntity);
+        // Act - Select the second formation
+        selectableEntityManager.SelectEntity(secondFormationEntity);
 
         // Assert
-        // After selection, first aircraft should be returned to AI control
         Assert.AreEqual(mockAircraft2, playerController.Aircraft);
         Assert.IsTrue(aiController1.IsActive, "First aircraft AI should be active");
         Assert.IsFalse(aiController2.IsActive, "Second aircraft AI should be inactive");
-
-        // Verify camera target was updated
     }
 
     [Test]
@@ -130,11 +140,16 @@ public class ControllableAircraftManagerTests
         var mockAircraft1 = Substitute.For<IAircraft>();
         var mockAircraft2 = Substitute.For<IAircraft>();
 
-        var aiController1 = Substitute.For<IAircraftController>(); 
+        var aiController1 = Substitute.For<IAircraftController>();
         var aiController2 = Substitute.For<IAircraftController>();
 
         manager.AddControllableAircraft(mockAircraft1, aiController1, null, null, null);
         manager.AddControllableAircraft(mockAircraft2, aiController2, null, null, null);
+
+        var formation1 = CreateMockFormation(mockAircraft1);
+        var formation2 = CreateMockFormation(mockAircraft2);
+        manager.AddControllableFormation(formation1);
+        manager.AddControllableFormation(formation2);
 
         // Set first aircraft as player controlled
         playerController.Aircraft = mockAircraft1;
@@ -142,24 +157,24 @@ public class ControllableAircraftManagerTests
         aiController2.IsActive = true;
 
         var entities = selectableEntityManager.SelectableEntities;
-        var secondAircraftEntity = entities[1];
+        var secondFormationEntity = entities[1];
 
-        // Act - Select second aircraft
-        selectableEntityManager.SelectEntity(secondAircraftEntity);
+        // Act - Select second formation
+        selectableEntityManager.SelectEntity(secondFormationEntity);
 
         // Assert - First aircraft should now be controlled by AI
         Assert.IsTrue(aiController1.IsActive, "Previous aircraft AI should be reactivated");
     }
 
     [Test]
-    public void OnEntitySelected_Handles_Switching_Between_Multiple_Aircraft()
+    public void OnEntitySelected_Handles_Switching_Between_Multiple_Formations()
     {
         // Arrange
         var mockAircraft1 = Substitute.For<IAircraft>();
         var mockAircraft2 = Substitute.For<IAircraft>();
         var mockAircraft3 = Substitute.For<IAircraft>();
 
-        var aiController1 = Substitute.For<IAircraftController>(); 
+        var aiController1 = Substitute.For<IAircraftController>();
         var aiController2 = Substitute.For<IAircraftController>();
         var aiController3 = Substitute.For<IAircraftController>();
 
@@ -167,18 +182,25 @@ public class ControllableAircraftManagerTests
         manager.AddControllableAircraft(mockAircraft2, aiController2, null, null, null);
         manager.AddControllableAircraft(mockAircraft3, aiController3, null, null, null);
 
+        var formation1 = CreateMockFormation(mockAircraft1);
+        var formation2 = CreateMockFormation(mockAircraft2);
+        var formation3 = CreateMockFormation(mockAircraft3);
+        manager.AddControllableFormation(formation1);
+        manager.AddControllableFormation(formation2);
+        manager.AddControllableFormation(formation3);
+
         playerController.Aircraft = mockAircraft1;
         aiController1.IsActive = false;
 
         var entities = selectableEntityManager.SelectableEntities;
 
-        // Act - Switch to aircraft 2
+        // Act - Switch to formation 2
         selectableEntityManager.SelectEntity(entities[1]);
         Assert.AreEqual(mockAircraft2, playerController.Aircraft);
         Assert.IsTrue(aiController1.IsActive);
         Assert.IsFalse(aiController2.IsActive);
 
-        // Act - Switch to aircraft 3
+        // Act - Switch to formation 3
         selectableEntityManager.SelectEntity(entities[2]);
 
         // Assert
@@ -194,12 +216,17 @@ public class ControllableAircraftManagerTests
         // Arrange
         var mockAircraft1 = Substitute.For<IAircraft>();
         var mockAircraft2 = Substitute.For<IAircraft>();
-        
-        var aiController1 = Substitute.For<IAircraftController>(); 
+
+        var aiController1 = Substitute.For<IAircraftController>();
         var aiController2 = Substitute.For<IAircraftController>();
 
         manager.AddControllableAircraft(mockAircraft1, aiController1, null, null, null);
         manager.AddControllableAircraft(mockAircraft2, aiController2, null, null, null);
+
+        var formation1 = CreateMockFormation(mockAircraft1);
+        var formation2 = CreateMockFormation(mockAircraft2);
+        manager.AddControllableFormation(formation1);
+        manager.AddControllableFormation(formation2);
 
         playerController.Aircraft = mockAircraft1;
         aiController1.IsActive = false;
@@ -207,11 +234,10 @@ public class ControllableAircraftManagerTests
 
         var entities = selectableEntityManager.SelectableEntities;
 
-        // Act - Switch from aircraft 1 to aircraft 2
+        // Act - Switch from formation 1 to formation 2
         selectableEntityManager.SelectEntity(entities[1]);
 
         // Assert - Aircraft 1 should be cleared from player and returned to AI
-        // (verified by checking that first aircraft AI is active again)
         Assert.IsTrue(aiController1.IsActive);
     }
 
@@ -220,17 +246,19 @@ public class ControllableAircraftManagerTests
     {
         // Arrange
         var mockAircraft1 = Substitute.For<IAircraft>();
-        
         var aiController1 = Substitute.For<IAircraftController>();
-        
+
         manager.AddControllableAircraft(mockAircraft1, aiController1, null, null, null);
+
+        var formation1 = CreateMockFormation(mockAircraft1);
+        manager.AddControllableFormation(formation1);
 
         // Start with no player aircraft
         playerController.Aircraft = null;
 
         var entities = selectableEntityManager.SelectableEntities;
 
-        // Act - Select first aircraft
+        // Act - Select first formation
         selectableEntityManager.SelectEntity(entities[0]);
 
         // Assert - Aircraft should be assigned to player and AI should be inactive
@@ -249,14 +277,19 @@ public class ControllableAircraftManagerTests
         for (int i = 0; i < aircraftCount; i++)
         {
             mockAircrafts.Add(Substitute.For<IAircraft>());
-            var controller = Substitute.For<IAircraftController>(); 
+            var controller = Substitute.For<IAircraftController>();
             aiControllers.Add(controller);
+            manager.AddControllableAircraft(mockAircrafts[i], aiControllers[i], null, null, null);
         }
+
+        var formations = new List<Formation<AircraftFormationMember>>();
 
         // Act
         for (int i = 0; i < aircraftCount; i++)
         {
-            manager.AddControllableAircraft(mockAircrafts[i], aiControllers[i], null, null, null);
+            var formation = CreateMockFormation(mockAircrafts[i]);
+            formations.Add(formation);
+            manager.AddControllableFormation(formation);
         }
 
         // Assert

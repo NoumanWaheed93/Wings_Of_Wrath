@@ -11,7 +11,8 @@
         "CameraControllers",
         "ScreenInputControls",
         "WeaponSystem",
-        "Common"
+        "Common",
+        "FormationSystem"
     ],
     "includePlatforms": [
         "Editor"
