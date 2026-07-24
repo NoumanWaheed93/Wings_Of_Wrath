@@ -21,9 +21,6 @@ namespace AircraftController
 
         private Rigidbody rigidbody; //do not remove even if it is not used. Only remove it in production review.
 
-        private ISensor[] frontalSensors;
-        public ISensor[] FrontalSensors { get; private set; }
-
         #region States
         private OnGround stateOnGround;
         public OnGround StateOnGround { get => stateOnGround; }
@@ -83,12 +80,6 @@ namespace AircraftController
             stateFinalApproach = new FinalApproach(stateMachine, this);
             stateTouchDown = new TouchDown(stateMachine, this);
             stateLanded = new Landed(stateMachine, this);
-        }
-
-        public Aircraft SetSensors(ISensor[] sensors)
-        {
-            this.frontalSensors = sensors;
-            return this;
         }
 
         public void Spawn(bool isInAir = false, float startAltitude = 0f, float startSpeed = 0f)
@@ -216,23 +207,6 @@ namespace AircraftController
             //	desiredSpeed += Random.Range(-0.5f, 0.5f);
         }
 
-        /// <summary>
-        /// This method returns true if there is an obstacle/ object
-        /// right in front.
-        /// </summary>
-        /// <returns></returns>
-        public bool IsCollisionHazardAhead()
-        {
-            for(int i = 0; i< frontalSensors.Length; i++)
-            {
-                if (frontalSensors[i].HasSomethingInFront)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         private float GetDistanceAhead(Vector3 targetPosition)
         {
             Vector3 ToPosition = targetPosition - transform.position;
@@ -241,14 +215,6 @@ namespace AircraftController
             return distanceAhead;
         }
 
-        //Vector3 IRelativePositionProvider.GetRelativePosition(Vector3 point)
-        //{
-        //    return transform.InverseTransformPoint(point);
-        //}
-
-        //Vector3 IRelativePositionProvider.GetGlobalPosition(Vector3 localPosition)
-        //{
-        //    return transform.TransformPoint(localPosition);
-        //}
     }
+
 }

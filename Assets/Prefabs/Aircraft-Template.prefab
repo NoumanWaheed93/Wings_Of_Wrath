@@ -1374,7 +1374,7 @@ MonoBehaviour:
   - {fileID: 8900919222387801858}
   - {fileID: 339922604710040553}
   - {fileID: 1208735735532716362}
-  isAutoInit: 0
+  isHandledByMonobehavior: 1
   rigidbody: {fileID: 0}
 --- !u!114 &1088883786176553728
 MonoBehaviour:

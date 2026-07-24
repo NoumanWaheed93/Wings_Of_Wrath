@@ -20,7 +20,7 @@ namespace AircraftController
             {
                 if (aircraftController.AfterBurnerInput)
                 {
-                    aircraftController.Throttle = 1;
+                    isEngineStarted = true;
                 }
             }
             else

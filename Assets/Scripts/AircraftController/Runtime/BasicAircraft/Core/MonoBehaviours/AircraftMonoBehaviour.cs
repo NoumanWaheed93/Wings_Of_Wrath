@@ -6,8 +6,6 @@ namespace AircraftController
 {
     public class AircraftMonoBehaviour : MonoBehaviour
     {
-        private const string LOG_FORMAT = "<color=#FF0000><b>[AircraftMonoBehaviour]</b></color> {{0}}";
-
         [SerializeField]
         private AircraftMovementData movementData;
 
@@ -15,24 +13,38 @@ namespace AircraftController
         private Team team;
         public Team Team { get => team; set => team = value; }
         
-        [SerializeField]
-        private Sensor[] sensors;
-
         private IAircraft aircraft;
         public IAircraft Aircraft { get => aircraft; }
 
         [SerializeField]
-        private bool isAutoInit = true;
+        private bool isHandledByMonobehavior = true; //False if it is to be injected from somewhere else
         [SerializeField]
-        private new Rigidbody rigidbody;
+        private Rigidbody rigidbody;
 
         public float CurrSpeed => aircraft.MovementHandler.CurrSpeed;
 
-        void Start()
+        private void Awake()
         {
-            if (isAutoInit)
+            if (isHandledByMonobehavior)
             {
                 Init(new Aircraft(movementData, transform, rigidbody), team);
+                aircraft.Spawn(false, 2, 0);
+            }
+        }
+
+        private void Update()
+        {
+            if (isHandledByMonobehavior)
+            {
+                aircraft.Update(Time.deltaTime);
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (isHandledByMonobehavior)
+            {
+                aircraft.FixedUpdate(Time.fixedDeltaTime);
             }
         }
 
