@@ -104,7 +104,6 @@ namespace AircraftController
 
         public void FixedUpdate(float simulationDeltaTime)
         {
-//            Debug.Log("Fixed Update in Aircraft");
             movementHandler.Update(simulationDeltaTime);
         }
 
@@ -156,63 +155,6 @@ namespace AircraftController
             float clampedSpeedDifference = Mathf.Clamp(speedDifference, 10, 30);
             float requiredBrakePressure = clampedSpeedDifference / 20f;
             return requiredBrakePressure;
-        }
-
-        public float GetSpeedToFollow(Vector3 targetPosition, IAircraft toFollow)
-        {
-            Debug.DrawLine(transform.position, targetPosition, Color.white);
-
-            float forwardDistanceToTargetPos = GetDistanceAhead(targetPosition);
-            float leaderSpeed = toFollow.Velocity.magnitude;
-
-            Vector3 relativeVelocity = this.Velocity - toFollow.Velocity;
-            float closureSpeed = RelativeVelocityUtility.CalculateClosureSpeed(toFollow.Transform.position, Transform.position, relativeVelocity);// CalculateClosureSpeed(leader.Transform.position, myFormationMember.Transform.position, relativeVelocity);
-
-            float throttleRequiredForTargetSpeed = GetRequiredThrottleForSpeed(leaderSpeed);
-
-            float decelerationAtTargetSpeed = Mathf.Lerp(MovementHandler.AerodynamicMovementData.maxDeceleration, 0, throttleRequiredForTargetSpeed);
-            float distanceThatCanBeCoveredUntilZeroRelSpeed = RelativeVelocityUtility.GetDistanceToReachSpeed(closureSpeed, 0, -decelerationAtTargetSpeed);
-
-            //Guzara if statement below, with guzara jugaar
-            if (forwardDistanceToTargetPos < -1f)
-            {
-                MovementHandler.SetBrake(0.5f); //Airbrake -> 0.5f, Wheel brake -> 1f
-                return movementHandler.AerodynamicMovementData.lowAirSpeed;
-            }
-
-            /* If currSpeed is higher than the target speed and the aircraft can reach
-             the target position by normal deceleration
-             {Decelerate} */
-            if (MovementHandler.CurrSpeed > leaderSpeed &&
-                distanceThatCanBeCoveredUntilZeroRelSpeed > forwardDistanceToTargetPos - 0.1f)
-            {
-                //--To Do : Set lower desired speed when the zero rel speed distance is too big --//
-
-                if (distanceThatCanBeCoveredUntilZeroRelSpeed - forwardDistanceToTargetPos > 3)
-                {
-                    //hit the brakes
-                    MovementHandler.SetBrake(0.5f); //Airbrake -> 0.5f, Wheel brake -> 1f
-                }
-                else
-                {
-                    MovementHandler.SetBrake(0);
-                }
-                return leaderSpeed;
-            }
-            else
-            {
-                MovementHandler.SetBrake(0);
-                return movementHandler.AerodynamicMovementData.maxSpeed;
-            }
-            //	desiredSpeed += Random.Range(-0.5f, 0.5f);
-        }
-
-        private float GetDistanceAhead(Vector3 targetPosition)
-        {
-            Vector3 ToPosition = targetPosition - transform.position;
-
-            float distanceAhead = Vector3.Dot(ToPosition, transform.forward);
-            return distanceAhead;
         }
 
     }

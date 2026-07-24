@@ -137,7 +137,7 @@ namespace Game
                     newAircraft.transform.position = runway.TouchDownPoint.position;
                     newAircraft.transform.rotation = runway.TouchDownPoint.rotation;
                     newAircraft.transform.SetParent(transform);
-                    
+
                     yield return null;
                     currentFormation.AddMember(newAircraft.FormationMember.Self);
                     newAircraft.FormationMember.Formation = currentFormation;

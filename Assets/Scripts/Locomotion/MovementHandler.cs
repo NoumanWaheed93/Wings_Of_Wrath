@@ -33,7 +33,6 @@ namespace Locomotion
 
         public void Update(float simulationDeltaTime)
         {
-   //         Debug.Log("Movement Handler in Aircraft");
             HandleMovement(simulationDeltaTime);
         }
 

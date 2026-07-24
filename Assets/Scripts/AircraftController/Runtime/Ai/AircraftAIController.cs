@@ -112,7 +112,7 @@ namespace AircraftController.AircraftAI
             altitudeOffset = myPositionInTheFormation.y;
             //Get global position
             Vector3 targetPosition = leader.aircraft.Transform.TransformPoint(myPositionInTheFormation);
-            desiredSpeed = aircraft.GetSpeedToFollow(targetPosition, leader.aircraft);
+            desiredSpeed = GetSpeedToFollow(targetPosition, leader.aircraft);
 
             float predictionTime = CalculatePredictionTime(leader.aircraft, FormationMember, myPositionInTheFormation);
 
@@ -151,6 +151,66 @@ namespace AircraftController.AircraftAI
             breakDestination = leader.aircraft.Transform.TransformPoint(breakDestination);
             return breakDestination;
         }
+
+
+        public float GetSpeedToFollow(Vector3 targetPosition, IAircraft toFollow)
+        {
+            Debug.DrawLine(transform.position, targetPosition, Color.white);
+
+            float forwardDistanceToTargetPos = GetDistanceAhead(targetPosition);
+            float leaderSpeed = toFollow.Velocity.magnitude;
+
+            Vector3 relativeVelocity = aircraft.Velocity - toFollow.Velocity;
+            float closureSpeed = RelativeVelocityUtility.CalculateClosureSpeed(toFollow.Transform.position, transform.position, relativeVelocity);// CalculateClosureSpeed(leader.Transform.position, myFormationMember.Transform.position, relativeVelocity);
+
+            float throttleRequiredForTargetSpeed = aircraft.GetRequiredThrottleForSpeed(leaderSpeed);
+
+            float decelerationAtTargetSpeed = Mathf.Lerp(aircraft.MovementHandler.AerodynamicMovementData.maxDeceleration, 0, throttleRequiredForTargetSpeed);
+            float distanceThatCanBeCoveredUntilZeroRelSpeed = RelativeVelocityUtility.GetDistanceToReachSpeed(closureSpeed, 0, -decelerationAtTargetSpeed);
+
+            //Guzara if statement below, with guzara jugaar
+            if (forwardDistanceToTargetPos < -1f)
+            {
+                aircraft.MovementHandler.SetBrake(0.5f); //Airbrake -> 0.5f, Wheel brake -> 1f
+                return aircraft.MovementHandler.AerodynamicMovementData.lowAirSpeed;
+            }
+
+            /* If currSpeed is higher than the target speed and the aircraft can reach
+             the target position by normal deceleration
+             {Decelerate} */
+            if (aircraft.MovementHandler.CurrSpeed > leaderSpeed &&
+                distanceThatCanBeCoveredUntilZeroRelSpeed > forwardDistanceToTargetPos - 0.1f)
+            {
+                //--To Do : Set lower desired speed when the zero rel speed distance is too big --//
+
+                if (distanceThatCanBeCoveredUntilZeroRelSpeed - forwardDistanceToTargetPos > 3)
+                {
+                    //hit the brakes
+                    aircraft.MovementHandler.SetBrake(0.5f); //Airbrake -> 0.5f, Wheel brake -> 1f
+                }
+                else
+                {
+                    aircraft.MovementHandler.SetBrake(0);
+                }
+                return leaderSpeed;
+            }
+            else
+            {
+                aircraft.MovementHandler.SetBrake(0);
+                return aircraft.MovementHandler.AerodynamicMovementData.maxSpeed;
+            }
+            //	desiredSpeed += Random.Range(-0.5f, 0.5f);
+        }
+
+
+        private float GetDistanceAhead(Vector3 targetPosition)
+        {
+            Vector3 ToPosition = targetPosition - transform.position;
+
+            float distanceAhead = Vector3.Dot(ToPosition, transform.forward);
+            return distanceAhead;
+        }
+
 
         /// <summary>
         /// This is a proof of concept(Jugaar) method to calculate prediction time, for smoother formation following.
@@ -196,7 +256,7 @@ namespace AircraftController.AircraftAI
         /// <param name="angularSpeedY"></param>
         /// <param name="predictionTime">How far in the future to predict</param>
         /// <returns></returns>
-        Vector3 PredictPosition(Transform transform, float forwardSpeed, float angularSpeedY, float predictionTime)
+        private Vector3 PredictPosition(Transform transform, float forwardSpeed, float angularSpeedY, float predictionTime)
         {
             Vector3 currentPosition = Vector3.zero;
 

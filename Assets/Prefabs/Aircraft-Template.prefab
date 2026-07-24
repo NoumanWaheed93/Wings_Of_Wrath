@@ -1368,14 +1368,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bece779cc0fe3024c8246aa677985dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementData: {fileID: 0}
+  movementData: {fileID: 11400000, guid: bc6ddd266af170b4e935b05e59081150, type: 2}
   team: 0
-  sensors:
-  - {fileID: 8900919222387801858}
-  - {fileID: 339922604710040553}
-  - {fileID: 1208735735532716362}
-  isHandledByMonobehavior: 1
-  rigidbody: {fileID: 0}
+  isHandledByMonobehavior: 0
+  rigidbody: {fileID: 1604655158}
 --- !u!114 &1088883786176553728
 MonoBehaviour:
   m_ObjectHideFlags: 0
