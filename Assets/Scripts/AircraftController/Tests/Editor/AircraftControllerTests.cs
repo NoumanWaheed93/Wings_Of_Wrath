@@ -23,7 +23,7 @@ public class AircraftControllerTests
         
         aircraftController =
             new AircraftController.Aircraft(ScriptableObject.CreateInstance<AircraftMovementData>(), aircraftGameObject.transform, rigidbody);
-        aircraftController.Spawn();
+        aircraftController.Spawn(Vector3.zero, Quaternion.identity);
     }
 
     [Test]
@@ -134,7 +134,7 @@ public class AircraftControllerTests
         runway.Init(Team.Blue, initialApproachGO.transform, finalApproachGO.transform, touchDownPointGO.transform);
 
         // Spawn aircraft in air
-        aircraftController.Spawn(isInAir: true);
+        aircraftController.Spawn(Vector3.zero, Quaternion.identity, isInAir: true);
         aircraftGameObject.transform.position = Vector3.zero;
 
         // Set runway to trigger landing
@@ -207,7 +207,7 @@ public class AircraftControllerTests
         runway.Init(Team.Blue, initialApproachGO.transform, finalApproachGO.transform, touchDownPointGO.transform);
 
         // Spawn aircraft in air
-        aircraftController.Spawn(isInAir: true, 100, 80);
+        aircraftController.Spawn(Vector3.zero, Quaternion.identity, isInAir: true, 80);
         aircraftGameObject.transform.position = new Vector3(0, 100, 0);
 
         // Set runway to trigger landing

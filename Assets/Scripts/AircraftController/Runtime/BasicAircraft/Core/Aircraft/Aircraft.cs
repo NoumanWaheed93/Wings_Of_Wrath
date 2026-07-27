@@ -82,7 +82,7 @@ namespace AircraftController
             stateLanded = new Landed(stateMachine, this);
         }
 
-        public void Spawn(bool isInAir = false, float startAltitude = 0f, float startSpeed = 0f)
+        public void Spawn(Vector3 startPosition, Quaternion startRotation, bool isInAir = false, float startSpeed = 0f)
         {
             if (isInAir)
             {
@@ -93,7 +93,7 @@ namespace AircraftController
                 stateMachine.ChangeState(stateOnGround);
             }
 
-            movementHandler.Initialize(startSpeed, startAltitude);
+            movementHandler.Initialize(startPosition, startRotation, startSpeed);
         }
 
         public void Update(float simulationDeltaTime)

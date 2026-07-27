@@ -28,7 +28,7 @@ namespace AircraftController
             if (isHandledByMonobehavior)
             {
                 Init(new Aircraft(movementData, transform, rigidbody), team);
-                aircraft.Spawn(false, 2, 0);
+                aircraft.Spawn(transform.position, transform.rotation, false, 0);
             }
         }
 

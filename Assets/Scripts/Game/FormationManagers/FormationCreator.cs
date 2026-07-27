@@ -105,9 +105,7 @@ namespace Game
             {
                 for (int i = 0; i < count; i++)
                 {
-                    AircraftFacade newAircraft = aircraftPool.Spawn(isInAir, startAltitude, startSpeed);
-                    newAircraft.transform.position = position + currentFormation.GetMemberPositionSpaced(i);
-                    newAircraft.transform.rotation = Quaternion.identity;
+                    AircraftFacade newAircraft = aircraftPool.Spawn(position + currentFormation.GetMemberPositionSpaced(i), Quaternion.identity, isInAir, startSpeed);
                     newAircraft.transform.SetParent(transform);
                     yield return null;
                     currentFormation.AddMember(newAircraft.FormationMember.Self);
@@ -130,12 +128,10 @@ namespace Game
                         yield return null;
                     }
 
-                    AircraftFacade newAircraft = aircraftPool.Spawn(isInAir, startAltitude, startSpeed);
+                    AircraftFacade newAircraft = aircraftPool.Spawn(runway.TouchDownPoint.position, runway.TouchDownPoint.rotation, isInAir, startSpeed);
                     newAircraft.Aircraft.HomeRunway = runway;
                     newAircraft.Aircraft.RunwayInUse = runway;
                     runway.IsInUse = true;
-                    newAircraft.transform.position = runway.TouchDownPoint.position;
-                    newAircraft.transform.rotation = runway.TouchDownPoint.rotation;
                     newAircraft.transform.SetParent(transform);
 
                     yield return null;

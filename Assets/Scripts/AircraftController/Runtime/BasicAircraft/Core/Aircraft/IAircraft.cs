@@ -28,7 +28,7 @@ namespace AircraftController
  
         public Vector3 AngularVelocity { get; }
  
-        public void Spawn(bool isInAir = false, float startAltitude = 0f, float startSpeed = 0f);
+        public void Spawn(Vector3 startPosition, Quaternion startRotation, bool isInAir = false, float startSpeed = 0f);
         void Update(float simulationDeltaTime);
         void FixedUpdate(float simulationDeltaTime);
         void CalculateAndSetPitch(float targetAltitude, float targetDistance);

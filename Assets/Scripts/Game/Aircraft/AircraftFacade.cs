@@ -85,9 +85,9 @@ namespace Game
             this.pool = pool;
         }
 
-        public void Spawn(bool isInAir, float startAltitude, float startSpeed)
+        public void Spawn(Vector3 startPosition, Quaternion startRotation, bool isInAir, float startSpeed)
         {
-            aircraft.Spawn(isInAir, startAltitude, startSpeed);
+            aircraft.Spawn(startPosition, startRotation, isInAir, startSpeed);
         }
 
         private void OnDie()
@@ -113,7 +113,7 @@ namespace Game
         }
 
 
-        public class Pool : MonoMemoryPool<bool, float, float, AircraftFacade>
+        public class Pool : MonoMemoryPool<Vector3, Quaternion, bool, float, AircraftFacade>
         {
             protected override void OnCreated(AircraftFacade aircraft)
             {
@@ -121,9 +121,9 @@ namespace Game
                 aircraft.SetPool(this);
             }
 
-            protected override void Reinitialize(bool isInAir, float startAltitude, float startSpeed, AircraftFacade aircraft)
+            protected override void Reinitialize(Vector3 startPosition, Quaternion startRotation, bool isInAir, float startSpeed, AircraftFacade aircraft)
             {
-                aircraft.Spawn(isInAir, startAltitude, startSpeed);
+                aircraft.Spawn(startPosition, startRotation, isInAir, startSpeed);
             }
         }
 

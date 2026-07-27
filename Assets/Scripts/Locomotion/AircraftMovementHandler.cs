@@ -38,13 +38,12 @@ namespace Locomotion
             turnSeeker = new TargetValueSeeker(aerodynamicMovementData.rollSpeed);
         }
 
-        public void Initialize(float startSpeed, float startAltitude)
+        public void Initialize(Vector3 startPosition, Quaternion startRotation, float startSpeed)
         {
-            Vector3 newPosition = transform.position;
-            newPosition.y = startAltitude;
-            transform.position = newPosition;
-            rigidbody.position = newPosition;
-            rigidbody.rotation = transform.rotation;
+            transform.position = startPosition;
+            transform.rotation = startRotation;
+            rigidbody.position = startPosition;
+            rigidbody.rotation = startRotation;
             rigidbody.linearVelocity = Vector3.zero;
             currSpeed = startSpeed;
         }
