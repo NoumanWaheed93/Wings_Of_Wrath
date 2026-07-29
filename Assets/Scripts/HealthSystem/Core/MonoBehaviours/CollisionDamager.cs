@@ -56,5 +56,7 @@ namespace HealthSystem
                 OnCollided?.Invoke(); //We have to notify the collision only when the damage is applied because, trigger do not affect physics.
             }
         }
+
     }
+
 }

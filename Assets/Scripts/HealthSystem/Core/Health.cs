@@ -35,12 +35,16 @@ namespace HealthSystem
                 return;
 
             currHealth -= reduceAmount;
-            onHealthReduced?.Invoke();
 
             if (currHealth <= 0)
             {
                 currHealth = 0;
+                onHealthReduced?.Invoke();
                 onHealthDepleted?.Invoke();
+            }
+            else
+            {
+                onHealthReduced?.Invoke();
             }
         }
 
@@ -50,13 +54,19 @@ namespace HealthSystem
                 return;
 
             currHealth += replenishAmount;
-            onHealthGained?.Invoke();
 
             if(currHealth >= maxHealth)
             {
                 currHealth = maxHealth;
+                onHealthGained?.Invoke();
                 onHealthReplenished?.Invoke();
             }
+            else
+            {
+                onHealthGained?.Invoke();
+            }
         }
+    
     }
+
 }
