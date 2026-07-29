@@ -1,3 +1,5 @@
+using Common;
+using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
 using WeaponSystem;
@@ -7,8 +9,8 @@ public abstract class WeaponTests
     protected Transform projectileTransform;
     protected Transform barrelTransform;
 
-    //The clock the weapon under test is built with. Tests move it forward.
-    protected FakeTimeProvider time;
+    //The clock the weapon under test is built with. Tests set the time it reports.
+    protected ITimeProvider time;
 
     protected Weapon weapon;
 
@@ -17,7 +19,7 @@ public abstract class WeaponTests
     {
         projectileTransform = (new GameObject("Test-Projectile-Transform")).transform;
         barrelTransform = (new GameObject("Test-barrel-Transform")).transform;
-        time = new FakeTimeProvider();
+        time = Substitute.For<ITimeProvider>();
     }
 
     [Test]
@@ -38,18 +40,20 @@ public abstract class WeaponTests
     {
         Assert.IsTrue(weapon.Fire(), "Could not First Fire");
         Assert.IsTrue(weapon.ShotInterval > 0, "Shot Interval should be greater than zero");
-        time.Advance(weapon.ShotInterval / 2f);
+        time.GetTime().Returns(weapon.ShotInterval / 2f);
         Assert.IsFalse(weapon.Fire(), "Could fire before interval");
     }
 
     [Test]
     public void Can_Fire_After_Interval()
     {
-        Assert.IsTrue(weapon.Fire(), "Could not Fire First time");
+        //GetTime().Returns() sets absolute time, so each wait is counted
+        //from the start of the test, not from the previous shot.
+        Assert.IsTrue(weapon.Fire(), "Could not Fire First time");   //shot at 0
         Assert.IsTrue(weapon.ShotInterval > 0, "Shot interval should be greater than zero");
-        time.Advance(weapon.ShotInterval);
-        Assert.IsTrue(weapon.Fire(), "Could not fire exactly after interval");
-        time.Advance(weapon.ShotInterval + 1f);
+        time.GetTime().Returns(weapon.ShotInterval);
+        Assert.IsTrue(weapon.Fire(), "Could not fire exactly after interval");   //shot at ShotInterval
+        time.GetTime().Returns(weapon.ShotInterval * 2f + 1f);
         Assert.IsTrue(weapon.Fire(), "Could not fire 1 second after interval");
     }
 
