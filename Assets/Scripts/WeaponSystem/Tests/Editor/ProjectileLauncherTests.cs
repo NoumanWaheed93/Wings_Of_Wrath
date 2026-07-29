@@ -1,8 +1,6 @@
 using WeaponSystem;
 using NSubstitute;
 using NUnit.Framework;
-using Common;
-using UnityEngine;
 
 public class ProjectileLauncherTests : WeaponTests
 {
@@ -13,7 +11,7 @@ public class ProjectileLauncherTests : WeaponTests
         IProjectileFactory projectileFactory = Substitute.For<IProjectileFactory>();
         IProjectile projectile = Substitute.For<IProjectile>();
         projectileFactory.GetProjectile().Returns(projectile);
-        weapon = new ProjectileLauncher(barrelTransform, Substitute.For<ITimeProvider>(), 100, 1, projectileFactory);
+        weapon = new ProjectileLauncher(barrelTransform, time, 100, 1, projectileFactory);
     }
 
     [Test]

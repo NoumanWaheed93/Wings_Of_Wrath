@@ -12,7 +12,9 @@ namespace WeaponSystem
 
         public int RemainingAmmo { get => remainingAmmo; }
 
-        protected float lastFireTime;
+        private float lastFireTime;
+
+        private bool hasFired;
 
         private float shotInterval;
         public float ShotInterval { get => shotInterval; }
@@ -21,7 +23,6 @@ namespace WeaponSystem
         protected Transform Barrel { get => barrel; }
 
         private ITimeProvider timeProvider;
-        public ITimeProvider TimeProvider { get => timeProvider; }
 
         public Weapon(Transform barrel, ITimeProvider timeProvider, int maximumAmmo, float bulletsPerSecond)
         {
@@ -30,7 +31,8 @@ namespace WeaponSystem
             this.maximumAmmo = maximumAmmo;
             remainingAmmo = maximumAmmo;
             shotInterval = 1f / bulletsPerSecond;
-            lastFireTime = -300f;
+            lastFireTime = 0f;
+            hasFired = false;
         }
 
         public virtual bool Fire()
@@ -45,6 +47,7 @@ namespace WeaponSystem
             }
             remainingAmmo--;
             lastFireTime = timeProvider.GetTime();
+            hasFired = true;
             return true;
         }
 
@@ -55,6 +58,11 @@ namespace WeaponSystem
 
         protected bool HasShotIntervalPassed()
         {
+            //A weapon that never fired has no interval to wait for.
+            if (!hasFired)
+            {
+                return true;
+            }
             return lastFireTime + ShotInterval <= timeProvider.GetTime();
         }
 

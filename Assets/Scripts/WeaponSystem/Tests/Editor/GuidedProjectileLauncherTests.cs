@@ -1,8 +1,6 @@
 using NUnit.Framework;
 using WeaponSystem;
 using NSubstitute;
-using Common;
-using UnityEngine;
 
 public class GuidedProjectileLauncherTests : WeaponTests
 {
@@ -13,7 +11,7 @@ public class GuidedProjectileLauncherTests : WeaponTests
         IProjectileFactory projectileFactory = Substitute.For<IProjectileFactory>();
         IGuidedProjectile projectile = Substitute.For<IGuidedProjectile>();
         projectileFactory.GetHomingProjectile().Returns(projectile);
-        weapon = new GuidedProjectileLauncher(barrelTransform, Substitute.For<ITimeProvider>(), 100, 1, projectileFactory);
+        weapon = new GuidedProjectileLauncher(barrelTransform, time, 100, 1, projectileFactory);
     }
 
     [Test]
