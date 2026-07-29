@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.artisangames.formationsystem": {
+      "version": "https://github.com/NoumanWaheed93/FormationFramework.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.33"
+      },
+      "hash": "da09226936fea91c51859c07f5a05871810f4723"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.13",
       "depth": 0,
