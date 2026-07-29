@@ -9,6 +9,16 @@
       },
       "hash": "da09226936fea91c51859c07f5a05871810f4723"
     },
+    "com.artisangames.healthsystem": {
+      "version": "https://github.com/NoumanWaheed93/HealthSystem.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.ugui": "2.0.0",
+        "com.unity.test-framework": "1.1.33"
+      },
+      "hash": "7cb9c831dfc55fe2594acda9b4f103ad0c800ab3"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.13",
       "depth": 0,
