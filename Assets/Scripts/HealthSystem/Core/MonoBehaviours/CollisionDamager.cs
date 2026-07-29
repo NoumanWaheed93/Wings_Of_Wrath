@@ -20,13 +20,10 @@ namespace HealthSystem
         private void Awake()
         {
             hitDamager = new HitDamager(damageAmount);
-            Health health = new Health(10, 10);
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log("OnCollisionEnter()");
-
             OnCollided?.Invoke(); //We have to notify the collision even if it does not damage. Because, collision affects physics
 
             if (isCollisionDamageEnabled == false)
@@ -41,7 +38,6 @@ namespace HealthSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("OnTriggerEnter()");
             if (isTriggerDamageEnabled == false) 
                 return;
 

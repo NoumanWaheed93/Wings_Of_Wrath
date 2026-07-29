@@ -5,9 +5,10 @@ namespace HealthSystem
     public class Health
     {
         private float maxHealth;
+        public float MaxHealth { get { return maxHealth; } }
 
         private float currHealth;
-        public float CurrHealth { get => currHealth; }
+        public float CurrHealth { get { return currHealth; } }
 
         public event Action onHealthDepleted;
         public event Action onHealthReplenished;

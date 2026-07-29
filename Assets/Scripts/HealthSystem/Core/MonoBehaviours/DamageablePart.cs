@@ -19,5 +19,7 @@ namespace HealthSystem
             Debug.Log("Got " + amount + " damage");
             controller.Damage(amount);
         }
+
     }
+
 }
