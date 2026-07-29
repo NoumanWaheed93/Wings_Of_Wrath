@@ -12,7 +12,8 @@
         "ScreenInputControls",
         "WeaponSystem",
         "Common",
-        "FormationSystem"
+        "FormationSystem",
+        "TNRD.NSubstitute"
     ],
     "includePlatforms": [
         "Editor"

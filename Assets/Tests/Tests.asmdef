@@ -12,7 +12,8 @@
         "HealthSystemAssembly",
         "WeaponSystem",
         "Common",
-        "Zenject"
+        "Zenject",
+        "TNRD.NSubstitute"
     ],
     "includePlatforms": [
         "Editor"

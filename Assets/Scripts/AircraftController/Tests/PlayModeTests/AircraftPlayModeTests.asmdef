@@ -10,7 +10,8 @@
         "FormationSystem",
         "Common",
         "Zenject",
-        "Zenject-TestFramework"
+        "Zenject-TestFramework",
+        "TNRD.NSubstitute"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
