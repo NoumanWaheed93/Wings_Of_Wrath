@@ -1,4 +1,4 @@
-namespace Common
+namespace AircraftController
 {
     public interface ITimeProvider
     {

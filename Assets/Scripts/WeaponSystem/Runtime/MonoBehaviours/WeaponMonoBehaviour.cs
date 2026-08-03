@@ -1,5 +1,4 @@
 using UnityEngine;
-using Common;
 
 namespace WeaponSystem
 {

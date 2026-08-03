@@ -5,8 +5,7 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "WeaponSystem",
-        "TNRD.NSubstitute",
-        "Common"
+        "TNRD.NSubstitute"
     ],
     "includePlatforms": [
         "Editor"

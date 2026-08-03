@@ -1,4 +1,3 @@
-using Common;
 using Zenject;
 using WeaponSystem;
 using TargetingSystem;

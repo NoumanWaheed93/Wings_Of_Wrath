@@ -1,5 +1,4 @@
 using AircraftController;
-using Common;
 using FormationSystem;
 using System;
 using UnityEngine;
@@ -10,6 +9,7 @@ using Game;
 using Game.Commands;
 using CommandSystem;
 using UnityEngine.InputSystem;
+using Common;
 
 namespace ZenjectInstallers {
     public class TestInstaller : MonoInstaller

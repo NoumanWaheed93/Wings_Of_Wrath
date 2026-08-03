@@ -1,6 +1,5 @@
 using UnityEngine;
 using HealthSystem;
-using Common;
 
 namespace WeaponSystem
 {

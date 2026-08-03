@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Common
+namespace AircraftController
 {
     public class GameTimeProvider : ITimeProvider
     {

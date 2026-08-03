@@ -1,4 +1,3 @@
-using Common;
 using UnityEngine;
 
 namespace WeaponSystem
