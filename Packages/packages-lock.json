@@ -19,6 +19,16 @@
       },
       "hash": "7cb9c831dfc55fe2594acda9b4f103ad0c800ab3"
     },
+    "com.artisangames.weaponsystem": {
+      "version": "https://github.com/NoumanWaheed93/WeaponSystem.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.test-framework": "1.1.33"
+      },
+      "hash": "84d7e79f06cd15e526b800e7c7a1b35d20e4b3e6"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.13",
       "depth": 0,
