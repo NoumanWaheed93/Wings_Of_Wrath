@@ -20,7 +20,7 @@ namespace AircraftController.AircraftAI
 
         private int holdingPatternIndex = 0; // 0 means, aircraft has not started holding yet. 
 
-        public StateLanding(AIStateMachine stateMachine, AircraftAIController aircraftController) : base(stateMachine, aircraftController)
+        public StateLanding(AircraftAIController aircraftController) : base(aircraftController)
         {
         }
 

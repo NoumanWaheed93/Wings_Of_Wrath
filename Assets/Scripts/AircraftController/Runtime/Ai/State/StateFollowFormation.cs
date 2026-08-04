@@ -9,7 +9,7 @@ namespace AircraftController
         public class StateFollowFormation : AIState
         {
 
-            public StateFollowFormation(AIStateMachine stateMachine, AircraftAIController aircraftAIController): base(stateMachine, aircraftAIController)
+            public StateFollowFormation(AircraftAIController aircraftAIController): base(aircraftAIController)
             {
             }
 
@@ -26,24 +26,11 @@ namespace AircraftController
 
             public override void Update(float simulationDeltaTime)
             {
-                if (aircraftController.FormationMember.PositionIndex == 0)
+                //Only fly a formation position while there actually is a leader to follow.
+                //Leaving the formation is handled by the transitions out of this state.
+                AircraftFormationMember formationMember = aircraftController.FormationMember;
+                if (formationMember.PositionIndex == 0 || formationMember.Formation == null || formationMember.Formation.leader == null)
                 {
-                    stateMachine.ChangeState(aircraftController.stateFollowWaypoints);
-                    return;
-                }
-
-                IAircraft leader = aircraftController.FormationMember.Formation.leader.aircraft;
-
-                bool isLeaderLanding = leader.StateMachine.currentState ==  leader.StateFinalApproach;
-                if(isLeaderLanding)
-                {
-                    stateMachine.ChangeState(aircraftController.stateLanding);
-                    return;
-                }
-
-                if (aircraftController.IsFormationBreaking)
-                {
-                    stateMachine.ChangeState(aircraftController.stateBreakFormation);
                     return;
                 }
 

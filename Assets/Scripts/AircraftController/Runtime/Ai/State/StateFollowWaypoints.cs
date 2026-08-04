@@ -15,9 +15,15 @@ namespace AircraftController.AircraftAI
             set => currentIndex = value;
         }
 
-        public StateFollowWaypoints(AIStateMachine stateMachine, AircraftAIController aircraftController, Vector3[] wayPoints) : base(stateMachine, aircraftController)
+        public StateFollowWaypoints(AircraftAIController aircraftController, Vector3[] wayPoints) : base(aircraftController)
         {
             this.wayPoints = wayPoints;
+        }
+
+        public void SetWaypoints(Vector3[] wayPoints)
+        {
+            this.wayPoints = wayPoints;
+            currentIndex = 0;
         }
 
         public override void Enter()
@@ -43,17 +49,6 @@ namespace AircraftController.AircraftAI
                         currentIndex = 0;
                     }
                 }
-            }
-
-            if (aircraftController.aircraft.StateMachine.currentState == aircraftController.aircraft.StateFinalApproach)
-            {
-                stateMachine.ChangeState(aircraftController.stateLanding);
-                return;
-            }
-
-            if (aircraftController.FormationMember.Formation != null && aircraftController.FormationMember.PositionIndex != 0 && aircraftController.IsFormationBreaking == false)
-            {
-                stateMachine.ChangeState(aircraftController.stateFollowFormation);
             }
         }
 

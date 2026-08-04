@@ -45,29 +45,41 @@ namespace AircraftController.AircraftAI
             this.aircraft = aircraft;
             this.FormationMember = formationMember;
             this.transform = transform;
-            stateFollowWaypoints = new StateFollowWaypoints(stateMachine, this, new Vector3[0]); // Initialize with empty waypoints
-            stateFollowFormation = new StateFollowFormation(stateMachine, this);
-            stateLanding = new StateLanding(stateMachine, this);
-            stateBreakFormation = new StateBreakFormation(stateMachine, this);
+            stateFollowWaypoints = new StateFollowWaypoints(this, new Vector3[0]); // Initialize with empty waypoints
+            stateFollowFormation = new StateFollowFormation(this);
+            stateLanding = new StateLanding(this);
+            stateBreakFormation = new StateBreakFormation(this);
+            SetUpTransitions();
             stateMachine.Initialize(stateFollowWaypoints);
             IsActive = true;
         }
 
+        /// <summary>
+        /// Defines every way the AI can move from one state to another.
+        /// The transitions of a state are evaluated in the order they are added here, so the first one added wins.
+        /// </summary>
+        protected virtual void SetUpTransitions()
+        {
+            stateMachine.AddTransition(stateFollowWaypoints, new TransitionOnFinalApproach(stateLanding, this));
+            stateMachine.AddTransition(stateFollowWaypoints, new TransitionOnJoinedFormation(stateFollowFormation, this));
+
+            stateMachine.AddTransition(stateFollowFormation, new TransitionOnBecameFormationLeader(stateFollowWaypoints, this));
+            stateMachine.AddTransition(stateFollowFormation, new TransitionOnLeaderFinalApproach(stateLanding, this));
+            stateMachine.AddTransition(stateFollowFormation, new TransitionOnFormationBreaking(stateBreakFormation, this));
+
+            stateMachine.AddTransition(stateBreakFormation, new TransitionOnFormationBreakFinished(stateBreakFormation, stateFollowWaypoints, this));
+        }
+
         public void SetWaypoints(Vector3[] waypoints)
         {
-            StateFollowWaypoints newWaypointState = new StateFollowWaypoints(stateMachine, this, waypoints);
-            if (stateMachine.currentState == stateFollowWaypoints)
-            {
-                stateMachine.Initialize(newWaypointState);
-            }
-            stateFollowWaypoints = newWaypointState;
+            stateFollowWaypoints.SetWaypoints(waypoints);
         }
 
         public void Update(float simulationDeltaTime)
         {
          //   Debug.Log("AI Controller Update");
 
-            stateMachine.currentState.Update(simulationDeltaTime);
+            stateMachine.Update(simulationDeltaTime);
             aircraft.AltitudeOffset = altitudeOffset;
             if (IsActive == false)
             {

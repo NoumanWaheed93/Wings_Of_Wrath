@@ -8,7 +8,13 @@ namespace AircraftController.AircraftAI
     {
         private Vector3 breakDestination;
 
-        public StateBreakFormation(AIStateMachine stateMachine, AircraftAIController aircraftController) : base(stateMachine, aircraftController)
+        /// <summary>
+        /// True when the aircraft has arrived at the position it is breaking away to.
+        /// </summary>
+        public bool HasReachedBreakDestination =>
+            Vector3.Distance(aircraftController.transform.position, breakDestination) <= GlobalAircraftControllerSettings.wayPointReachedDistance;
+
+        public StateBreakFormation(AircraftAIController aircraftController) : base(aircraftController)
         {
         }
 
@@ -24,12 +30,6 @@ namespace AircraftController.AircraftAI
         public override void Update(float simulationDeltaTime)
         {
             aircraftController.TurnTowardsPosition(breakDestination);
-            if (Vector3.Distance(aircraftController.transform.position, breakDestination) <= GlobalAircraftControllerSettings.wayPointReachedDistance 
-                || aircraftController.IsFormationBreaking == false)
-            {
-                stateMachine.ChangeState(aircraftController.stateFollowWaypoints);
-                return;
-            }
         }
 
     }
