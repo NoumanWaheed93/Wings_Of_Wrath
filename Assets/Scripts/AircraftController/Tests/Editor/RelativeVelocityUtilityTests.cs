@@ -1,7 +1,6 @@
 using Common;
 using NUnit.Framework;
 using UnityEngine;
-using Utilities;
 using NSubstitute;
 using Assert = UnityEngine.Assertions.Assert;
 

@@ -24,6 +24,7 @@ namespace Game.Commands
                 aircraftFacade.AIController.SetWaypoints(new Vector3[] { target.Transform.position });
             }
         }
+        
     }
 
 }

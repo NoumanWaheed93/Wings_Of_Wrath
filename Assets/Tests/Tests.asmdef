@@ -5,12 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "ScreenInputControls",
-        "FormationSystem",
         "Utilities",
-        "AircraftController",
         "Locomotion",
-        "HealthSystemAssembly",
-        "WeaponSystem",
         "Common",
         "Zenject",
         "TNRD.NSubstitute"
