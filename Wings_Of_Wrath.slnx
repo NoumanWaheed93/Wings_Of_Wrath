@@ -9,6 +9,7 @@
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="CommandSystem.csproj" />
   <Project Path="Game.csproj" />
+  <Project Path="Locomotion.csproj" />
   <Project Path="ZenjectInstallers.csproj" />
   <Project Path="Zenject-TestFramework.csproj" />
   <Project Path="AircraftController.csproj" />
@@ -20,7 +21,6 @@
   <Project Path="Zenject-PoolMonitor-Editor.csproj" />
   <Project Path="ScreenInputControls.csproj" />
   <Project Path="TargetingSystem.csproj" />
-  <Project Path="Locomotion.csproj" />
   <Project Path="NomiUIExtensions.csproj" />
   <Project Path="AircraftTests.csproj" />
   <Project Path="Tests.csproj" />
