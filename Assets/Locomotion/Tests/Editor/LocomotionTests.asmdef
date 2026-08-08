@@ -1,24 +1,17 @@
 {
-    "name": "Tests",
+    "name": "LocomotionTests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "ScreenInputControls",
-        "Utilities",
-        "Common",
-        "Zenject",
-        "TNRD.NSubstitute"
+        "Locomotion"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll",
-        "NSubstitute.dll"
+        "nunit.framework.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [
