@@ -1,0 +1,36 @@
+<set>
+  <tiles>
+<tile name="Platforms/PlaneTile-X" symmetry="X" weight="1.0"/>
+<tile name="Platforms/HeightTile-T" symmetry="T" weight="1.0"/>
+<tile name="Platforms/TwoFacedHeightTile-L" symmetry="L" weight="1.0"/>
+	</tiles>
+<neighbors>  <neighbor left="Platforms/PlaneTile-X 0" right="Platforms/PlaneTile-X 0"/>
+  <neighbor left="Platforms/PlaneTile-X 1" right="Platforms/PlaneTile-X 1"/>
+  <neighbor left="Platforms/PlaneTile-X 1" right="Platforms/TwoFacedHeightTile-L 2"/>
+  <neighbor left="Platforms/PlaneTile-X 1" right="Platforms/HeightTile-T 3"/>
+  <neighbor left="Platforms/PlaneTile-X 1" right="Platforms/TwoFacedHeightTile-L 1"/>
+  <neighbor left="Platforms/PlaneTile-X 0" right="Platforms/TwoFacedHeightTile-L 1"/>
+  <neighbor left="Platforms/TwoFacedHeightTile-L 1" right="Platforms/HeightTile-T 2"/>
+  <neighbor left="Platforms/TwoFacedHeightTile-L 2" right="Platforms/HeightTile-T 0"/>
+  <neighbor left="Platforms/HeightTile-T 2" right="Platforms/HeightTile-T 2"/>
+  <neighbor left="Platforms/HeightTile-T 3" right="Platforms/HeightTile-T 1"/>
+  <neighbor left="Platforms/HeightTile-T 2" right="Platforms/TwoFacedHeightTile-L 0"/>
+  <neighbor left="Platforms/TwoFacedHeightTile-L 0" right="Platforms/PlaneTile-X 0"/>
+  <neighbor left="Platforms/TwoFacedHeightTile-L 1" right="Platforms/TwoFacedHeightTile-L 0"/>
+  <neighbor left="Platforms/PlaneTile-X 0" right="Platforms/HeightTile-T 3"/>
+  <neighbor left="Platforms/HeightTile-T 3" right="Platforms/HeightTile-T 0"/>
+  <neighbor left="Platforms/HeightTile-T 0" right="Platforms/HeightTile-T 2"/>
+  <neighbor left="Platforms/HeightTile-T 0" right="Platforms/HeightTile-T 0"/>
+  <neighbor left="Platforms/HeightTile-T 1" right="Platforms/PlaneTile-X 1"/>
+  <neighbor left="Platforms/HeightTile-T 0" right="Platforms/TwoFacedHeightTile-L 3"/>
+  <neighbor left="Platforms/TwoFacedHeightTile-L 3" right="Platforms/PlaneTile-X 0"/>
+  <neighbor left="Platforms/TwoFacedHeightTile-L 0" right="Platforms/PlaneTile-X 1"/>
+  <neighbor left="Platforms/TwoFacedHeightTile-L 1" right="Platforms/HeightTile-T 1"/>
+  <neighbor left="Platforms/TwoFacedHeightTile-L 2" right="Platforms/TwoFacedHeightTile-L 3"/>
+  <neighbor left="Platforms/HeightTile-T 1" right="Platforms/PlaneTile-X 0"/>
+  <neighbor left="Platforms/HeightTile-T 2" right="Platforms/TwoFacedHeightTile-L 0"/>
+  <neighbor left="Platforms/PlaneTile-X 0" right="Platforms/TwoFacedHeightTile-L 2"/>
+  <neighbor left="Platforms/TwoFacedHeightTile-L 2" right="Platforms/TwoFacedHeightTile-L 3"/>
+  <neighbor left="Platforms/TwoFacedHeightTile-L 3" right="Platforms/PlaneTile-X 1"/>
+	</neighbors>
+</set>

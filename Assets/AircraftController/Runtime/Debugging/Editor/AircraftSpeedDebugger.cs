@@ -36,7 +36,7 @@ namespace AircraftController.Debugging
             }
 
             // Find all objects with MyMonoBehaviour
-            AircraftMonoBehaviour[] allObjects = Object.FindObjectsOfType<AircraftMonoBehaviour>();
+            AircraftMonoBehaviour[] allObjects = Object.FindObjectsByType<AircraftMonoBehaviour>();
 
             foreach (AircraftMonoBehaviour obj in allObjects)
             {
