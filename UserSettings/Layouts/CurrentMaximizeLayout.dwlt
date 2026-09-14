@@ -228,15 +228,12 @@ MonoBehaviour:
     m_DynamicPanelBehaviorModified: 0
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 41}
-      m_SelectedIDs:
-      - m_rawData: 568105584918838658
+      scrollPos: {x: 0, y: 9}
+      m_SelectedIDs: []
       m_LastClickedID:
         m_rawData: 0
       m_ExpandedIDs:
-      - m_rawData: 568105589213755044
       - m_rawData: 568105589213756062
-      - m_rawData: 568105584918838050
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -313,7 +310,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 4089
+  controlID: 122
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -393,7 +390,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Art/Radar
+    - Assets/Prefabs
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -403,7 +400,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Art/Radar
+  - Assets/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\user\Documents\GitHub\Wings_Of_Wrath
   m_LockTracker:
@@ -412,34 +409,35 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 15}
     m_SelectedIDs:
-    - m_rawData: 568105584918837874
+    - m_rawData: 568105584918838834
     m_LastClickedID:
-      m_rawData: 568105584918837874
+      m_rawData: 568105584918838834
     m_ExpandedIDs:
     - m_rawData: 0
-    - m_rawData: 568105584918837412
-    - m_rawData: 568105584918837414
-    - m_rawData: 568105584918837416
-    - m_rawData: 568105584918837418
-    - m_rawData: 568105584918837420
-    - m_rawData: 568105584918837422
-    - m_rawData: 568105584918837424
-    - m_rawData: 568105584918837426
-    - m_rawData: 568105584918837428
-    - m_rawData: 568105584918837430
-    - m_rawData: 568105584918837432
-    - m_rawData: 568105584918837434
-    - m_rawData: 568105584918837436
-    - m_rawData: 568105584918837438
-    - m_rawData: 568105584918837440
-    - m_rawData: 568105584918837442
-    - m_rawData: 568105584918837444
-    - m_rawData: 568105584918837446
-    - m_rawData: 568105584918837448
-    - m_rawData: 568105584918837450
-    - m_rawData: 568105584918837452
-    - m_rawData: 568105584918837454
-    - m_rawData: 568105584918837838
+    - m_rawData: 568105584918838688
+    - m_rawData: 568105584918838690
+    - m_rawData: 568105584918838692
+    - m_rawData: 568105584918838694
+    - m_rawData: 568105584918838696
+    - m_rawData: 568105584918838698
+    - m_rawData: 568105584918838700
+    - m_rawData: 568105584918838702
+    - m_rawData: 568105584918838704
+    - m_rawData: 568105584918838706
+    - m_rawData: 568105584918838708
+    - m_rawData: 568105584918838710
+    - m_rawData: 568105584918838712
+    - m_rawData: 568105584918838714
+    - m_rawData: 568105584918838716
+    - m_rawData: 568105584918838718
+    - m_rawData: 568105584918838720
+    - m_rawData: 568105584918838722
+    - m_rawData: 568105584918838724
+    - m_rawData: 568105584918838726
+    - m_rawData: 568105584918838728
+    - m_rawData: 568105584918838730
+    - m_rawData: 568105584918838732
+    - m_rawData: 568105584918838820
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -473,29 +471,29 @@ MonoBehaviour:
       m_rawData: 0
     m_ExpandedIDs:
     - m_rawData: 0
-    - m_rawData: 568105584918837412
-    - m_rawData: 568105584918837414
-    - m_rawData: 568105584918837416
-    - m_rawData: 568105584918837418
-    - m_rawData: 568105584918837420
-    - m_rawData: 568105584918837422
-    - m_rawData: 568105584918837424
-    - m_rawData: 568105584918837426
-    - m_rawData: 568105584918837428
-    - m_rawData: 568105584918837430
-    - m_rawData: 568105584918837432
-    - m_rawData: 568105584918837434
-    - m_rawData: 568105584918837436
-    - m_rawData: 568105584918837438
-    - m_rawData: 568105584918837440
-    - m_rawData: 568105584918837442
-    - m_rawData: 568105584918837444
-    - m_rawData: 568105584918837446
-    - m_rawData: 568105584918837448
-    - m_rawData: 568105584918837450
-    - m_rawData: 568105584918837452
-    - m_rawData: 568105584918837454
-    - m_rawData: 568105584918837838
+    - m_rawData: 568105584918838688
+    - m_rawData: 568105584918838690
+    - m_rawData: 568105584918838692
+    - m_rawData: 568105584918838694
+    - m_rawData: 568105584918838696
+    - m_rawData: 568105584918838698
+    - m_rawData: 568105584918838700
+    - m_rawData: 568105584918838702
+    - m_rawData: 568105584918838704
+    - m_rawData: 568105584918838706
+    - m_rawData: 568105584918838708
+    - m_rawData: 568105584918838710
+    - m_rawData: 568105584918838712
+    - m_rawData: 568105584918838714
+    - m_rawData: 568105584918838716
+    - m_rawData: 568105584918838718
+    - m_rawData: 568105584918838720
+    - m_rawData: 568105584918838722
+    - m_rawData: 568105584918838724
+    - m_rawData: 568105584918838726
+    - m_rawData: 568105584918838728
+    - m_rawData: 568105584918838730
+    - m_rawData: 568105584918838732
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -523,10 +521,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs:
-    - m_rawData: 568105584918838658
+    m_SelectedInstanceIDs: []
     m_LastClickedEntityId:
-      m_rawData: 568105584918838658
+      m_rawData: 0
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs:
     - m_rawData: 568105584918838658
@@ -579,8 +576,8 @@ MonoBehaviour:
     y: 319
     width: 1065
     height: 605
-  m_MinSize: {x: 101, y: 126}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 102, y: 126}
+  m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
@@ -1180,7 +1177,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.01818666, y: -0.7250775, z: 0.019130029, w: 0.68817914}
     speed: 2
-    m_Value: {x: -0.01818666, y: 0.72507745, z: -0.019130029, w: -0.6881791}
+    m_Value: {x: 0.018186437, y: -0.7250686, z: 0.019129794, w: 0.6881707}
   m_Size:
     m_Target: 4.4871535
     speed: 2
@@ -2325,7 +2322,7 @@ MonoBehaviour:
   m_ObjectsLockedBeforeSerialization: []
   m_EntityIdsLockedBeforeSerialization: []
   m_PreviewResizer:
-    m_CachedPref: -188
+    m_CachedPref: 223
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectEntityId:
