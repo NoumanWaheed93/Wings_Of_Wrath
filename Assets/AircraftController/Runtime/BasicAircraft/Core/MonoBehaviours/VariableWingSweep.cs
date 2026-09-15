@@ -5,6 +5,9 @@ namespace AircraftController
     public class VariableWingSweep : MonoBehaviour
     {
         [SerializeField]
+        private AircraftMonoBehaviour controller;
+
+        [SerializeField]
         private Transform leftWing;
 
         [SerializeField]
@@ -16,14 +19,20 @@ namespace AircraftController
         [SerializeField]
         private float maxSweepAngle = 45f;
 
-        private void Start()
+        [SerializeField]
+        private float minSweepSpeed = 30f;
+
+        [SerializeField]
+        private float maxSweepSpeed = 70f;
+
+        private void Update()
         {
-            InvokeRepeating(nameof(RandomSweep), 0f, 6f);
+            SetSweepAccordingToSpeed(controller.CurrSpeed);
         }
 
-        private void RandomSweep()
+        private void SetSweepAccordingToSpeed(float speed)
         {
-            float sweep = Random.Range(0f, 1f);
+            float sweep = Mathf.InverseLerp(minSweepSpeed, maxSweepSpeed, speed);
             SetSweep(sweep);
         }
 

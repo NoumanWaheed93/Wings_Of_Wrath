@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 135
+  controlID: 4511
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 17
+  controlID: 4487
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 74
+  controlID: 4560
   draggingID: 0
 --- !u!114 &10
 MonoBehaviour:
@@ -271,8 +271,8 @@ MonoBehaviour:
     y: 319
     width: 1065
     height: 605
-  m_MinSize: {x: 102, y: 126}
-  m_MaxSize: {x: 4002, y: 4026}
+  m_MinSize: {x: 101, y: 126}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -326,8 +326,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "UnityEditor.MainToolbarWindow\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 0
+    x: 1921
+    y: 51
     width: 1918
     height: 36
   m_SerializedDataModeController:
@@ -581,8 +581,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 350
+    x: 1921
+    y: 413
     width: 325
     height: 572
   m_SerializedDataModeController:
@@ -687,8 +687,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Hierarchy\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 24
+    x: 1921
+    y: 87
     width: 325
     height: 300
   m_SerializedDataModeController:
@@ -762,8 +762,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1
-    y: 24
+    x: 2247
+    y: 87
     width: 1063
     height: 293
   m_SerializedDataModeController:
@@ -792,7 +792,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Prefabs
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -802,43 +802,42 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\user\Documents\GitHub\Wings_Of_Wrath
   m_LockTracker:
     m_IsLocked: 0
   m_LastLocalAssetsSearchArea: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 15}
+    scrollPos: {x: 0, y: 120}
     m_SelectedIDs:
-    - m_rawData: 568105584918838730
+    - m_rawData: 568105584918838960
     m_LastClickedID:
-      m_rawData: 568105584918838730
+      m_rawData: 568105584918838960
     m_ExpandedIDs:
     - m_rawData: 0
-    - m_rawData: 568105584918838688
-    - m_rawData: 568105584918838690
-    - m_rawData: 568105584918838692
-    - m_rawData: 568105584918838694
-    - m_rawData: 568105584918838696
-    - m_rawData: 568105584918838698
-    - m_rawData: 568105584918838700
-    - m_rawData: 568105584918838702
-    - m_rawData: 568105584918838704
-    - m_rawData: 568105584918838706
-    - m_rawData: 568105584918838708
-    - m_rawData: 568105584918838710
-    - m_rawData: 568105584918838712
-    - m_rawData: 568105584918838714
-    - m_rawData: 568105584918838716
-    - m_rawData: 568105584918838718
-    - m_rawData: 568105584918838720
-    - m_rawData: 568105584918838722
-    - m_rawData: 568105584918838724
-    - m_rawData: 568105584918838726
-    - m_rawData: 568105584918838728
-    - m_rawData: 568105584918838730
-    - m_rawData: 568105584918838732
+    - m_rawData: 568105584918838814
+    - m_rawData: 568105584918838816
+    - m_rawData: 568105584918838818
+    - m_rawData: 568105584918838822
+    - m_rawData: 568105584918838824
+    - m_rawData: 568105584918838826
+    - m_rawData: 568105584918838828
+    - m_rawData: 568105584918838830
+    - m_rawData: 568105584918838832
+    - m_rawData: 568105584918838834
+    - m_rawData: 568105584918838836
+    - m_rawData: 568105584918838838
+    - m_rawData: 568105584918838840
+    - m_rawData: 568105584918838842
+    - m_rawData: 568105584918838844
+    - m_rawData: 568105584918838846
+    - m_rawData: 568105584918838848
+    - m_rawData: 568105584918838850
+    - m_rawData: 568105584918838852
+    - m_rawData: 568105584918838854
+    - m_rawData: 568105584918838856
+    - m_rawData: 568105584918838944
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -872,29 +871,28 @@ MonoBehaviour:
       m_rawData: 0
     m_ExpandedIDs:
     - m_rawData: 0
-    - m_rawData: 568105584918838688
-    - m_rawData: 568105584918838690
-    - m_rawData: 568105584918838692
-    - m_rawData: 568105584918838694
-    - m_rawData: 568105584918838696
-    - m_rawData: 568105584918838698
-    - m_rawData: 568105584918838700
-    - m_rawData: 568105584918838702
-    - m_rawData: 568105584918838704
-    - m_rawData: 568105584918838706
-    - m_rawData: 568105584918838708
-    - m_rawData: 568105584918838710
-    - m_rawData: 568105584918838712
-    - m_rawData: 568105584918838714
-    - m_rawData: 568105584918838716
-    - m_rawData: 568105584918838718
-    - m_rawData: 568105584918838720
-    - m_rawData: 568105584918838722
-    - m_rawData: 568105584918838724
-    - m_rawData: 568105584918838726
-    - m_rawData: 568105584918838728
-    - m_rawData: 568105584918838730
-    - m_rawData: 568105584918838732
+    - m_rawData: 568105584918838814
+    - m_rawData: 568105584918838816
+    - m_rawData: 568105584918838818
+    - m_rawData: 568105584918838822
+    - m_rawData: 568105584918838824
+    - m_rawData: 568105584918838826
+    - m_rawData: 568105584918838828
+    - m_rawData: 568105584918838830
+    - m_rawData: 568105584918838832
+    - m_rawData: 568105584918838834
+    - m_rawData: 568105584918838836
+    - m_rawData: 568105584918838838
+    - m_rawData: 568105584918838840
+    - m_rawData: 568105584918838842
+    - m_rawData: 568105584918838844
+    - m_rawData: 568105584918838846
+    - m_rawData: 568105584918838848
+    - m_rawData: 568105584918838850
+    - m_rawData: 568105584918838852
+    - m_rawData: 568105584918838854
+    - m_rawData: 568105584918838856
+    - m_rawData: 568105584918838944
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -922,11 +920,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs:
-    - m_rawData: 568105584918836854
+    m_SelectedInstanceIDs: []
     m_LastClickedEntityId:
-      m_rawData: 568105584918836854
-    m_HadKeyboardFocusLastEvent: 0
+      m_rawData: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs:
     - m_rawData: 568105584918838658
     m_RenameOverlay:
@@ -981,8 +978,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1
-    y: 343
+    x: 2247
+    y: 406
     width: 1063
     height: 579
   m_SerializedDataModeController:
@@ -1501,9 +1498,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -20.115183, y: 1.8642797, z: -137.84526}
+    m_Target: {x: 4.605637, y: 61.775574, z: -122.13435}
     speed: 2
-    m_Value: {x: -20.115183, y: 1.8642797, z: -137.84526}
+    m_Value: {x: 4.605637, y: 61.775574, z: -122.13435}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1550,9 +1547,9 @@ MonoBehaviour:
     m_gridOpacity: 0.5
     m_NearestPlaneToHandleMode: 0
   m_Rotation:
-    m_Target: {x: 0.01818666, y: -0.7250775, z: 0.019130029, w: 0.68817914}
+    m_Target: {x: 0.13977638, y: 0.047506496, z: -0.0067374334, w: 0.98903215}
     speed: 2
-    m_Value: {x: -0.01818666, y: 0.72507745, z: -0.019130029, w: -0.6881791}
+    m_Value: {x: -0.1397764, y: -0.0475065, z: 0.0067374334, w: -0.9890322}
   m_Size:
     m_Target: 4.4871535
     speed: 2
@@ -2649,8 +2646,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1392
-    y: 24
+    x: 3312
+    y: 87
     width: 526
     height: 898
   m_SerializedDataModeController:
@@ -2671,7 +2668,7 @@ MonoBehaviour:
   m_ObjectsLockedBeforeSerialization: []
   m_EntityIdsLockedBeforeSerialization: []
   m_PreviewResizer:
-    m_CachedPref: -188
+    m_CachedPref: 223
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectEntityId:
