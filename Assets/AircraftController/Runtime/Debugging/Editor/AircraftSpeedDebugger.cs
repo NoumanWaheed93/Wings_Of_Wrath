@@ -30,6 +30,7 @@ namespace AircraftController.Debugging
 
         private static void OnSceneGUI(SceneView sceneView)
         {
+            return;
             if (Application.isPlaying == false)
             {
                 return;

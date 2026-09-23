@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SimpleGridGenerator : MonoBehaviour
 {
-    private const int RotationSteps = 4;
+    private const int RotationSteps = 1;
     private const int AnyRotation = -1;
 
     [SerializeField]
@@ -36,6 +36,30 @@ public class SimpleGridGenerator : MonoBehaviour
             return;
         }
 
+        int halfGridSize = gridSize / 2;
+
+        for (int column = -halfGridSize; column < halfGridSize; column++)
+        {
+            for (int row = -halfGridSize; row < halfGridSize; row++)
+            {
+                // Shuffling both orders keeps the choice random while the checks below stay a simple scan.
+                //    Shuffle(tileOrder);
+                //   Shuffle(rotationOrder);
+                //   Pick(column, row, tileOrder, rotationOrder, out int tileIndex, out int rotationIndex);
+
+                //   placedTiles[column, row] = tileIndex;
+                //   placedRotations[column, row] = rotationIndex;
+
+                int tileIndex = Random.Range(0, tiles.Length);
+
+                Vector3 position = new Vector3((column) * tileSize, 0, (row) * tileSize);
+                GameObject tile = Instantiate(tiles[tileIndex], position, Quaternion.identity, transform);
+                tile.transform.localScale = new Vector3(20, 20, 20);
+            }
+        }
+
+        return;
+
         // Each cell is checked against noRepeatDistance cells back along its row and its column.
         int neighboursInRange = noRepeatDistance * 2;
 
@@ -59,17 +83,19 @@ public class SimpleGridGenerator : MonoBehaviour
             for (int row = 0; row < cellCount; row++)
             {
                 // Shuffling both orders keeps the choice random while the checks below stay a simple scan.
-                Shuffle(tileOrder);
-                Shuffle(rotationOrder);
-                Pick(column, row, tileOrder, rotationOrder, out int tileIndex, out int rotationIndex);
+            //    Shuffle(tileOrder);
+             //   Shuffle(rotationOrder);
+             //   Pick(column, row, tileOrder, rotationOrder, out int tileIndex, out int rotationIndex);
+             
+             //   placedTiles[column, row] = tileIndex;
+             //   placedRotations[column, row] = rotationIndex;
 
-                placedTiles[column, row] = tileIndex;
-                placedRotations[column, row] = rotationIndex;
+                int tileIndex = Random.Range(0, tiles.Length);
 
-                Vector3 position = new Vector3((column - halfCount) * tileSize, 0, (row - halfCount) * tileSize);
+                Vector3 position = new Vector3((column) * tileSize, 0, (row) * tileSize);
                 GameObject tile = Instantiate(tiles[tileIndex], position, Quaternion.identity, transform);
                 tile.transform.localScale = new Vector3(tileSize, tileSize, tileSize);
-                tile.transform.rotation = Quaternion.Euler(90, rotationIndex * 90, 0);
+                tile.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
         }
     }

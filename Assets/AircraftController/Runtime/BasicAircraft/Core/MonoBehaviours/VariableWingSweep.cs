@@ -25,6 +25,13 @@ namespace AircraftController
         [SerializeField]
         private float maxSweepSpeed = 70f;
 
+        private float currSweep = 0f;
+
+        private void Awake()
+        {
+            currSweep = minSweepAngle;
+        }
+
         private void Update()
         {
             SetSweepAccordingToSpeed(controller.CurrSpeed);
@@ -38,8 +45,10 @@ namespace AircraftController
 
         private void SetSweep(float sweep)
         {
-            leftWing.localRotation = Quaternion.Euler(0f, Mathf.Lerp(minSweepAngle, maxSweepAngle, sweep) * -1f, 0f);
-            rightWing.localRotation = Quaternion.Euler(0f, Mathf.Lerp(minSweepAngle, maxSweepAngle, sweep), 0f);
+            float targetSweep = Mathf.Lerp(minSweepAngle, maxSweepAngle, sweep);
+            currSweep = Mathf.Lerp(currSweep, targetSweep, Time.deltaTime * 5f);
+            leftWing.localRotation = Quaternion.Euler(0f, currSweep * -1f, 0f);
+            rightWing.localRotation = Quaternion.Euler(0f, currSweep, 0f);
         }
     }
 }
