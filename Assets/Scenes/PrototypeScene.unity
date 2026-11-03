@@ -5950,10 +5950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleGridGenerator
   tiles:
-  - {fileID: 2914638181286122847, guid: 862cfb497e510c04d838a37837ed6a64, type: 3}
-  - {fileID: 6866046156828787001, guid: 75d42953302b41144857f132680bfe37, type: 3}
-  - {fileID: 1118556741765813032, guid: 37d927125c353ad4a8a1b30089a3c9af, type: 3}
-  - {fileID: 5899603762062237957, guid: 6e4ca641fa3287e4985e7945bd9d4965, type: 3}
+  - {fileID: 8609678193397487297, guid: 015a5f65a2b51864a812b840e01148f8, type: 3}
   gridSize: 100
   tileSize: 80
   noRepeatDistance: 2
