@@ -90,3 +90,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 5086248663445079681}
+  sprite_OffScreen: {fileID: 21300000, guid: 952c8c122cd96ba4895cd2daa508e43a, type: 3}
+  size_OffScreen: {x: 8, y: 16}
+  edgePadding: 4
